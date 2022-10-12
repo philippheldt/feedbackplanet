@@ -1,0 +1,30 @@
+/* create variables for the colors */
+:root {
+  --green: #2e7659;
+}
+
+body {
+  font-family: "Questrial", sans-serif;
+}
+
+textarea {
+  resize: none;
+  box-sizing: border-box;
+
+  padding: 15px;
+  width: 100%;
+
+  outline: 1px solid var(--green);
+  border-radius: 10px;
+}
+
+.container {
+  margin: auto;
+  max-width: 800px;
+}
+
+/* Prerequisits */
+
+/* Position & Sizing */
+
+/* Styling */

@@ -1,0 +1,259 @@
+.pl-container {
+  margin: auto;
+
+  aspect-ratio: 1/1;
+
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.pl-embedded {
+  position: fixed;
+  bottom: 55px;
+  right: 55px;
+  width: 150px;
+
+  transition: all 0.7s ease;
+  cursor: pointer;
+}
+
+.pl-embedded:hover {
+  transform: scale(1.2);
+}
+
+.pl-asset {
+  transform: rotate(0deg);
+  grid-column: 1/2;
+  grid-row: 1/2;
+  width: 100%;
+  height: 100%;
+}
+
+.planet,
+.tree-front,
+.building,
+.tree-back,
+.bush,
+.sky {
+  width: 100%;
+  height: 100%;
+  grid-column: 1/2;
+  grid-row: 1/2;
+
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+/* Building positions */
+
+.building-1 {
+  transform: rotate(0deg);
+}
+.building-2 {
+  transform: rotate(45deg);
+}
+.building-3 {
+  transform: rotate(90deg);
+}
+.building-4 {
+  transform: rotate(135deg);
+}
+.building-5 {
+  transform: rotate(180deg);
+}
+.building-6 {
+  transform: rotate(225deg);
+}
+.building-7 {
+  transform: rotate(270deg);
+}
+.building-8 {
+  transform: rotate(315deg);
+}
+
+/* Tree Front Positions */
+
+.tree-front-1 {
+  transform: rotate(22deg);
+}
+.tree-front-2 {
+  transform: rotate(67deg);
+}
+.tree-front-3 {
+  transform: rotate(112deg);
+}
+.tree-front-4 {
+  transform: rotate(157deg);
+}
+.tree-front-5 {
+  transform: rotate(202deg);
+}
+.tree-front-6 {
+  transform: rotate(247deg);
+}
+.tree-front-7 {
+  transform: rotate(292deg);
+}
+.tree-front-8 {
+  transform: rotate(337deg);
+}
+
+/* Tree Back Positions */
+
+.tree-back-1 {
+  transform: rotate(12deg);
+}
+.tree-back-2 {
+  transform: rotate(36deg);
+}
+.tree-back-3 {
+  transform: rotate(60deg);
+}
+.tree-back-4 {
+  transform: rotate(84deg);
+}
+.tree-back-5 {
+  transform: rotate(108deg);
+}
+.tree-back-6 {
+  transform: rotate(132deg);
+}
+.tree-back-7 {
+  transform: rotate(156deg);
+}
+.tree-back-8 {
+  transform: rotate(180deg);
+}
+.tree-back-9 {
+  transform: rotate(204deg);
+}
+.tree-back-10 {
+  transform: rotate(228deg);
+}
+.tree-back-11 {
+  transform: rotate(252deg);
+}
+.tree-back-12 {
+  transform: rotate(276deg);
+}
+.tree-back-13 {
+  transform: rotate(300deg);
+}
+.tree-back-14 {
+  transform: rotate(324deg);
+}
+.tree-back-15 {
+  transform: rotate(348deg);
+}
+
+/* Bush Posiotions */
+.bush-1 {
+  transform: rotate(0deg);
+}
+.bush-2 {
+  transform: rotate(30deg);
+}
+.bush-3 {
+  transform: rotate(60deg);
+}
+.bush-4 {
+  transform: rotate(90deg);
+}
+.bush-5 {
+  transform: rotate(120deg);
+}
+.bush-6 {
+  transform: rotate(150deg);
+}
+.bush-7 {
+  transform: rotate(180deg);
+}
+.bush-8 {
+  transform: rotate(210deg);
+}
+.bush-9 {
+  transform: rotate(240deg);
+}
+.bush-10 {
+  transform: rotate(270deg);
+}
+.bush-11 {
+  transform: rotate(300deg);
+}
+.bush-12 {
+  transform: rotate(330deg);
+}
+
+/* Sky Positions */
+
+.sky-1,
+.sky-2,
+.sky-3,
+.sky-4,
+.sky-5,
+.sky-6,
+.sky-7,
+.sky-8 {
+  width: 100%;
+  height: 100%;
+  grid-column: 1/2;
+  grid-row: 1/2;
+
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.sky-1 {
+  transform: rotate(0deg);
+}
+.sky-2 {
+  transform: rotate(45deg);
+}
+.sky-3 {
+  transform: rotate(90deg);
+}
+.sky-4 {
+  transform: rotate(135deg);
+}
+.sky-5 {
+  transform: rotate(180deg);
+}
+.sky-6 {
+  transform: rotate(225deg);
+}
+.sky-7 {
+  transform: rotate(270deg);
+}
+.sky-8 {
+  transform: rotate(315deg);
+}
+
+.sky-slow {
+  animation-name: rotate-forward;
+  animation-duration: 500s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.sky-medium {
+  animation-name: rotate-forward;
+  animation-duration: 200s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.sky-fast {
+  animation-name: rotate-forward;
+  animation-duration: 50s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes rotate-forward {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
