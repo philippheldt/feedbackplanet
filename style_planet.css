@@ -70,11 +70,11 @@
 }
 
 .sprite-content {
-  width: 1500%;
+  width: 600%;
   animation-name: sprite-animation;
   animation-duration: 1s;
-
-  animation-timing-function: steps(15);
+  animation-iteration-count: infinite;
+  animation-timing-function: steps(6);
 }
 
 @keyframes sprite-animation {
