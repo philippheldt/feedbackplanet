@@ -1,0 +1,16 @@
+{
+  "username": "philippjenny",
+  "points": 100,
+  "planet": "moo",
+  "buildings": [
+    "iba7.pi1.pi1.pi1.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0"
+  ],
+  "sky": ["sat.fs.r", "clo.sl.r", "clo.md.l", "", "", "", "", ""]
+}
