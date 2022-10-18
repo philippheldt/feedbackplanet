@@ -146,46 +146,49 @@
   transform: rotate(348deg);
 }
 .tree-back-2 {
-  transform: rotate(12deg);
+  transform: rotate(10.5deg);
 }
 .tree-back-3 {
-  transform: rotate(36deg);
+  transform: rotate(33deg);
 }
 .tree-back-4 {
-  transform: rotate(60deg);
+  transform: rotate(55.5deg);
 }
 .tree-back-5 {
-  transform: rotate(84deg);
+  transform: rotate(78deg);
 }
 .tree-back-6 {
-  transform: rotate(108deg);
+  transform: rotate(100.5deg);
 }
 .tree-back-7 {
-  transform: rotate(132deg);
+  transform: rotate(123deg);
 }
 .tree-back-8 {
-  transform: rotate(156deg);
+  transform: rotate(145.5deg);
 }
 .tree-back-9 {
-  transform: rotate(180deg);
+  transform: rotate(168deg);
 }
 .tree-back-10 {
-  transform: rotate(204deg);
+  transform: rotate(190.5deg);
 }
 .tree-back-11 {
-  transform: rotate(228deg);
+  transform: rotate(213deg);
 }
 .tree-back-12 {
-  transform: rotate(252deg);
+  transform: rotate(235.5deg);
 }
 .tree-back-13 {
-  transform: rotate(276deg);
+  transform: rotate(258deg);
 }
 .tree-back-14 {
-  transform: rotate(300deg);
+  transform: rotate(280.5deg);
 }
 .tree-back-15 {
-  transform: rotate(324deg);
+  transform: rotate(303deg);
+}
+.tree-back-16 {
+  transform: rotate(325.5deg);
 }
 
 /* Bush Posiotions */
@@ -193,37 +196,25 @@
   transform: rotate(0deg);
 }
 .bush-2 {
-  transform: rotate(30deg);
+  transform: rotate(45deg);
 }
 .bush-3 {
-  transform: rotate(60deg);
-}
-.bush-4 {
   transform: rotate(90deg);
 }
+.bush-4 {
+  transform: rotate(135deg);
+}
 .bush-5 {
-  transform: rotate(120deg);
-}
-.bush-6 {
-  transform: rotate(150deg);
-}
-.bush-7 {
   transform: rotate(180deg);
 }
-.bush-8 {
-  transform: rotate(210deg);
+.bush-6 {
+  transform: rotate(225deg);
 }
-.bush-9 {
-  transform: rotate(240deg);
-}
-.bush-10 {
+.bush-7 {
   transform: rotate(270deg);
 }
-.bush-11 {
-  transform: rotate(300deg);
-}
-.bush-12 {
-  transform: rotate(330deg);
+.bush-8 {
+  transform: rotate(315deg);
 }
 
 /* Sky Positions */
