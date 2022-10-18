@@ -116,28 +116,28 @@
 /* Tree Front Positions */
 
 .tree-front-1 {
-  transform: rotate(22deg);
+  transform: rotate(337deg);
 }
 .tree-front-2 {
-  transform: rotate(67deg);
+  transform: rotate(22deg);
 }
 .tree-front-3 {
-  transform: rotate(112deg);
+  transform: rotate(67deg);
 }
 .tree-front-4 {
-  transform: rotate(157deg);
+  transform: rotate(112deg);
 }
 .tree-front-5 {
-  transform: rotate(202deg);
+  transform: rotate(157deg);
 }
 .tree-front-6 {
-  transform: rotate(247deg);
+  transform: rotate(202deg);
 }
 .tree-front-7 {
-  transform: rotate(292deg);
+  transform: rotate(247deg);
 }
 .tree-front-8 {
-  transform: rotate(337deg);
+  transform: rotate(292deg);
 }
 
 /* Tree Back Positions */

@@ -4,6 +4,7 @@ window.addEventListener("load", () => {
   var building = document.querySelector(".building");
   var treeBack = document.querySelector(".tree-back");
   var treeFront = document.querySelector(".tree-front");
+  var bushFront = document.querySelector(".bush");
 
   fetch("json/gamestate.json")
     .then((res) => res.json())
@@ -34,14 +35,26 @@ window.addEventListener("load", () => {
             let treeImage = document.createElement("img");
             treeImage.setAttribute("src", `assets/img/trees_back/${buildingSetup[tree]}.png`);
             treeImage.classList.add(`pl-asset`);
-            treeImage.classList.add(`tree-back-${i + tree}`);
+            treeImage.classList.add(`tree-back-${i + i + tree}`);
             treeBack.appendChild(treeImage);
-          } else if (buildingSetup[tree] != "no0" && tree >= 2) {
+
+            console.log("tree back:" + (i + i + tree));
+          } else if (buildingSetup[tree] != "no0" && tree === 3) {
             let treeImage = document.createElement("img");
             treeImage.setAttribute("src", `assets/img/trees_front/${buildingSetup[tree]}.png`);
             treeImage.classList.add(`pl-asset`);
             treeImage.classList.add(`tree-front-${i + tree - 2}`);
             treeFront.appendChild(treeImage);
+
+            console.log("tree front:" + (i + tree - 2));
+          } else if (buildingSetup[tree] != "no0" && tree === 4) {
+            let treeImage = document.createElement("img");
+            treeImage.setAttribute("src", `assets/img/trees_front/${buildingSetup[tree]}.png`);
+            treeImage.classList.add(`pl-asset`);
+            treeImage.classList.add(`bush-${i + tree - 3}`);
+            treeFront.appendChild(treeImage);
+
+            console.log("bush:" + (i + tree - 3));
           }
         }
       }
