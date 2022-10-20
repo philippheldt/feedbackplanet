@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_planet.css">
+
+    <title>feedbackplanet demo</title>
+</head>
+
+<body>
+    <!-- <div class="container">
+        <h1>feedbackplanet</h1>
+        <textarea name="" id="feedback-input" cols="30" rows="10"></textarea>
+    </div> -->
+
+
+    <h1>Feedbackplanet Firebase Test</h1>
+
+    <div id="login">
+        <h2>Login</h2>
+        <label>Username</label> <input id="username" type="text"> <br>
+        <button id="selbtn">Einloggen</button>
+    </div>
+
+    <div id="homescreen" class="hidden">
+        <div class="test-interface">
+            <h2 id="welcome-message"></h2>
+            <label>Bulding 1</label> <input id="building1" type="text"> <br>
+            <label>Bulding 2</label> <input id="building2" type="text"> <br>
+            <label>Bulding 3</label> <input id="building3" type="text"> <br>
+            <label>Bulding 4</label> <input id="building4" type="text"> <br>
+            <label>Bulding 5</label> <input id="building5" type="text"> <br>
+            <label>Bulding 6</label> <input id="building6" type="text"> <br>
+            <label>Bulding 7</label> <input id="building7" type="text"> <br>
+            <label>Bulding 8</label> <input id="building8" type="text"> <br>
+            <label>Points</label> <input id="points" type="text"> <br>
+            <label>Planet</label> <input id="planet" type="text"> <br>
+            <hr>
+            <button id="insbtn">INSERT</button>
+
+            <button id="updbtn">UPDATE</button>
+            <button id="delbtn">DELETE</button>
+        </div>
+
+        <div class="pl-container pl-embedded"></div>
+    </div>
+
+
+    <script src="planetbuilder_fb.js" type="module"></script>
+    <script src="script.js"></script>
+    <script src="gamestate-loader.js"></script>
+
+</body>
+
+</html>

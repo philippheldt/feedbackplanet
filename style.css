@@ -27,6 +27,9 @@ textarea {
   font-family: "Questrial", sans-serif;
 }
 
+.hidden {
+  display: none;
+}
 /* Prerequisits */
 
 /* Position & Sizing */
