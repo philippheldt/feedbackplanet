@@ -50,6 +50,23 @@ var selbtn = document.getElementById("selbtn");
 var updbtn = document.getElementById("updbtn");
 var delbtn = document.getElementById("delbtn");
 
+const gamestate = {
+  username: "",
+  points: 0,
+  planet: "non",
+  buildings: [
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+  ],
+  sky: ["non", "non", "non", "non", "non", "non", "non", "non"],
+};
+
 // Insert Data to firebase
 function insertData() {
   set(ref(db, "feedbackplanet/" + username.value), {
