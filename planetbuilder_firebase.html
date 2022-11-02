@@ -8,7 +8,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style_planet.css">
@@ -17,24 +19,59 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>feedbackplanet</h1>
-        <textarea name="" id="feedback-input" cols="30" rows="10"></textarea>
+    <div class="header">
+        <div class="header-container">
+            <div class="header-inner">
+                <div class="header-logo">
+                    <a href="index.html">
+                        <img class="logo" src="./assets/img/logo.png" alt="">
+                    </a>
+                </div>
+                <div class="header__menu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="fullscreen">
+        <div class="container">
+            <p>Wie empfindest du das Design dieser Seite?</p>
+            <textarea placeholder="Feedback eingeben..." name="" id="feedback-input" cols="30" rows="10"></textarea>
+            <div class="buttons">
+                <button class="secondarybtn">
+                    <span class="material-symbols-outlined">
+                        arrow_back
+                    </span>
+                </button>
+                <div class="status">1/10</div>
+                <button class="primarybtn" id="nextq">
+                    <span class="material-symbols-outlined">
+                        arrow_forward
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="pl-container pl-embedded"></div>
 
 
-    <h1>Feedbackplanet Firebase Test</h1>
 
-    <div id="login">
+    <!-- <h1>Feedbackplanet Firebase Test</h1> -->
+
+    <div id="login" class="hidden">
         <h2>Login</h2>
-        <label>Username</label> <input id="username" type="text"> <br>
+        <label>Username</label> <input id="username" value="jennyphi" type="text"> <br>
         <button id="selbtn">Einloggen</button>
     </div>
 
-    <div id="homescreen" class="hidden">
+    <!-- <div id="homescreen" class="hidden">
         <div class="test-interface">
-            <h2 id="welcome-message"></h2>
-            <label>Bulding 1</label> <input id="building1" type="text"> <br>
+            <h2 id="welcome-message"></h2> -->
+    <!-- <label>Bulding 1</label> <input id="building1" type="text"> <br>
             <label>Bulding 2</label> <input id="building2" type="text"> <br>
             <label>Bulding 3</label> <input id="building3" type="text"> <br>
             <label>Bulding 4</label> <input id="building4" type="text"> <br>
@@ -48,14 +85,17 @@
             <button id="insbtn">INSERT</button>
 
             <button id="updbtn">UPDATE</button>
-            <button id="delbtn">DELETE</button>
+            <button id="delbtn">DELETE</button> -->
 
-            <button id="buibtn"">BUILD PLANET</button>
-        </div>
 
-        <div class=" pl-container pl-embedded">
-        </div>
-    </div>
+    <!-- </div>
+
+        <button id="buibtn">BUILD PLANET</button>
+
+        <button id="nextq">NÄCHSTE FRAGE</button>
+
+
+    </div> -->
 
 
     <script src="planetbuilder_fb.js" type="module"></script>

@@ -1,16 +1,18 @@
-{
-  "username": "philippjenny",
-  "points": 100,
-  "planet": "moo",
-  "buildings": [
-    "iba5.no0.no0.pi1.no0",
-    "non0.no0.no0.no0.no0",
-    "non0.no0.no0.no0.no0",
-    "iba5.pi1.pi1.ma3.bu1",
-    "non0.no0.pi1.pi1.no0",
-    "non0.no0.no0.ma1.no0",
-    "non0.no0.no0.no0.no0",
-    "non0.no0.no0.no0.no0"
-  ],
-  "sky": ["sat.fs.r", "clo.sl.r", "clo.md.l", "", "", "", "", ""]
-}
+[
+  {
+    "building": "i-Bau",
+    "collection": "Hochschule Furtwangen",
+    "shortcut": "iba",
+    "buildingStages": [50, 100, 200, 400, 800],
+    "accumulatedStages": [50, 150, 350, 750, 1550],
+    "trees": ["pi1", "pi2", "ma3"]
+  },
+  {
+    "building": "a-Bau",
+    "collection": "Hochschule Furtwangen",
+    "shortcut": "aba",
+    "buildingStages": [80, 160, 320, 640, 1280],
+    "accumulatedStages": [80, 240, 560, 1200, 2480],
+    "trees": ["pi1", "pi2", "ma3"]
+  }
+]

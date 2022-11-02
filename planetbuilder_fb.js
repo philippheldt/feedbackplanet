@@ -65,6 +65,9 @@ const gamestate = {
     "non0.no0.no0.no0.no0",
   ],
   sky: ["non", "non", "non", "non", "non", "non", "non", "non"],
+  goodStartBoost: 0,
+  extensiveBoost: 0,
+  activeBoost: false,
 };
 
 // Insert Data to firebase
@@ -80,7 +83,7 @@ function insertData() {
     });
 }
 //Button Event
-insbtn.addEventListener("click", insertData);
+// insbtn.addEventListener("click", insertData);
 
 //Get data from firebase
 function getData() {
@@ -96,12 +99,26 @@ function getData() {
         }
         gamestate.points = snapshot.val().points;
         gamestate.planet = snapshot.val().planet;
+        gamestate.activeBoost = snapshot.val().activeBoost;
+        console.log(gamestate.activeBoost);
+
+        if (gamestate.activeBoost == true) {
+          console.log("activeBoost");
+          gamestate.goodStartBoost = snapshot.val().goodStartBoost;
+          gamestate.extensiveBoost = snapshot.val().extensiveBoost;
+          gamestate.activeBoost = false;
+        } else {
+          console.log("no activeBoost");
+          gamestate.goodStartBoost = 0;
+          gamestate.extensiveBoost = 0;
+          gamestate.activeBoost = false;
+        }
         console.log(gamestate);
 
         //Login
-        homescreen.classList.remove("hidden");
-        login.classList.add("hidden");
-        welcomeMessage.innerHTML = "Welcome " + gamestate.username;
+        // homescreen.classList.remove("hidden");
+        // login.classList.add("hidden");
+        // welcomeMessage.innerHTML = "Welcome " + gamestate.username;
       } else {
         console.log("No data available");
       }
@@ -109,9 +126,28 @@ function getData() {
     .catch((error) => {
       console.error("Error getting data: ", error);
     });
+
+  //after last state was savedchange activeBoost to false, so that, when the user exits without filling form, Streak will be deminished
+  setTimeout(() => {
+    update(ref(db, "feedbackplanet/" + username.value), {
+      activeBoost: gamestate.activeBoost,
+      goodStartBoost: gamestate.goodStartBoost,
+      extensiveBoost: gamestate.extensiveBoost,
+    })
+      .then(() => {
+        console.log("Data saved successfully");
+      })
+      .catch((error) => {
+        console.error("Error saving data: ", error);
+      });
+  }, 1000);
 }
 //Button Event
-selbtn.addEventListener("click", getData);
+//selbtn.addEventListener("click", getData);
+getData();
+setTimeout(() => {
+  createPlanet();
+}, 350);
 
 //Update data to firebase
 function updateData() {
@@ -126,6 +162,9 @@ function updateData() {
     building8: gamestate.buildings[7],
     points: gamestate.points,
     planet: gamestate.planet,
+    goodStartBoost: gamestate.goodStartBoost,
+    extensiveBoost: gamestate.extensiveBoost,
+    activeBoost: gamestate.activeBoost,
   })
     .then(() => {
       console.log("Data saved successfully");
@@ -135,7 +174,7 @@ function updateData() {
     });
 }
 //Button Event
-updbtn.addEventListener("click", updateData);
+// updbtn.addEventListener("click", updateData);
 
 //Delete data from firebase
 //Update data to firebase
@@ -149,7 +188,7 @@ function removeData() {
     });
 }
 //Button Event
-delbtn.addEventListener("click", removeData);
+// delbtn.addEventListener("click", removeData);
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -208,7 +247,7 @@ function createPlanet() {
   }
 }
 
-document.querySelector("#buibtn").addEventListener("click", createPlanet);
+// document.querySelector("#buibtn").addEventListener("click", createPlanet);
 
 //Update Data from Textfield input
 
@@ -218,103 +257,207 @@ let tempPoints = 0;
 // Init a timeout variable to be used below
 let timeout = null;
 let animationStarted = false;
+var obj;
 
-// Listen for keystroke events
+// Updating buildings based on inputted points
+
+function updateBuildings() {
+  fetch("json/gamestate.json")
+    .then((res) => res.json())
+    .then((data) => (obj = data))
+    .then(() => {
+      console.log(obj);
+      //check which building is selected
+      const currentBuilding = gamestate.buildings[0].slice(0, 3);
+      let currentBuildingIndex;
+      let currentBuildingStage = gamestate.buildings[0].slice(3, 4);
+
+      for (let i = 0; i < obj.length; i++) {
+        if (obj[i].shortcut === currentBuilding) {
+          currentBuildingIndex = i;
+        }
+      }
+      const pointsToNextBuildingStage =
+        obj[currentBuildingIndex].buildingStages[currentBuildingStage];
+      const pointsToNextBuildigStageQuarter = pointsToNextBuildingStage / 4;
+
+      //select random element from array and save it to a const
+      const randomElement =
+        obj[currentBuildingIndex].trees[
+          Math.floor(Math.random() * obj[currentBuildingIndex].trees.length)
+        ];
+
+      //check if there are enough points to build the next stage
+      if (gamestate.points >= pointsToNextBuildingStage) {
+        currentBuildingStage = Number(currentBuildingStage) + 1;
+        // check if building is at max stage
+        if (currentBuildingStage < 5) {
+          gamestate.buildings[0] = currentBuilding + currentBuildingStage + ".no0.no0.no0.no0";
+        } else {
+          gamestate.buildings[0] =
+            currentBuilding +
+            currentBuildingStage +
+            "." +
+            gamestate.buildings[0].split(".")[1] +
+            "." +
+            gamestate.buildings[0].split(".")[2] +
+            "." +
+            gamestate.buildings[0].split(".")[3] +
+            "." +
+            gamestate.buildings[0].split(".")[4];
+        }
+        gamestate.points = 0;
+        createPlanet();
+      }
+
+      // build a new tree when one more quarter of points to the next stage is reached
+      if (gamestate.points > 0 && gamestate.buildings[0].split(".")[1] === "no0") {
+        gamestate.buildings[0] =
+          gamestate.buildings[0].split(".")[0] +
+          "." +
+          randomElement +
+          "." +
+          gamestate.buildings[0].split(".")[2] +
+          "." +
+          gamestate.buildings[0].split(".")[3] +
+          "." +
+          gamestate.buildings[0].split(".")[4];
+        createPlanet();
+      } else if (
+        gamestate.points > pointsToNextBuildigStageQuarter &&
+        gamestate.buildings[0].split(".")[2] === "no0"
+      ) {
+        gamestate.buildings[0] =
+          gamestate.buildings[0].split(".")[0] +
+          "." +
+          gamestate.buildings[0].split(".")[1] +
+          "." +
+          randomElement +
+          "." +
+          gamestate.buildings[0].split(".")[3] +
+          "." +
+          gamestate.buildings[0].split(".")[4];
+        createPlanet();
+      } else if (
+        gamestate.points > pointsToNextBuildigStageQuarter * 2 &&
+        gamestate.buildings[0].split(".")[3] === "no0"
+      ) {
+        gamestate.buildings[0] =
+          gamestate.buildings[0].split(".")[0] +
+          "." +
+          gamestate.buildings[0].split(".")[1] +
+          "." +
+          gamestate.buildings[0].split(".")[2] +
+          "." +
+          randomElement +
+          "." +
+          gamestate.buildings[0].split(".")[4];
+        createPlanet();
+      } else if (
+        gamestate.points > pointsToNextBuildigStageQuarter * 3 &&
+        gamestate.buildings[0].split(".")[4] === "no0"
+      ) {
+        gamestate.buildings[0] =
+          gamestate.buildings[0].split(".")[0] +
+          "." +
+          gamestate.buildings[0].split(".")[1] +
+          "." +
+          gamestate.buildings[0].split(".")[2] +
+          "." +
+          gamestate.buildings[0].split(".")[3] +
+          "." +
+          randomElement;
+        createPlanet();
+      }
+
+      if (gamestate.points < 0) {
+        const accumulatedPoints =
+          obj[currentBuildingIndex].accumulatedStages[currentBuildingStage - 1] + gamestate.points;
+        //loop throug all accumulatedstages and check if the accumulated points are higher than the current stage
+        for (let i = 0; i < obj[currentBuildingIndex].accumulatedStages.length; i++) {
+          if (accumulatedPoints >= obj[currentBuildingIndex].accumulatedStages[i]) {
+            currentBuildingStage = i + 1;
+          }
+        }
+        gamestate.points =
+          accumulatedPoints - obj[currentBuildingIndex].accumulatedStages[currentBuildingStage - 1];
+        gamestate.buildings[0] = currentBuilding + currentBuildingStage + ".no0.no0.no0.no0";
+        createPlanet();
+      }
+    });
+}
+
+// analyzing input and updating points
+
+// Auführlichkeitsbewertung
+var goodStart = false;
+var extensiveFeedback = false;
+var boost = 1;
+var wordCount = 0;
+
+function analyzeText() {
+  wordCount = input.value.split(" ").length;
+  console.log("Number of words: " + wordCount);
+
+  gamestate.extensiveBoost >= 3 ? (boost = 3) : (boost = 1);
+  gamestate.goodStartBoost >= 2
+    ? boost == 3
+      ? (boost = 3)
+      : (boost = 2)
+    : boost == 3
+    ? (boost = 3)
+    : (boost = 1);
+
+  if (wordCount > 50 && !goodStart) {
+    goodStart = true;
+    gamestate.points = gamestate.points + 10 * boost;
+    gamestate.goodStartBoost = gamestate.goodStartBoost + 1;
+    console.log("GUTER START!");
+    console.log("boost:" + boost);
+  }
+
+  if (wordCount > 100 && !extensiveFeedback) {
+    extensiveFeedback = true;
+    gamestate.points = gamestate.points + 30 * boost;
+    gamestate.extensiveBoost = gamestate.extensiveBoost + 1;
+    console.log("RICHTIG AUSFÜHRLICH!");
+    console.log("boost:" + boost);
+  }
+}
+
 input.addEventListener("keyup", function (e) {
-  // Clear the timeout if it has already been set.
-  // This will prevent the previous task from executing
-  // if it has been less than <MILLISECONDS>
   !animationStarted ? planetContainer.classList.add("typing") : null;
   animationStarted = true;
   clearTimeout(timeout);
 
-  // Make a new timeout set to go off in 1000ms (1 second)
   timeout = setTimeout(function () {
     planetContainer.classList.remove("typing");
     animationStarted = false;
-    gamestate.points += input.value.length - tempPoints;
-    tempPoints += input.value.length - tempPoints;
-    console.log(gamestate.points);
-    updateData();
+
+    // add points and gamestate data to temporary object
+    analyzeText();
     updateBuildings();
   }, 250);
 });
 
-function updateBuildings() {
-  const currentBuilding = gamestate.buildings[0].split(".")[0];
-  const buildingStage = Math.floor(gamestate.points / 100 + 1);
-  const pointsFromLastBuilding = gamestate.points - (buildingStage - 1) * 100;
-  console.log("From last Stage: " + pointsFromLastBuilding);
-  let newBuilding = "iba" + Math.floor(gamestate.points / 100 + 1);
-  if (currentBuilding != newBuilding && gamestate.points <= 500) {
-    gamestate.buildings[0] = newBuilding + ".no0.no0.no0.no0";
-    updateData();
-    createPlanet();
+function submitFeedback() {
+  // if basic feedback isn't given, boosts are reset
+  if (goodStart) {
+    gamestate.activeBoost = true;
+  } else {
+    gamestate.activeBoost = false;
+    gamestate.extensiveBoost = 0;
+    gamestate.goodStartBoost = 0;
   }
 
-  if (pointsFromLastBuilding < 25 && gamestate.buildings[0].split(".")[1] === "no0") {
-    gamestate.buildings[0] =
-      gamestate.buildings[0].split(".")[0] +
-      "." +
-      "pi1" +
-      "." +
-      gamestate.buildings[0].split(".")[2] +
-      "." +
-      gamestate.buildings[0].split(".")[3] +
-      "." +
-      gamestate.buildings[0].split(".")[4];
-    updateData();
-    createPlanet();
-  } else if (
-    pointsFromLastBuilding >= 25 &&
-    pointsFromLastBuilding < 50 &&
-    gamestate.buildings[0].split(".")[2] === "no0"
-  ) {
-    gamestate.buildings[0] =
-      gamestate.buildings[0].split(".")[0] +
-      "." +
-      gamestate.buildings[0].split(".")[1] +
-      "." +
-      "pi1" +
-      "." +
-      gamestate.buildings[0].split(".")[3] +
-      "." +
-      gamestate.buildings[0].split(".")[4];
-    updateData();
-    createPlanet();
-  } else if (
-    pointsFromLastBuilding >= 50 &&
-    pointsFromLastBuilding < 75 &&
-    gamestate.buildings[0].split(".")[3] === "no0"
-  ) {
-    gamestate.buildings[0] =
-      gamestate.buildings[0].split(".")[0] +
-      "." +
-      gamestate.buildings[0].split(".")[1] +
-      "." +
-      gamestate.buildings[0].split(".")[2] +
-      "." +
-      "pi1" +
-      "." +
-      gamestate.buildings[0].split(".")[4];
-    updateData();
-    createPlanet();
-  } else if (
-    pointsFromLastBuilding >= 75 &&
-    pointsFromLastBuilding < 100 &&
-    gamestate.buildings[0].split(".")[4] === "no0"
-  ) {
-    gamestate.buildings[0] =
-      gamestate.buildings[0].split(".")[0] +
-      "." +
-      gamestate.buildings[0].split(".")[1] +
-      "." +
-      gamestate.buildings[0].split(".")[2] +
-      "." +
-      gamestate.buildings[0].split(".")[3] +
-      "." +
-      "pi1";
-    updateData();
-    createPlanet();
-  }
+  // save Gamestate to database
+  updateData();
+
+  // reset values
+  input.value = "";
+  goodStart = false;
+  extensiveFeedback = false;
 }
+
+//add eventlistener for submitFeedback
+document.getElementById("nextq").addEventListener("click", submitFeedback);
