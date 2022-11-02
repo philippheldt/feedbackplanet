@@ -1,8 +1,6 @@
 .pl-container {
   margin: auto;
-
   aspect-ratio: 1/1;
-
   display: grid;
   grid-template-columns: 1fr;
   overflow: hidden;
@@ -13,9 +11,7 @@
   bottom: 55px;
   right: 55px;
   width: 150px;
-
   transition: all 0.7s ease;
-  cursor: pointer;
 }
 
 .pl-embedded:hover {
@@ -289,4 +285,8 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+img {
+  pointer-events: none;
 }

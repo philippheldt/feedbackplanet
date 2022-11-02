@@ -1,0 +1,109 @@
+.feedback-container {
+  height: 50px;
+  position: fixed;
+  bottom: 103px;
+  right: 115px;
+  overflow: hidden;
+  padding-left: 40px;
+}
+
+.feedback-bar {
+  font-size: 14pt;
+  padding: 15px 60px 15px 20px;
+  border-radius: 30px;
+  transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
+  display: flex;
+  align-items: center;
+}
+
+.feedback-good {
+  background-color: #76b093;
+}
+
+.feedback-boost {
+  background-color: #cf9b17;
+}
+
+.feedback-bad {
+  background-color: #b07676;
+}
+
+.feedback-icon {
+  height: 20px;
+  margin-right: 10px;
+}
+
+.bar-closed {
+  transform: translateX(100%);
+}
+
+.feedback-content {
+  font-family: "Luckiest Guy", cursive;
+  color: #fff;
+  transform: translateY(3px);
+}
+
+.boost-container {
+  position: fixed;
+  bottom: 220px;
+  right: 80px;
+
+  transition: all 0.4s cubic-bezier(0.54, 0.32, 0.37, 1.19);
+
+  transform: translateY(0) scale(1);
+}
+
+.boost-bar {
+  width: 90px;
+  height: 20px;
+  font-size: 14pt;
+  padding: 5px;
+  border-radius: 30px;
+  transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.animating-gradient {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  width: 500px;
+  height: 100px;
+  background: linear-gradient(
+    90deg,
+    rgba(207, 155, 23, 1) 0%,
+    rgba(207, 155, 23, 1) 30%,
+    rgb(228, 187, 81) 50%,
+    rgba(207, 155, 23, 1) 70%,
+    rgba(207, 155, 23, 1) 100%
+  );
+  animation: gradient 1.5s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    left: 0px;
+  }
+  100% {
+    left: -400px;
+  }
+}
+
+.boost-icon {
+  height: 20px;
+  margin-right: 10px;
+  z-index: 1;
+}
+
+.boost-content {
+  font-family: "Luckiest Guy", cursive;
+  color: #fff;
+  transform: translateY(3px);
+  z-index: 1;
+}
+
+.boost-hidden {
+  transform: translateY(100px) scale(0);
+}

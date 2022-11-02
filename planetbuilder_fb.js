@@ -391,37 +391,73 @@ function updateBuildings() {
 
 // Auführlichkeitsbewertung
 var goodStart = false;
+var goodStartTextArray = [
+  "Guter Start!",
+  "Schöner Start!",
+  "Das fängt schön an!",
+  "Toller Anfang!",
+  "Schon 20 Wörter!",
+];
 var extensiveFeedback = false;
+var extensiveFeedbackTextArray = [
+  "Richtig ausführlich!",
+  "Sehr detailliert!",
+  "Überaus umfangreich!",
+];
 var boost = 1;
+var newBoost = false;
 var wordCount = 0;
+const feedbackBar = document.querySelector(".feedback-bar");
+const boostBar = document.querySelector(".boost-container");
 
 function analyzeText() {
+  const goodStartText = goodStartTextArray[Math.floor(Math.random() * goodStartTextArray.length)];
+  const extensiveFeedbackText =
+    extensiveFeedbackTextArray[Math.floor(Math.random() * extensiveFeedbackTextArray.length)];
   wordCount = input.value.split(" ").length;
   console.log("Number of words: " + wordCount);
+  console.log("Before analyzeText: " + newBoost);
+  if (gamestate.extensiveBoost >= 2) {
+    boost != 3 ? (newBoost = true) : (newBoost = false);
+    boost = 3;
+  } else {
+    //   boost == 3 ? feedbackBarCall("Boost verloren!", boost + "x", "feedback-bad") : null;
+    boost = 1;
+  }
 
-  gamestate.extensiveBoost >= 3 ? (boost = 3) : (boost = 1);
-  gamestate.goodStartBoost >= 2
-    ? boost == 3
-      ? (boost = 3)
-      : (boost = 2)
-    : boost == 3
-    ? (boost = 3)
-    : (boost = 1);
+  if (gamestate.goodStartBoost >= 3) {
+    if (boost == 3) {
+      boost != 3 ? (newBoost = true) : (newBoost = false);
+      boost = 3;
+    } else {
+      boost != 2 ? (newBoost = true) : (newBoost = false);
+      boost = 2;
+    }
+  } else {
+    if (boost == 3) {
+      boost != 3 ? (newBoost = true) : (newBoost = false);
+      boost = 3;
+    } else {
+      boost = 1;
+    }
+  }
 
-  if (wordCount > 50 && !goodStart) {
+  console.log("analyzeText: " + newBoost);
+
+  if (wordCount > 20 && !goodStart) {
     goodStart = true;
     gamestate.points = gamestate.points + 10 * boost;
     gamestate.goodStartBoost = gamestate.goodStartBoost + 1;
-    console.log("GUTER START!");
-    console.log("boost:" + boost);
+
+    feedbackBarCall(goodStartText, 10 * boost, "feedback-good");
   }
 
   if (wordCount > 100 && !extensiveFeedback) {
     extensiveFeedback = true;
     gamestate.points = gamestate.points + 30 * boost;
     gamestate.extensiveBoost = gamestate.extensiveBoost + 1;
-    console.log("RICHTIG AUSFÜHRLICH!");
-    console.log("boost:" + boost);
+
+    feedbackBarCall(extensiveFeedbackText, 30 * boost, "feedback-good");
   }
 }
 
@@ -436,9 +472,27 @@ input.addEventListener("keyup", function (e) {
 
     // add points and gamestate data to temporary object
     analyzeText();
-    updateBuildings();
   }, 250);
 });
+
+function feedbackBarCall(message, acheivedPoints, color) {
+  feedbackBar.innerHTML = `<div class="feedback-content">${message}</div>`;
+  feedbackBar.classList.add(color);
+  feedbackBar.classList.remove("bar-closed");
+  setTimeout(() => {
+    feedbackBar.classList.add("bar-closed");
+    setTimeout(() => {
+      feedbackBar.innerHTML = `<img src="./assets/img/plus.png" class="feedback-icon" alt=""><div class="feedback-content"> ${acheivedPoints}</div>`;
+      boost > 1 ? feedbackBar.classList.add("feedback-boost") : null;
+      feedbackBar.classList.remove("bar-closed");
+      setTimeout(() => {
+        feedbackBar.classList.add("bar-closed");
+        boost > 1 ? feedbackBar.classList.remove("feedback-boost") : null;
+        updateBuildings();
+      }, 1500);
+    }, 300);
+  }, 2000);
+}
 
 function submitFeedback() {
   // if basic feedback isn't given, boosts are reset
@@ -452,6 +506,25 @@ function submitFeedback() {
 
   // save Gamestate to database
   updateData();
+
+  if (gamestate.goodStartBoost >= 3) {
+    if (boost == 3) {
+      boost != 3 ? (newBoost = true) : (newBoost = false);
+      boost = 3;
+    } else {
+      boost != 2 ? (newBoost = true) : (newBoost = false);
+      boost = 2;
+    }
+  } else {
+    if (boost == 3) {
+      boost != 3 ? (newBoost = true) : (newBoost = false);
+      boost = 3;
+    } else {
+      boost = 1;
+    }
+  }
+
+  boost <= 1 ? boostBar.classList.add("boost-hidden") : boostBar.classList.remove("boost-hidden");
 
   // reset values
   input.value = "";
