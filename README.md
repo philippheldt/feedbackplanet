@@ -27,7 +27,8 @@ The code consists of two digits representing the tree type, followed by a number
 
 ## Functions
 
-You can call the feedbackbar by using the following code: `feedbackBarCall(<MESSAGE>, <POINTS>, <FEEDBACK TYPE>)` \\
+You can call the feedbackbar by using the following code: `feedbackBarCall(<MESSAGE>, <POINTS>, <FEEDBACK TYPE>)` \
+
 MESSAGE: Message displayed on feedbackbar \
 POINTS: How many points were acheived. If no Points shall be displayed `0`removed second Bar call \
 FEEDBACK TYPE: Is the class name of the three Feedback colors Green: `feedback-good`, Yellow: `feedback-boost`, Red: `feedback-bad` \
