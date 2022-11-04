@@ -21,11 +21,11 @@
 }
 
 .feedback-boost {
-  background-color: #cf9b17;
+  background-color: #ffd15e;
 }
 
 .feedback-bad {
-  background-color: #b07676;
+  background-color: #de576e;
 }
 
 .feedback-icon {
@@ -43,23 +43,59 @@
   transform: translateY(3px);
 }
 
+.points-floating {
+  position: fixed;
+  bottom: 125px;
+  right: 175px;
+  font-size: 14pt;
+  font-family: "Luckiest Guy", cursive;
+  color: #fff;
+  opacity: 0;
+}
+
+.points-floating-animation-add {
+  animation-name: points-floating-animation;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+}
+
+@keyframes points-floating-animation {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.2;
+  }
+  40% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
+
 .boost-container {
   position: fixed;
-  bottom: 220px;
-  right: 80px;
-
+  bottom: 104px;
+  right: 104px;
   transition: all 0.4s cubic-bezier(0.54, 0.32, 0.37, 1.19);
-
-  transform: translateY(0) scale(1);
+  transform: scale(0.7);
 }
 
 .boost-bar {
-  width: 90px;
+  width: 20px;
   height: 20px;
   font-size: 14pt;
-  padding: 5px;
+  padding: 8px;
+  border: 8px solid #ffffff;
   border-radius: 30px;
-  transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
+
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -73,11 +109,11 @@
   height: 100px;
   background: linear-gradient(
     90deg,
-    rgba(207, 155, 23, 1) 0%,
-    rgba(207, 155, 23, 1) 30%,
-    rgb(228, 187, 81) 50%,
-    rgba(207, 155, 23, 1) 70%,
-    rgba(207, 155, 23, 1) 100%
+    #ffd15e 0%,
+    #ffd15e 30%,
+    #f1990e 50%,
+    #ffd15e 70%,
+    #ffd15e 100%
   );
   animation: gradient 1.5s ease infinite;
 }
@@ -92,18 +128,30 @@
 }
 
 .boost-icon {
-  height: 20px;
-  margin-right: 10px;
+  width: 21px;
   z-index: 1;
+  animation: boost-icon-animation 2s ease infinite;
+}
+
+@keyframes boost-icon-animation {
+  0% {
+    transform: translateY(61.5px);
+  }
+  60% {
+    transform: translateY(-60px);
+  }
+  100% {
+    transform: translateY(-60px);
+  }
 }
 
 .boost-content {
   font-family: "Luckiest Guy", cursive;
-  color: #fff;
+  color: #f1990e;
   transform: translateY(3px);
   z-index: 1;
 }
 
 .boost-hidden {
-  transform: translateY(100px) scale(0);
+  transform: scale(0);
 }

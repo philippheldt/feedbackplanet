@@ -405,12 +405,15 @@ var extensiveFeedbackTextArray = [
   "Überaus umfangreich!",
 ];
 var boost = 1;
+var prevBoost = 1;
 var newBoost = false;
 var wordCount = 0;
 const feedbackBar = document.querySelector(".feedback-bar");
+const pointsFloating = document.querySelector(".points-floating");
 const boostBar = document.querySelector(".boost-container");
 
 function analyzeText() {
+  prevBoost = boost;
   const goodStartText = goodStartTextArray[Math.floor(Math.random() * goodStartTextArray.length)];
   const extensiveFeedbackText =
     extensiveFeedbackTextArray[Math.floor(Math.random() * extensiveFeedbackTextArray.length)];
@@ -477,20 +480,31 @@ input.addEventListener("keyup", function (e) {
 
 function feedbackBarCall(message, acheivedPoints, color) {
   feedbackBar.innerHTML = `<div class="feedback-content">${message}</div>`;
+  feedbackBar.classList.remove("feedback-bad");
+  feedbackBar.classList.remove("feedback-good");
+  feedbackBar.classList.remove("feedback-boost");
   feedbackBar.classList.add(color);
   feedbackBar.classList.remove("bar-closed");
   setTimeout(() => {
     feedbackBar.classList.add("bar-closed");
-    setTimeout(() => {
-      feedbackBar.innerHTML = `<img src="./assets/img/plus.png" class="feedback-icon" alt=""><div class="feedback-content"> ${acheivedPoints}</div>`;
-      boost > 1 ? feedbackBar.classList.add("feedback-boost") : null;
-      feedbackBar.classList.remove("bar-closed");
+    if (acheivedPoints != 0) {
       setTimeout(() => {
-        feedbackBar.classList.add("bar-closed");
-        boost > 1 ? feedbackBar.classList.remove("feedback-boost") : null;
-        updateBuildings();
-      }, 1500);
-    }, 300);
+        pointsFloating.innerText = `+${acheivedPoints}`;
+        pointsFloating.classList.add("points-floating-animation-add");
+        feedbackBar.innerHTML = `<img src="./assets/img/plus.png" class="feedback-icon" alt=""><div class="feedback-content">${
+          gamestate.points - acheivedPoints
+        }</div>`;
+        boost > 1 ? feedbackBar.classList.add("feedback-boost") : null;
+        feedbackBar.classList.remove("bar-closed");
+        countTo(acheivedPoints);
+        setTimeout(() => {
+          feedbackBar.classList.add("bar-closed");
+          pointsFloating.classList.remove("points-floating-animation-add");
+          boost > 1 ? feedbackBar.classList.remove("feedback-boost") : null;
+          updateBuildings();
+        }, 2600 + 20 * acheivedPoints);
+      }, 300);
+    }
   }, 2000);
 }
 
@@ -504,29 +518,44 @@ function submitFeedback() {
     gamestate.goodStartBoost = 0;
   }
 
-  // save Gamestate to database
-  updateData();
+  if (gamestate.extensiveBoost >= 2) {
+    boost != 3 ? (newBoost = true) : (newBoost = false);
+    boost = 3;
+  } else {
+    boost = 1;
+  }
 
   if (gamestate.goodStartBoost >= 3) {
     if (boost == 3) {
-      boost != 3 ? (newBoost = true) : (newBoost = false);
+      boost != prevBoost ? (newBoost = true) : (newBoost = false);
       boost = 3;
     } else {
-      boost != 2 ? (newBoost = true) : (newBoost = false);
+      boost != prevBoost ? (newBoost = true) : (newBoost = false);
       boost = 2;
     }
   } else {
     if (boost == 3) {
-      boost != 3 ? (newBoost = true) : (newBoost = false);
+      boost != prevBoost ? (newBoost = true) : (newBoost = false);
       boost = 3;
     } else {
       boost = 1;
     }
   }
 
-  boost <= 1 ? boostBar.classList.add("boost-hidden") : boostBar.classList.remove("boost-hidden");
+  // save Gamestate to database
+  updateData();
+
+  if (boost > prevBoost) {
+    boostBar.classList.remove("boost-hidden");
+    feedbackBarCall("Neuer Boost!", 0, "feedback-boost");
+  } else if (boost < prevBoost) {
+    boostBar.classList.add("boost-hidden");
+    feedbackBarCall("Boost verloren!", 0, "feedback-bad");
+  } else if (boost == prevBoost) {
+  }
 
   // reset values
+  prevBoost = boost;
   input.value = "";
   goodStart = false;
   extensiveFeedback = false;
@@ -534,3 +563,26 @@ function submitFeedback() {
 
 //add eventlistener for submitFeedback
 document.getElementById("nextq").addEventListener("click", submitFeedback);
+
+function countTo(addedPoints) {
+  let from = gamestate.points - addedPoints;
+  let to = gamestate.points;
+  let step = to > from ? 1 : -1;
+  let interval = 20;
+  const feedbackContent = document.querySelector(".feedback-content");
+
+  setTimeout(function () {
+    if (from == to) {
+      feedbackContent.textContent = from;
+      return;
+    }
+
+    let counter = setInterval(function () {
+      from += step;
+      feedbackContent.textContent = from;
+      if (from == to) {
+        clearInterval(counter);
+      }
+    }, interval);
+  }, 900);
+}
