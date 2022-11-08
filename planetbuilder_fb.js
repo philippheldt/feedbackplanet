@@ -194,7 +194,7 @@ function removeData() {
 
 var planetContainer = document.querySelector(".pl-container");
 planetContainer.innerHTML =
-  '<div class="sky"></div> <div class="tree-back"></div><div class="building"></div><div class="tree-front"></div><div class="planet"><img class="pl-asset" src="assets/img/planets/non.png" alt=""></div><div class="bush"></div>';
+  '<div class="sky"> <video src="./assets/img/sky/dar1.webm" autoplay loop muted></video></div> <div class="tree-back"></div><div class="building"></div><div class="tree-front"></div><div class="planet"><img class="pl-asset" src="assets/img/planets/non.png" alt=""></div><div class="bush"></div>';
 
 var planet = document.querySelector(".planet");
 var building = document.querySelector(".building");
