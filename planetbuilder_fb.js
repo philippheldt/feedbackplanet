@@ -253,11 +253,13 @@ function createPlanet() {
 
 // Get the input box
 let input = document.getElementById("feedback-input");
-let tempPoints = 0;
 // Init a timeout variable to be used below
 let timeout = null;
 let animationStarted = false;
 var obj;
+
+//select progress element
+const progressElement = document.querySelector(".progress-segment");
 
 // Updating buildings based on inputted points
 
@@ -266,6 +268,7 @@ function updateBuildings() {
     .then((res) => res.json())
     .then((data) => (obj = data))
     .then(() => {
+      const progressElement = document.querySelector(".progress-segment");
       console.log(obj);
       //check which building is selected
       const currentBuilding = gamestate.buildings[0].slice(0, 3);
@@ -309,6 +312,12 @@ function updateBuildings() {
         gamestate.points = 0;
         createPlanet();
       }
+
+      const percentageToNextBuildingStage = gamestate.points / pointsToNextBuildingStage;
+      progressElement.style.background = `repeating-conic-gradient(from 230deg, #ffffff4f 0% ${
+        percentageToNextBuildingStage * 70
+      }%, #ffffff00 0% 100%)`;
+      console.log(percentageToNextBuildingStage);
 
       // build a new tree when one more quarter of points to the next stage is reached
       if (gamestate.points > 0 && gamestate.buildings[0].split(".")[1] === "no0") {
