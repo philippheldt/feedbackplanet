@@ -194,7 +194,7 @@ function removeData() {
 
 var planetContainer = document.querySelector(".pl-container");
 planetContainer.innerHTML =
-  '<div class="sky"> <video src="./assets/img/sky/dar1.webm" autoplay loop muted></video></div> <div class="tree-back"></div><div class="building"></div><div class="tree-front"></div><div class="planet"><img class="pl-asset" src="assets/img/planets/non.png" alt=""></div><div class="bush"></div>';
+  '<div class="sky"> <video src="./assets/img/sky/day1.webm" autoplay loop muted></video></div> <div class="tree-back"></div><div class="building"></div><div class="tree-front"></div><div class="planet"><img class="pl-asset" src="assets/img/planets/non.png" alt=""></div><div class="bush"></div>';
 
 var planet = document.querySelector(".planet");
 var building = document.querySelector(".building");
@@ -231,14 +231,17 @@ function createPlanet() {
         treeImage.classList.add(`tree-back-${i + i + tree}`);
         treeBack.appendChild(treeImage);
       } else if (buildingSetup[tree] != "no0" && tree === 3) {
-        let treeImage = document.createElement("img");
-        treeImage.setAttribute("src", `assets/img/trees_front/${buildingSetup[tree]}.png`);
+        let treeImage = document.createElement("video");
+        treeImage.setAttribute("src", `assets/img/trees_front/tree/${buildingSetup[tree]}.webm`);
+        treeImage.setAttribute("autoplay", "");
+        treeImage.setAttribute("loop", "");
+        treeImage.setAttribute("muted", "");
         treeImage.classList.add(`pl-asset`);
         treeImage.classList.add(`tree-front-${i + tree - 2}`);
         treeFront.appendChild(treeImage);
       } else if (buildingSetup[tree] != "no0" && tree === 4) {
         let treeImage = document.createElement("img");
-        treeImage.setAttribute("src", `assets/img/trees_front/${buildingSetup[tree]}.png`);
+        treeImage.setAttribute("src", `assets/img/trees_front/bush/${buildingSetup[tree]}.png`);
         treeImage.classList.add(`pl-asset`);
         treeImage.classList.add(`bush-${i + tree - 3}`);
         treeFront.appendChild(treeImage);
@@ -285,9 +288,13 @@ function updateBuildings() {
       const pointsToNextBuildigStageQuarter = pointsToNextBuildingStage / 4;
 
       //select random element from array and save it to a const
-      const randomElement =
+      const randomTree =
         obj[currentBuildingIndex].trees[
           Math.floor(Math.random() * obj[currentBuildingIndex].trees.length)
+        ];
+      const randomBush =
+        obj[currentBuildingIndex].bushes[
+          Math.floor(Math.random() * obj[currentBuildingIndex].bushes.length)
         ];
 
       //check if there are enough points to build the next stage
@@ -324,7 +331,7 @@ function updateBuildings() {
         gamestate.buildings[0] =
           gamestate.buildings[0].split(".")[0] +
           "." +
-          randomElement +
+          randomTree +
           "." +
           gamestate.buildings[0].split(".")[2] +
           "." +
@@ -341,7 +348,7 @@ function updateBuildings() {
           "." +
           gamestate.buildings[0].split(".")[1] +
           "." +
-          randomElement +
+          randomTree +
           "." +
           gamestate.buildings[0].split(".")[3] +
           "." +
@@ -358,7 +365,7 @@ function updateBuildings() {
           "." +
           gamestate.buildings[0].split(".")[2] +
           "." +
-          randomElement +
+          randomTree +
           "." +
           gamestate.buildings[0].split(".")[4];
         createPlanet();
@@ -375,7 +382,7 @@ function updateBuildings() {
           "." +
           gamestate.buildings[0].split(".")[3] +
           "." +
-          randomElement;
+          randomBush;
         createPlanet();
       }
 
