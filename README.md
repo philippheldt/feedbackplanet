@@ -4,7 +4,7 @@
 
 ### General
 
-The gamestate of each User is saved in the following Data Structure:\
+The gamestate of each User is saved in the following Data Structure:
 
 ```
 const gamestate = { username: "USERNAME", points: 0, planet: "non", buildings: [ "non0.no0.no0.no0.no0", "non0.no0.no0.no0.no0", "non0.no0.no0.no0.no0", "non0.no0.no0.no0.no0", "non0.no0.no0.no0.no0", "non0.no0.no0.no0.no0", "non0.no0.no0.no0.no0", "non0.no0.no0.no0.no0", ], sky: ["non", "non", "non", "non", "non", "non", "non", "non"], };
@@ -14,7 +14,7 @@ const gamestate = { username: "USERNAME", points: 0, planet: "non", buildings: [
 
 \
 Each Building is represented in one location of the buildings Array. The Strings are divided by "."s, which make up the building blocks of a building object.
-They represent the following:\
+They represent the following:
 
 ```
 "non0.no0.no0.no0.no0"`
