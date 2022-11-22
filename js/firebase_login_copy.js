@@ -58,7 +58,7 @@ function login() {
       // Signed in
       const user = userCredential.user;
       console.log(user);
-      window.location.href = "home.html";
+      window.location.href = "index.html";
       // ...
     })
     .catch((error) => {
