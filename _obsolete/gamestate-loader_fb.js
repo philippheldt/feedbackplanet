@@ -1,5 +1,5 @@
-import { gamestate } from "./planetbuilder_fb.js";
-import { updateData } from "./planetbuilder_fb.js";
+import { gamestate } from "../js/planetbuilder_fb.js";
+import { updateData } from "../js/planetbuilder_fb.js";
 
 //Insert Data
 var planetContainer = document.querySelector(".pl-container");

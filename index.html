@@ -8,60 +8,95 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style_planet.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style_planet.css">
+    <link rel="stylesheet" href="./css/feedback_bar.css">
 
     <title>feedbackplanet demo</title>
 </head>
 
 <body>
-    <div class="container">
-        <h1>feedbackplanet</h1>
-        <textarea name="" id="feedback-input" cols="30" rows="10"></textarea>
+    <div class="header">
+        <div class="header-container">
+            <div class="header-inner">
+                <div class="header-logo">
+                    <a href="index.html">
+                        <img class="logo" src="./assets/img/logo.png" alt="">
+                    </a>
+                </div>
+                <div class="header__menu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fullscreen">
+        <div class="container">
+            <p>Wie empfindest du das Design dieser Seite?</p>
+            <textarea placeholder="Feedback eingeben..." name="" id="feedback-input" cols="30" rows="10"></textarea>
+            <div class="buttons">
+                <button class="secondarybtn">
+                    <span class="material-symbols-outlined">
+                        arrow_back
+                    </span>
+                </button>
+                <div class="status">1/10</div>
+                <button class="primarybtn" id="nextq">
+                    <span class="material-symbols-outlined">
+                        arrow_forward
+                    </span>
+                </button>
+            </div>
+        </div>
     </div>
 
 
-    <div class="pl-container pl-embedded">
-        <div class="sky">
-            <div class="sky-1">
-                <img class="pl-asset sky-fast" src="assets/img/planet/satellite.png" alt="">
-            </div>
-            <div class="sky-5">
-                <img class="pl-asset sky-medium" src="assets/img/planet/cloud.png" alt="">
-            </div>
-
+    <div class="feedback-container">
+        <div class="feedback-bar bar-closed">
+            <img src="./assets/img/plus.png" class="feedback-icon" alt="">
+            <div class="feedback-content ">Guter Start!</div>
         </div>
+    </div>
+    <div class="points-floating"></div>
 
-        <div class="tree-back">
 
-            <img class="pl-asset tree-back-1" src="assets/img/planet/tree_tanne_large.png" alt="">
+    <div class="progress-container">
+        <div class="progress-segment"></div>
+    </div>
 
-        </div>
+    <div class="pl-container pl-embedded"></div>
 
-        <div class="building">
-            <img class="pl-asset building-1" src="assets/img/planet/building_i-bau.png" alt="">
-            <img class="pl-asset building-4" src="assets/img/planet/building_i-bau.png" alt="">
-        </div>
-
-        <div class="tree-front">
-            <img class="pl-asset tree-front-8" src="assets/img/planet/tree_tanne.png" alt="">
-            <img class="pl-asset tree-front-1" src="assets/img/planet/tree_tanne.png" alt="">
-            <img class="pl-asset tree-front-6" src="assets/img/planet/tree_tanne.png" alt="">
-        </div>
-
-        <div class="planet">
-            <img class="pl-asset" src="assets/img/planet/planet_moon.png" alt="">
-        </div>
-
-        <div class="bush">
-            <img class="pl-asset bush-12" src="assets/img/planet/bush.png" alt="">
+    <div class="boost-container boost-hidden">
+        <div class="boost-bar">
+            <img src="./assets/img/boost.png" class="boost-icon" alt="">
+            <!-- <div class="boost-content">2x</div> -->
+            <div class="animating-gradient"></div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+
+
+
+    <div id="login" class="hidden">
+        <h2>Login</h2>
+        <label>Username</label> <input id="username" value="jennyphi" type="text"> <br>
+        <button id="selbtn">Einloggen</button>
+    </div>
+
+
+
+    <script src="./js/planetbuilder_fb.js" type="module"></script>
+
+
 </body>
 
 </html>
