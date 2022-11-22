@@ -28,6 +28,11 @@
   background-color: #de576e;
 }
 
+.feedback-white {
+  background-color: #fff;
+  color: #000;
+}
+
 .feedback-icon {
   height: 20px;
   margin-right: 10px;
@@ -165,4 +170,17 @@
   right: 96px;
 
   transition: all 0.4s cubic-bezier(0.54, 0.32, 0.37, 1.19);
+}
+
+#planet-selector {
+  padding: 0px 60px 0px 0px;
+}
+.planet-icon {
+  margin: -10px;
+  width: 65px;
+  cursor: pointer;
+}
+
+.planet-icon:hover {
+  transform: scale(2);
 }

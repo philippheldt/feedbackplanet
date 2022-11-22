@@ -145,27 +145,37 @@ function register() {
 }
 
 function insertData(newUUID) {
-  set(ref(db, "feedbackplanet/" + newUUID), {
+  set(ref(db, "users/" + newUUID), {
+    email: email.value,
     uid: newUUID,
-    building1: "non0.no0.no0.no0.no0",
-    building2: "non0.no0.no0.no0.no0",
-    building3: "non0.no0.no0.no0.no0",
-    building4: "non0.no0.no0.no0.no0",
-    building5: "non0.no0.no0.no0.no0",
-    building6: "non0.no0.no0.no0.no0",
-    building7: "non0.no0.no0.no0.no0",
-    building8: "non0.no0.no0.no0.no0",
-    points: 0,
-    planet: "non",
-    extensiveBoost: 0,
-    goodStartBoost: 0,
-    activeBoost: false,
   })
     .then(() => {
-      console.log("Data saved successfully");
+      console.log("User Created!");
+      set(ref(db, "feedbackplanet/" + newUUID), {
+        uid: newUUID,
+        building1: "non0.no0.no0.no0.no0",
+        building2: "non0.no0.no0.no0.no0",
+        building3: "non0.no0.no0.no0.no0",
+        building4: "non0.no0.no0.no0.no0",
+        building5: "non0.no0.no0.no0.no0",
+        building6: "non0.no0.no0.no0.no0",
+        building7: "non0.no0.no0.no0.no0",
+        building8: "non0.no0.no0.no0.no0",
+        points: 0,
+        planet: "non",
+        extensiveBoost: 0,
+        goodStartBoost: 0,
+        activeBoost: false,
+      })
+        .then(() => {
+          console.log("Gamestate Created!");
+        })
+        .catch((error) => {
+          console.error("Error saving data: ", error);
+        });
     })
     .catch((error) => {
-      console.error("Error saving data: ", error);
+      console.error("Error writing document: ", error);
     });
 }
 

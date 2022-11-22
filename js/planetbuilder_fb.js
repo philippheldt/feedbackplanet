@@ -34,21 +34,7 @@ var login = document.getElementById("login");
 var welcomeMessage = document.getElementById("welcome-message");
 
 var uid = document.getElementById("username");
-var building1 = document.getElementById("building1");
-var building2 = document.getElementById("building2");
-var building3 = document.getElementById("building3");
-var building4 = document.getElementById("building4");
-var building5 = document.getElementById("building5");
-var building6 = document.getElementById("building6");
-var building7 = document.getElementById("building7");
-var building8 = document.getElementById("building8");
-var points = document.getElementById("points");
 var planet = document.getElementById("planet");
-
-var insbtn = document.getElementById("insbtn");
-var selbtn = document.getElementById("selbtn");
-var updbtn = document.getElementById("updbtn");
-var delbtn = document.getElementById("delbtn");
 
 const gamestate = {
   uid: "",
@@ -77,6 +63,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
 
 const auth = getAuth();
+
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
@@ -85,6 +72,10 @@ onAuthStateChanged(auth, (user) => {
     console.log("uid: " + uid);
     gamestate.uid = uid;
     // ...
+    getData();
+    setTimeout(() => {
+      createPlanet();
+    }, 350);
   } else {
     // User is signed out
     // ...
@@ -165,10 +156,6 @@ function getData() {
 }
 //Button Event
 //selbtn.addEventListener("click", getData);
-getData();
-setTimeout(() => {
-  createPlanet();
-}, 350);
 
 //Update data to firebase
 function updateData() {
@@ -288,46 +275,119 @@ const progressElement = document.querySelector(".progress-segment");
 // Updating buildings based on inputted points
 
 function updateBuildings() {
-  fetch("json/gamestate.json")
-    .then((res) => res.json())
-    .then((data) => (obj = data))
-    .then(() => {
-      const progressElement = document.querySelector(".progress-segment");
-      console.log(obj);
-      //check which building is selected
-      const currentBuilding = gamestate.buildings[0].slice(0, 3);
-      let currentBuildingIndex;
-      let currentBuildingStage = gamestate.buildings[0].slice(3, 4);
+  if (gamestate.buildings[0] === "non0.no0.no0.no0.no0") {
+    gamestate.buildings[0] = "iba1.no0.no0.no0.no0";
+    console.log(gamestate.buildings[0]);
+  }
+  if (gamestate.buildings[0] != "non0.no0.no0.no0.no0") {
+    fetch("../json/gamestate.json")
+      .then((res) => res.json())
+      .then((data) => (obj = data))
+      .then(() => {
+        const progressElement = document.querySelector(".progress-segment");
+        console.log(obj);
+        //check which building is selected
+        const currentBuilding = gamestate.buildings[0].slice(0, 3);
+        let currentBuildingIndex;
+        let currentBuildingStage = gamestate.buildings[0].slice(3, 4);
 
-      for (let i = 0; i < obj.length; i++) {
-        if (obj[i].shortcut === currentBuilding) {
-          currentBuildingIndex = i;
+        for (let i = 0; i < obj.length; i++) {
+          if (obj[i].shortcut === currentBuilding) {
+            currentBuildingIndex = i;
+          }
         }
-      }
-      const pointsToNextBuildingStage =
-        obj[currentBuildingIndex].buildingStages[currentBuildingStage];
-      const pointsToNextBuildigStageQuarter = pointsToNextBuildingStage / 4;
+        const pointsToNextBuildingStage =
+          obj[currentBuildingIndex].buildingStages[currentBuildingStage];
+        const pointsToNextBuildigStageQuarter = pointsToNextBuildingStage / 4;
 
-      //select random element from array and save it to a const
-      const randomTree =
-        obj[currentBuildingIndex].trees[
-          Math.floor(Math.random() * obj[currentBuildingIndex].trees.length)
-        ];
-      const randomBush =
-        obj[currentBuildingIndex].bushes[
-          Math.floor(Math.random() * obj[currentBuildingIndex].bushes.length)
-        ];
+        //select random element from array and save it to a const
+        const randomTree =
+          obj[currentBuildingIndex].trees[
+            Math.floor(Math.random() * obj[currentBuildingIndex].trees.length)
+          ];
+        const randomBush =
+          obj[currentBuildingIndex].bushes[
+            Math.floor(Math.random() * obj[currentBuildingIndex].bushes.length)
+          ];
 
-      //check if there are enough points to build the next stage
-      if (gamestate.points >= pointsToNextBuildingStage) {
-        currentBuildingStage = Number(currentBuildingStage) + 1;
-        // check if building is at max stage
-        if (currentBuildingStage < 5) {
-          gamestate.buildings[0] = currentBuilding + currentBuildingStage + ".no0.no0.no0.no0";
-        } else {
+        //check if there are enough points to build the next stage
+        if (gamestate.points >= pointsToNextBuildingStage) {
+          currentBuildingStage = Number(currentBuildingStage) + 1;
+          // check if building is at max stage
+          if (currentBuildingStage < 5) {
+            gamestate.buildings[0] = currentBuilding + currentBuildingStage + ".no0.no0.no0.no0";
+          } else {
+            gamestate.buildings[0] =
+              currentBuilding +
+              currentBuildingStage +
+              "." +
+              gamestate.buildings[0].split(".")[1] +
+              "." +
+              gamestate.buildings[0].split(".")[2] +
+              "." +
+              gamestate.buildings[0].split(".")[3] +
+              "." +
+              gamestate.buildings[0].split(".")[4];
+          }
+          gamestate.points = 0;
+          createPlanet();
+        }
+
+        const percentageToNextBuildingStage = gamestate.points / pointsToNextBuildingStage;
+        progressElement.style.background = `repeating-conic-gradient(from 230deg, #ffffff4f 0% ${
+          percentageToNextBuildingStage * 70
+        }%, #ffffff00 0% 100%)`;
+        console.log(percentageToNextBuildingStage);
+
+        // build a new tree when one more quarter of points to the next stage is reached
+        if (gamestate.points > 0 && gamestate.buildings[0].split(".")[1] === "no0") {
           gamestate.buildings[0] =
-            currentBuilding +
-            currentBuildingStage +
+            gamestate.buildings[0].split(".")[0] +
+            "." +
+            randomTree +
+            "." +
+            gamestate.buildings[0].split(".")[2] +
+            "." +
+            gamestate.buildings[0].split(".")[3] +
+            "." +
+            gamestate.buildings[0].split(".")[4];
+          createPlanet();
+        } else if (
+          gamestate.points > pointsToNextBuildigStageQuarter &&
+          gamestate.buildings[0].split(".")[2] === "no0"
+        ) {
+          gamestate.buildings[0] =
+            gamestate.buildings[0].split(".")[0] +
+            "." +
+            gamestate.buildings[0].split(".")[1] +
+            "." +
+            randomTree +
+            "." +
+            gamestate.buildings[0].split(".")[3] +
+            "." +
+            gamestate.buildings[0].split(".")[4];
+          createPlanet();
+        } else if (
+          gamestate.points > pointsToNextBuildigStageQuarter * 2 &&
+          gamestate.buildings[0].split(".")[3] === "no0"
+        ) {
+          gamestate.buildings[0] =
+            gamestate.buildings[0].split(".")[0] +
+            "." +
+            gamestate.buildings[0].split(".")[1] +
+            "." +
+            gamestate.buildings[0].split(".")[2] +
+            "." +
+            randomTree +
+            "." +
+            gamestate.buildings[0].split(".")[4];
+          createPlanet();
+        } else if (
+          gamestate.points > pointsToNextBuildigStageQuarter * 3 &&
+          gamestate.buildings[0].split(".")[4] === "no0"
+        ) {
+          gamestate.buildings[0] =
+            gamestate.buildings[0].split(".")[0] +
             "." +
             gamestate.buildings[0].split(".")[1] +
             "." +
@@ -335,93 +395,28 @@ function updateBuildings() {
             "." +
             gamestate.buildings[0].split(".")[3] +
             "." +
-            gamestate.buildings[0].split(".")[4];
+            randomBush;
+          createPlanet();
         }
-        gamestate.points = 0;
-        createPlanet();
-      }
 
-      const percentageToNextBuildingStage = gamestate.points / pointsToNextBuildingStage;
-      progressElement.style.background = `repeating-conic-gradient(from 230deg, #ffffff4f 0% ${
-        percentageToNextBuildingStage * 70
-      }%, #ffffff00 0% 100%)`;
-      console.log(percentageToNextBuildingStage);
-
-      // build a new tree when one more quarter of points to the next stage is reached
-      if (gamestate.points > 0 && gamestate.buildings[0].split(".")[1] === "no0") {
-        gamestate.buildings[0] =
-          gamestate.buildings[0].split(".")[0] +
-          "." +
-          randomTree +
-          "." +
-          gamestate.buildings[0].split(".")[2] +
-          "." +
-          gamestate.buildings[0].split(".")[3] +
-          "." +
-          gamestate.buildings[0].split(".")[4];
-        createPlanet();
-      } else if (
-        gamestate.points > pointsToNextBuildigStageQuarter &&
-        gamestate.buildings[0].split(".")[2] === "no0"
-      ) {
-        gamestate.buildings[0] =
-          gamestate.buildings[0].split(".")[0] +
-          "." +
-          gamestate.buildings[0].split(".")[1] +
-          "." +
-          randomTree +
-          "." +
-          gamestate.buildings[0].split(".")[3] +
-          "." +
-          gamestate.buildings[0].split(".")[4];
-        createPlanet();
-      } else if (
-        gamestate.points > pointsToNextBuildigStageQuarter * 2 &&
-        gamestate.buildings[0].split(".")[3] === "no0"
-      ) {
-        gamestate.buildings[0] =
-          gamestate.buildings[0].split(".")[0] +
-          "." +
-          gamestate.buildings[0].split(".")[1] +
-          "." +
-          gamestate.buildings[0].split(".")[2] +
-          "." +
-          randomTree +
-          "." +
-          gamestate.buildings[0].split(".")[4];
-        createPlanet();
-      } else if (
-        gamestate.points > pointsToNextBuildigStageQuarter * 3 &&
-        gamestate.buildings[0].split(".")[4] === "no0"
-      ) {
-        gamestate.buildings[0] =
-          gamestate.buildings[0].split(".")[0] +
-          "." +
-          gamestate.buildings[0].split(".")[1] +
-          "." +
-          gamestate.buildings[0].split(".")[2] +
-          "." +
-          gamestate.buildings[0].split(".")[3] +
-          "." +
-          randomBush;
-        createPlanet();
-      }
-
-      if (gamestate.points < 0) {
-        const accumulatedPoints =
-          obj[currentBuildingIndex].accumulatedStages[currentBuildingStage - 1] + gamestate.points;
-        //loop throug all accumulatedstages and check if the accumulated points are higher than the current stage
-        for (let i = 0; i < obj[currentBuildingIndex].accumulatedStages.length; i++) {
-          if (accumulatedPoints >= obj[currentBuildingIndex].accumulatedStages[i]) {
-            currentBuildingStage = i + 1;
+        if (gamestate.points < 0) {
+          const accumulatedPoints =
+            obj[currentBuildingIndex].accumulatedStages[currentBuildingStage - 1] +
+            gamestate.points;
+          //loop throug all accumulatedstages and check if the accumulated points are higher than the current stage
+          for (let i = 0; i < obj[currentBuildingIndex].accumulatedStages.length; i++) {
+            if (accumulatedPoints >= obj[currentBuildingIndex].accumulatedStages[i]) {
+              currentBuildingStage = i + 1;
+            }
           }
+          gamestate.points =
+            accumulatedPoints -
+            obj[currentBuildingIndex].accumulatedStages[currentBuildingStage - 1];
+          gamestate.buildings[0] = currentBuilding + currentBuildingStage + ".no0.no0.no0.no0";
+          createPlanet();
         }
-        gamestate.points =
-          accumulatedPoints - obj[currentBuildingIndex].accumulatedStages[currentBuildingStage - 1];
-        gamestate.buildings[0] = currentBuilding + currentBuildingStage + ".no0.no0.no0.no0";
-        createPlanet();
-      }
-    });
+      });
+  }
 }
 
 // analyzing input and updating points
@@ -623,3 +618,23 @@ function countTo(addedPoints) {
     }, interval);
   }, 900);
 }
+
+//Building and Planet selector boxes
+
+function planetSelectorBar() {
+  feedbackBar.innerHTML = `<div class="feedback-content">${message}</div>`;
+  feedbackBar.classList.add(color);
+  feedbackBar.classList.remove("bar-closed");
+}
+
+//TODO: Find out why images are not interactable!!!
+
+document.querySelector("#pl1").addEventListener("click", function () {
+  console.log("clicked pl1");
+});
+document.querySelector("#pl2").addEventListener("click", function () {
+  console.log("clicked pl2");
+});
+document.querySelector("#pl3").addEventListener("click", function () {
+  console.log("clicked pl3");
+});
