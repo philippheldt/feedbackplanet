@@ -91,7 +91,7 @@ function signInWithGoogle() {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      window.location.href = "home.html";
+      window.location.href = "index.html";
       // ...
     })
     .catch((error) => {
