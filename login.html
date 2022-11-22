@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./css/login.css">
+</head>
+
+<body>
+
+    <div class="useraction">
+        <div class="form">
+            <h1>Einloggen</h1>
+
+            <input type="text" placeholder="name@hs-furtwangen.de" id="userEmail"> <br>
+            <div class="alert alert-hidden" id="userEmailAlert">Bitte gib eine gültige E-Mail Addresse ein!</div>
+            <input type="password" placeholder="Passwort" id="userPassword"> <br>
+            <div class="alert alert-hidden" id="userPasswordAlert">Passwörter stimmen nicht überein!</div>
+            <button id="registerSubmit">Einloggen</button> <br>
+            <div class="alert alert-hidden" id="submitAlert">Bitte alle Felder ausfüllen!</div>
+            <div class="centerlink">
+                <a href="register.html" id="signed-in">Noch nicht registriert?</a> <br>
+            </div>
+
+        </div>
+        <div class="or">
+            ODER
+        </div>
+        < <div class="form">
+            <button class="secondary-btn" id="googleAuth">
+                <img src="./assets/img/logos/google.png" alt="">
+                <div>mit Google anmelden</div>
+            </button>
+            <button class="secondary-btn" id="appleAuth"><img src="./assets/img/logos/apple.png" alt="">
+                <div>mit Apple anmelden</div>
+            </button>
+            <button class="secondary-btn" id="githubAuth"><img src="./assets/img/logos/github.png" alt="">
+                <div>mit Github anmelden</div>
+            </button>
+    </div>
+    </div>
+
+
+
+    <script src="firebase_login_copy.js" type="module"></script>
+</body>
+
+</html>

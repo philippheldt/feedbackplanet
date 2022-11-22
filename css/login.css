@@ -1,0 +1,140 @@
+:root {
+  --blue-lighter: #d5e8ef;
+  --blue-light: #cde0e7;
+  --blue-medium: #bad2d7;
+  --blue-medium-dark: #aec7cc;
+  --blue-dark: #4e6166;
+  --blue-darker: #243a40;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: var(--blue-medium);
+  color: var(--blue-dark);
+}
+
+h1 {
+  font-family: "Luckiest Guy", cursive;
+  color: var(--blue-darker);
+  margin: 15px 0px;
+}
+
+input {
+  position: relative;
+  z-index: 1;
+  border: 3px solid var(--blue-darker);
+  font-weight: 600;
+  color: var(--blue-darker);
+  outline: none;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px 20px;
+  width: 350px;
+  margin: 5px 0px;
+  font-size: 11pt;
+}
+
+input::placeholder {
+  color: var(--blue-medium);
+  font-weight: 600;
+}
+
+button {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 15px 20px;
+  border: none;
+  font-weight: 600;
+  background-color: var(--blue-darker);
+  color: #fff;
+  outline: none;
+  border-radius: 10px;
+  padding: 20px 20px;
+  cursor: pointer;
+
+  margin: 5px 0px;
+  font-size: 11pt;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  filter: brightness(0.8);
+}
+
+button img {
+  width: 25px;
+  margin-right: 10px;
+}
+
+.secondary-btn {
+  background-color: #fff;
+  color: var(--blue-darker);
+  border: 3px solid var(--blue-darker);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  height: 60px;
+}
+
+.secondary-btn:hover {
+  filter: brightness(0.9);
+}
+
+.useraction {
+  margin: 50px 0px;
+}
+
+.alert {
+  position: relative;
+  z-index: 0;
+  color: #fff;
+  background-color: #de576e;
+  border: 3px solid #b21b35;
+  border-radius: 10px;
+  padding: 20px 20px 10px 20px;
+  margin: 0 10px -10px 10px;
+
+  font-size: 10pt;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  transform: translateY(-15px) scale(1);
+}
+
+.alert-hidden {
+  transform: translateY(-60px) scale(0.8);
+  margin-bottom: -50px;
+}
+
+.form {
+  max-width: 400px;
+  margin: auto;
+  border: 3px solid var(--blue-darker);
+  border-radius: 11px;
+  background-color: var(--blue-lighter);
+  padding: 20px 30px;
+}
+
+#signed-in {
+  color: var(--blue-darker);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 11pt;
+}
+
+#signed-in:hover {
+  text-decoration: underline;
+}
+
+.centerlink {
+  text-align: center;
+  margin: 20px 0px 10px 0px;
+}
+
+.or {
+  margin: 15px auto;
+  font-weight: 600;
+  text-align: center;
+  max-width: 400px;
+}
