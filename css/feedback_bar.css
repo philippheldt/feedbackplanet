@@ -17,15 +17,18 @@
 }
 
 .feedback-good {
-  background-color: #76b093;
+  background-color: #ddebe4;
+  color: #76b093;
 }
 
 .feedback-boost {
-  background-color: #ffd15e;
+  background-color: #faf3e2;
+  color: #ffd15e;
 }
 
 .feedback-bad {
-  background-color: #de576e;
+  background-color: #f5e1e4;
+  color: #de576e;
 }
 
 .feedback-white {
@@ -44,7 +47,6 @@
 
 .feedback-content {
   font-family: "Luckiest Guy", cursive;
-  color: #fff;
   transform: translateY(3px);
 }
 

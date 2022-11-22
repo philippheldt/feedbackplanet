@@ -6,26 +6,28 @@
   --blue-medium-dark: #aec7cc;
   --blue-dark: #4e6166;
   --blue-darker: #394447;
+
+  --border-radius: 0.75rem;
 }
 
 body {
-  font-family: "Roboto", sans-serif;
-  background-color: var(--blue-medium);
-  color: var(--blue-dark);
+  font-family: "Poppins", sans-serif;
+  background-color: #f9f9f9;
+  color: #000;
 }
 
 p {
-  color: #4e6166;
+  color: #202020;
   font-weight: 500;
-  font-size: 17pt;
-  margin: 25px 0;
+  font-size: 15pt;
+  margin: 20px 0;
 }
 
 textarea {
   outline: none;
 
-  font-family: "Roboto", sans-serif;
-  color: var(--blue-dark);
+  font-family: "Poppins", sans-serif;
+  color: #000;
   font-size: 12pt;
   font-weight: regular;
   resize: none;
@@ -33,21 +35,21 @@ textarea {
 
   padding: 40px;
   width: 100%;
+  margin-bottom: 15px;
 
   border: none;
-  background-color: var(--blue-light);
-  border-radius: 10px;
+  background-color: #fff;
+  border-radius: var(--border-radius);
 
   transition: all 0.3s ease-in-out;
 }
 
 textarea::placeholder {
-  color: var(--blue-medium);
+  color: #797979;
 }
 
 textarea:focus {
-  background-color: var(--blue-lighter);
-  box-shadow: 0px 0px 100px var(--blue-medium-dark);
+  border: 0.5px solid #797979;
 }
 
 .container {
@@ -76,31 +78,30 @@ span {
 }
 
 button {
-  margin: 15px 0;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   transition: all 0.5s ease-in-out;
 }
 
 .primarybtn {
-  background-color: var(--blue-dark);
-  color: var(--blue-light);
+  background-color: #ddebe4;
+  color: #78b195;
   border: none;
   font-size: 12pt;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
 }
 
 .primarybtn:hover {
-  background-color: var(--blue-darker);
-  box-shadow: 0px 0px 100px var(--blue-medium-dark);
+  background-color: #78b195;
+  color: #ddebe4;
 }
 
 .secondarybtn {
-  background-color: var(--blue-medium);
-  color: var(--blue-dark);
-  border: 1.5px solid var(--blue-dark);
+  background-color: transparent;
+  color: #797979;
+  border: 0.5px solid #797979;
   font-size: 12pt;
   font-weight: 500;
   cursor: pointer;
@@ -108,10 +109,8 @@ button {
 }
 
 .secondarybtn:hover {
-  background-color: var(--blue-light);
-  color: var(--blue-darker);
-  border-color: var(--blue-darker);
-  box-shadow: 0px 0px 100px var(--blue-medium-dark);
+  color: #202020;
+  border: 1px solid #202020;
 }
 
 .hidden {
@@ -138,6 +137,14 @@ button {
   align-items: center;
 }
 
+footer {
+  background-color: #78b195;
+  height: 40px;
+  width: 100vw;
+  position: fixed;
+  bottom: 0px;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -152,17 +159,31 @@ li {
 
 a {
   text-decoration: none;
-  color: var(--blue-dark);
+  color: #78b195;
   font-size: 12pt;
   font-weight: 500;
   transition: color 0.3s ease-in-out;
 }
 
 a:hover {
-  color: var(--blue-darker);
+  color: #78b195;
   text-decoration: underline;
 }
 
 .logo {
-  width: 80px;
+  width: 40px;
+}
+
+.status {
+  background-color: #ddebe4;
+  border-radius: var(--border-radius);
+  width: 75%;
+  height: 15px;
+}
+
+.status-amount {
+  background-color: #78b195;
+  width: 25%;
+  border-radius: 10px;
+  height: 15px;
 }

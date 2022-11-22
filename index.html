@@ -12,6 +12,11 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/style_planet.css">
@@ -35,9 +40,12 @@
                     <span class="material-symbols-outlined">
 
                     </span>
-                    <span class="material-symbols-outlined">
-                        logout
-                    </span>
+                    <button class="primarybtn">
+                        <span class="material-symbols-outlined">
+                            logout
+                        </span>
+                    </button>
+
 
                 </div>
             </div>
@@ -53,7 +61,9 @@
                         arrow_back
                     </span>
                 </button>
-                <div class="status">1/10</div>
+                <div class="status">
+                    <div class="status-amount"></div>
+                </div>
                 <button class="primarybtn" id="nextq">
                     <span class="material-symbols-outlined">
                         arrow_forward
@@ -63,14 +73,19 @@
         </div>
     </div>
 
-
     <div class="feedback-container">
-        <div class="feedback-bar feedback-white" id="planet-selector">
+        <div class="feedback-bar bar-closed">
+            <img src="./assets/img/plus.png" class="feedback-icon" alt="">
+            <div class="feedback-content ">Guter Start!</div>
+        </div>
+    </div>
+    <!-- <div class="feedback-container">
+        <div class="feedback-bar feedback-white bar-closed" id="planet-selector">
             <img src="./assets/img/planets/mano.png" class="planet-icon" id="pl1">
             <img src="./assets/img/planets/mono.png" class="planet-icon" id="pl2">
             <img src="./assets/img/planets/neno.png" class="planet-icon" id="pl3">
         </div>
-    </div>
+    </div> -->
     <div class="points-floating"></div>
 
 
@@ -98,7 +113,7 @@
     </div>
 
 
-
+    <footer></footer>
     <script src="./js/planetbuilder_fb.js" type="module"></script>
 
 
