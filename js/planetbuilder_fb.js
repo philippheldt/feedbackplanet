@@ -33,7 +33,7 @@ var homescreen = document.getElementById("homescreen");
 var login = document.getElementById("login");
 var welcomeMessage = document.getElementById("welcome-message");
 
-var username = document.getElementById("username");
+var uid = document.getElementById("username");
 var building1 = document.getElementById("building1");
 var building2 = document.getElementById("building2");
 var building3 = document.getElementById("building3");
@@ -51,7 +51,7 @@ var updbtn = document.getElementById("updbtn");
 var delbtn = document.getElementById("delbtn");
 
 const gamestate = {
-  username: "",
+  uid: "",
   points: 0,
   planet: "non",
   buildings: [
@@ -70,10 +70,31 @@ const gamestate = {
   activeBoost: false,
 };
 
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut,
+} from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
+
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    const uid = user.uid;
+    console.log("uid: " + uid);
+    gamestate.uid = uid;
+    // ...
+  } else {
+    // User is signed out
+    // ...
+  }
+});
+
 // Insert Data to firebase
 function insertData() {
-  set(ref(db, "feedbackplanet/" + username.value), {
-    username: username.value,
+  set(ref(db, "feedbackplanet/" + gamestate.uid), {
+    uid: uid.value,
   })
     .then(() => {
       console.log("Data saved successfully");
@@ -89,11 +110,11 @@ function insertData() {
 function getData() {
   const dbref = ref(db);
 
-  get(child(dbref, "feedbackplanet/" + username.value))
+  get(child(dbref, "feedbackplanet/" + gamestate.uid))
     .then((snapshot) => {
       if (snapshot.exists()) {
         //console.log(snapshot.val());
-        gamestate.username = snapshot.val().username;
+        gamestate.uid = snapshot.val().uid;
         for (let i = 0; i < 8; i++) {
           gamestate.buildings[i] = snapshot.val()["building" + (i + 1)];
         }
@@ -118,7 +139,7 @@ function getData() {
         //Login
         // homescreen.classList.remove("hidden");
         // login.classList.add("hidden");
-        // welcomeMessage.innerHTML = "Welcome " + gamestate.username;
+        // welcomeMessage.innerHTML = "Welcome " + gamestate.uid;
       } else {
         console.log("No data available");
       }
@@ -129,7 +150,7 @@ function getData() {
 
   //after last state was savedchange activeBoost to false, so that, when the user exits without filling form, Streak will be deminished
   setTimeout(() => {
-    update(ref(db, "feedbackplanet/" + username.value), {
+    update(ref(db, "feedbackplanet/" + gamestate.uid), {
       activeBoost: gamestate.activeBoost,
       goodStartBoost: gamestate.goodStartBoost,
       extensiveBoost: gamestate.extensiveBoost,
@@ -151,7 +172,7 @@ setTimeout(() => {
 
 //Update data to firebase
 function updateData() {
-  update(ref(db, "feedbackplanet/" + username.value), {
+  update(ref(db, "feedbackplanet/" + gamestate.uid), {
     building1: gamestate.buildings[0],
     building2: gamestate.buildings[1],
     building3: gamestate.buildings[2],
@@ -179,7 +200,7 @@ function updateData() {
 //Delete data from firebase
 //Update data to firebase
 function removeData() {
-  remove(ref(db, "feedbackplanet/" + username.value))
+  remove(ref(db, "feedbackplanet/" + gamestate.uid))
     .then(() => {
       console.log("Data removed successfully");
     })

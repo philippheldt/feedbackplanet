@@ -118,14 +118,16 @@ function register() {
           console.log("Email sent!");
         });
 
+        //TODO: add Loading indicator
         insertData(user.uid);
-
         userEmailAlert.classList.add("alert-hidden");
         email.value = "";
         password.value = "";
         passwordRepeat.value = "";
         console.log("signed in");
-        window.location.href = "home.html";
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 5000);
 
         // ...
       })
