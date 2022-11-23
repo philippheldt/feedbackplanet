@@ -202,7 +202,7 @@ function removeData() {
 
 var planetContainer = document.querySelector(".pl-container");
 planetContainer.innerHTML =
-  '<div class="sky"> <video src="./assets/img/sky/day1.webm" autoplay loop muted></video></div> <div class="tree-back"></div><div class="building"></div><div class="tree-front"></div><div class="planet"><img class="pl-asset" src="assets/img/planets/non.png" alt=""></div><div class="bush"></div>';
+  '<div class="sky"> <video src="./assets/planet_assets/sky/day1.webm" autoplay loop muted></video></div> <div class="tree-back"></div><div class="building"></div><div class="tree-front"></div><div class="planet"><img class="pl-asset" src="assets/planet_assets/planets/non.png" alt=""></div><div class="bush"></div>';
 
 var planet = document.querySelector(".planet");
 var building = document.querySelector(".building");
@@ -213,7 +213,7 @@ var bushFront = document.querySelector(".bush");
 function createPlanet() {
   //setup
   //create planet
-  planet.innerHTML = `<img class="pl-asset" src="assets/img/planets/${gamestate.planet}.png" alt="">`;
+  planet.innerHTML = `<img class="pl-asset" src="assets/planet_assets/planets/${gamestate.planet}.png" alt="">`;
 
   console.log(gamestate);
   //create all objects
@@ -225,7 +225,7 @@ function createPlanet() {
     //adding building to scene
     if (buildingSetup[0] != "non0") {
       let builingImage = document.createElement("img");
-      builingImage.setAttribute("src", `assets/img/buildings/${buildingSetup[0]}.png`);
+      builingImage.setAttribute("src", `assets/planet_assets/buildings/${buildingSetup[0]}.png`);
       builingImage.classList.add(`pl-asset`);
       builingImage.classList.add(`building-${i + 1}`);
       building.appendChild(builingImage);
@@ -234,13 +234,16 @@ function createPlanet() {
     for (let tree = 1; tree <= 4; tree++) {
       if (buildingSetup[tree] != "no0" && tree <= 2) {
         let treeImage = document.createElement("img");
-        treeImage.setAttribute("src", `assets/img/trees_back/${buildingSetup[tree]}.png`);
+        treeImage.setAttribute("src", `assets/planet_assets/trees_back/${buildingSetup[tree]}.png`);
         treeImage.classList.add(`pl-asset`);
         treeImage.classList.add(`tree-back-${i + i + tree}`);
         treeBack.appendChild(treeImage);
       } else if (buildingSetup[tree] != "no0" && tree === 3) {
         let treeImage = document.createElement("video");
-        treeImage.setAttribute("src", `assets/img/trees_front/tree/${buildingSetup[tree]}.webm`);
+        treeImage.setAttribute(
+          "src",
+          `assets/planet_assets/trees_front/tree/${buildingSetup[tree]}.webm`
+        );
         treeImage.setAttribute("autoplay", "");
         treeImage.setAttribute("loop", "");
         treeImage.setAttribute("muted", "");
@@ -249,7 +252,10 @@ function createPlanet() {
         treeFront.appendChild(treeImage);
       } else if (buildingSetup[tree] != "no0" && tree === 4) {
         let treeImage = document.createElement("img");
-        treeImage.setAttribute("src", `assets/img/trees_front/bush/${buildingSetup[tree]}.png`);
+        treeImage.setAttribute(
+          "src",
+          `assets/planet_assets/trees_front/bush/${buildingSetup[tree]}.png`
+        );
         treeImage.classList.add(`pl-asset`);
         treeImage.classList.add(`bush-${i + tree - 3}`);
         treeFront.appendChild(treeImage);
@@ -523,7 +529,7 @@ function feedbackBarCall(message, acheivedPoints, color) {
       setTimeout(() => {
         pointsFloating.innerText = `+${acheivedPoints}`;
         pointsFloating.classList.add("points-floating-animation-add");
-        feedbackBar.innerHTML = `<img src="./assets/img/plus.png" class="feedback-icon" alt=""><div class="feedback-content">${
+        feedbackBar.innerHTML = `<img src="./assets/icons/plus.png" class="feedback-icon" alt=""><div class="feedback-content">${
           gamestate.points - acheivedPoints
         }</div>`;
         boost > 1 ? feedbackBar.classList.add("feedback-boost") : null;
