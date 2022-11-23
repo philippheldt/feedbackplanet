@@ -29,17 +29,19 @@ import {
 
 const db = getDatabase();
 
+const feedbackBar = document.querySelector(".feedback-bar");
 var homescreen = document.getElementById("homescreen");
 var login = document.getElementById("login");
 var welcomeMessage = document.getElementById("welcome-message");
 
 var uid = document.getElementById("username");
 var planet = document.getElementById("planet");
+let skySet = false;
 
 const gamestate = {
   uid: "",
   points: 0,
-  planet: "non",
+  planet: "nono",
   buildings: [
     "non0.no0.no0.no0.no0",
     "non0.no0.no0.no0.no0",
@@ -202,7 +204,7 @@ function removeData() {
 
 var planetContainer = document.querySelector(".pl-container");
 planetContainer.innerHTML =
-  '<div class="sky"> <video src="./assets/planet_assets/sky/day1.webm" autoplay loop muted></video></div> <div class="tree-back"></div><div class="building"></div><div class="tree-front"></div><div class="planet"><img class="pl-asset" src="assets/planet_assets/planets/non.png" alt=""></div><div class="bush"></div>';
+  '<div class="sky"> <video id="background-video-sky" src="" autoplay loop muted></video></div> <div class="tree-back"></div><div class="building"></div><div class="tree-front"></div><div class="planet"><img class="pl-asset" src="assets/planet_assets/planets/nono.png" id="planet-background"></div><div class="bush"></div>';
 
 var planet = document.querySelector(".planet");
 var building = document.querySelector(".building");
@@ -213,13 +215,27 @@ var bushFront = document.querySelector(".bush");
 function createPlanet() {
   //setup
   //create planet
-  planet.innerHTML = `<img class="pl-asset" src="assets/planet_assets/planets/${gamestate.planet}.png" alt="">`;
+  planet.innerHTML = `<img class="pl-asset" src="assets/planet_assets/planets/${gamestate.planet}.png" id="planet-background" alt="">`;
+
+  //TODO Add random video element
+
+  if (gamestate.planet == "nono") {
+    planetSelectorBar();
+    return;
+  } else if (!skySet) {
+    addRandomSky();
+  }
 
   console.log(gamestate);
   //create all objects
   building.innerHTML = "";
   treeBack.innerHTML = "";
   treeFront.innerHTML = "";
+
+  if (gamestate.buildings[0] === "non0.no0.no0.no0.no0") {
+    buildingSelectorBar();
+  }
+
   for (let i = 0; i < gamestate.buildings.length; i++) {
     let buildingSetup = gamestate.buildings[i].split(".");
     //adding building to scene
@@ -281,10 +297,6 @@ const progressElement = document.querySelector(".progress-segment");
 // Updating buildings based on inputted points
 
 function updateBuildings() {
-  if (gamestate.buildings[0] === "non0.no0.no0.no0.no0") {
-    gamestate.buildings[0] = "iba1.no0.no0.no0.no0";
-    console.log(gamestate.buildings[0]);
-  }
   if (gamestate.buildings[0] != "non0.no0.no0.no0.no0") {
     fetch("../json/gamestate.json")
       .then((res) => res.json())
@@ -446,7 +458,6 @@ var boost = 1;
 var prevBoost = 1;
 var newBoost = false;
 var wordCount = 0;
-const feedbackBar = document.querySelector(".feedback-bar");
 const pointsFloating = document.querySelector(".points-floating");
 const boostBar = document.querySelector(".boost-container");
 
@@ -628,19 +639,152 @@ function countTo(addedPoints) {
 //Building and Planet selector boxes
 
 function planetSelectorBar() {
-  feedbackBar.innerHTML = `<div class="feedback-content">${message}</div>`;
-  feedbackBar.classList.add(color);
-  feedbackBar.classList.remove("bar-closed");
+  feedbackBar.classList.add("planet-selector");
+  setTimeout(() => {
+    const planetStyles = ["ma", "ve", "sa", "ne", "mo"];
+
+    let randomNumber = Math.floor(Math.random() * planetStyles.length);
+    let pl1Random = planetStyles[randomNumber];
+
+    planetStyles.splice(randomNumber, 1);
+    randomNumber = Math.floor(Math.random() * planetStyles.length);
+    let pl2Random = planetStyles[randomNumber];
+
+    planetStyles.splice(randomNumber, 1);
+    randomNumber = Math.floor(Math.random() * planetStyles.length);
+    let pl3Random = planetStyles[randomNumber];
+
+    feedbackBar.innerHTML = ` 
+      <div class="feedback-content ">Wähle einen Planeten:</div>
+      <img src="./assets/planet_assets/planets/preview/${pl1Random}no.png" class="planet-icon" id="pl1">
+      <img src="./assets/planet_assets/planets/preview/${pl2Random}no.png" class="planet-icon" id="pl2">
+      <img src="./assets/planet_assets/planets/preview/${pl3Random}no.png" class="planet-icon" id="pl3">`;
+    feedbackBar.classList.add("feedback-good");
+    feedbackBar.classList.remove("bar-closed");
+
+    document.querySelector("#pl1").addEventListener("click", function () {
+      planetSelector(pl1Random);
+    });
+    document.querySelector("#pl2").addEventListener("click", function () {
+      planetSelector(pl2Random);
+    });
+    document.querySelector("#pl3").addEventListener("click", function () {
+      planetSelector(pl3Random);
+    });
+  }, 100);
 }
 
-//TODO: Find out why images are not interactable!!!
+function planetSelector(selected) {
+  gamestate.planet = selected;
+  console.log("Planet selected: " + selected);
+  document.querySelector(
+    "#planet-background"
+  ).src = `./assets/planet_assets/planets/${selected}no.png`;
+  feedbackBar.classList.add("bar-closed");
+  setTimeout(() => {
+    colorSelectorBar(selected);
+  }, 1000);
+}
 
-document.querySelector("#pl1").addEventListener("click", function () {
-  console.log("clicked pl1");
-});
-document.querySelector("#pl2").addEventListener("click", function () {
-  console.log("clicked pl2");
-});
-document.querySelector("#pl3").addEventListener("click", function () {
-  console.log("clicked pl3");
-});
+function colorSelectorBar(pSelected) {
+  feedbackBar.innerHTML = ` 
+  <div class="feedback-content ">Wähle eine Farbe:</div>
+      <img src="./assets/planet_assets/planets/preview/pu.png" class="planet-icon" id="pu">
+      <img src="./assets/planet_assets/planets/preview/bl.png" class="planet-icon" id="bl">
+      <img src="./assets/planet_assets/planets/preview/ye.png" class="planet-icon" id="ye">
+      <img src="./assets/planet_assets/planets/preview/br.png" class="planet-icon" id="br">
+      <img src="./assets/planet_assets/planets/preview/gr.png" class="planet-icon" id="gr">
+      <img src="./assets/planet_assets/planets/preview/re.png" class="planet-icon" id="re">`;
+  feedbackBar.classList.remove("bar-closed");
+
+  //see which element has been clicked
+  document.querySelector("#pu").addEventListener("click", function () {
+    colorSelector(pSelected + "pu");
+  });
+  document.querySelector("#bl").addEventListener("click", function () {
+    colorSelector(pSelected + "bl");
+  });
+  document.querySelector("#ye").addEventListener("click", function () {
+    colorSelector(pSelected + "ye");
+  });
+  document.querySelector("#br").addEventListener("click", function () {
+    colorSelector(pSelected + "br");
+  });
+  document.querySelector("#gr").addEventListener("click", function () {
+    colorSelector(pSelected + "gr");
+  });
+  document.querySelector("#re").addEventListener("click", function () {
+    colorSelector(pSelected + "re");
+  });
+}
+
+function colorSelector(selected) {
+  gamestate.planet = selected;
+  console.log("Color selected: " + selected);
+  document.querySelector(
+    "#planet-background"
+  ).src = `./assets/planet_assets/planets/${selected}.png`;
+  feedbackBar.classList.add("bar-closed");
+  feedbackBar.classList.remove("planet-selector");
+  updateData();
+  setTimeout(() => {
+    addRandomSky();
+    createPlanet();
+  }, 1000);
+}
+
+function addRandomSky() {
+  const skyStyles = ["day1"];
+
+  let randomNumber = Math.floor(Math.random() * skyStyles.length);
+  let skyRandom = skyStyles[randomNumber];
+
+  document.querySelector(
+    "#background-video-sky"
+  ).src = `./assets/planet_assets/sky/${skyRandom}.webm`;
+  skySet = true;
+}
+
+function buildingSelectorBar() {
+  feedbackBar.classList.add("planet-selector");
+  setTimeout(() => {
+    const buildingStyles = ["iba", "aba", "bre", "ekf", "ghb", "kkf"];
+
+    let randomNumber = Math.floor(Math.random() * buildingStyles.length);
+    let b1Random = buildingStyles[randomNumber];
+
+    buildingStyles.splice(randomNumber, 1);
+    randomNumber = Math.floor(Math.random() * buildingStyles.length);
+    let b2Random = buildingStyles[randomNumber];
+
+    buildingStyles.splice(randomNumber, 1);
+    randomNumber = Math.floor(Math.random() * buildingStyles.length);
+    let b3Random = buildingStyles[randomNumber];
+
+    feedbackBar.innerHTML = ` 
+      <div class="feedback-content ">Wähle ein Gebäude:</div>
+      <img src="./assets/planet_assets/planets/preview/${b1Random}.png" class="planet-icon" id="b1">
+      <img src="./assets/planet_assets/planets/preview/${b2Random}.png" class="planet-icon" id="b2">
+      <img src="./assets/planet_assets/planets/preview/${b3Random}.png" class="planet-icon" id="b3">`;
+    feedbackBar.classList.add("feedback-good");
+    feedbackBar.classList.remove("bar-closed");
+
+    document.querySelector("#b1").addEventListener("click", function () {
+      buildingSelector(b1Random);
+    });
+    document.querySelector("#b2").addEventListener("click", function () {
+      buildingSelector(b2Random);
+    });
+    document.querySelector("#b3").addEventListener("click", function () {
+      buildingSelector(b3Random);
+    });
+  }, 100);
+}
+
+function buildingSelector(selected) {
+  gamestate.buildings[0] = selected + "1.no0.no0.no0.no0";
+  updateData();
+  createPlanet();
+  feedbackBar.classList.add("bar-closed");
+  feedbackBar.classList.remove("planet-selector");
+}

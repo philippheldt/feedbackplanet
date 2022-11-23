@@ -162,7 +162,7 @@ function insertData(newUUID) {
         building7: "non0.no0.no0.no0.no0",
         building8: "non0.no0.no0.no0.no0",
         points: 0,
-        planet: "non",
+        planet: "nono",
         extensiveBoost: 0,
         goodStartBoost: 0,
         activeBoost: false,
