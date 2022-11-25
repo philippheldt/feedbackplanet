@@ -293,6 +293,9 @@
   }
 }
 
-/* img {
-  pointer-events: none;
-} */
+@media screen and (max-width: 900px) {
+  .pl-embedded {
+    bottom: 30px;
+    right: 0px;
+  }
+}

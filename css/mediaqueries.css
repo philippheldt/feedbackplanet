@@ -1,0 +1,22 @@
+@media screen and (max-width: 900px) {
+  .container {
+    width: 100%;
+    margin: 20px;
+  }
+
+  #userIcon {
+    display: block;
+  }
+  #userName {
+    display: none;
+  }
+  .form {
+    margin: 20px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .form {
+    width: 400px;
+  }
+}

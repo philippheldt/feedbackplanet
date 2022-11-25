@@ -20,6 +20,7 @@ h1 {
 }
 
 input {
+  box-sizing: border-box;
   position: relative;
   z-index: 1;
   border: 0.5px solid #797979;
@@ -29,7 +30,7 @@ input {
   background-color: #fff;
   border-radius: 10px;
   padding: 15px 20px;
-  width: 350px;
+  width: 100%;
   margin: 5px 0px;
   font-size: 11pt;
 }
@@ -92,14 +93,15 @@ button img {
 }
 
 .alert {
+  box-sizing: border-box;
   position: relative;
   z-index: 0;
   color: #de576e;
   background-color: #f5e1e4;
   border-radius: 10px;
   padding: 20px 20px 10px 20px;
-  margin: 0 10px -10px 10px;
-
+  margin: 0 auto -10px auto;
+  width: 95%;
   font-size: 10pt;
   font-weight: 600;
   transition: all 0.3s ease;
@@ -112,7 +114,6 @@ button img {
 }
 
 .form {
-  max-width: 400px;
   margin: auto;
 
   border-radius: 11px;

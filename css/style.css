@@ -138,6 +138,16 @@ button {
   align-items: center;
 }
 
+.header-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#userIcon {
+  display: none;
+}
+
 footer {
   background-color: #78b195;
   height: 40px;

@@ -51,7 +51,7 @@
   right: 175px;
   font-size: 14pt;
   font-family: "Luckiest Guy", cursive;
-  color: #fff;
+  color: #76b093;
   opacity: 0;
 }
 
@@ -186,4 +186,21 @@
 .planet-icon:hover {
   transform: scale(1.1);
   filter: brightness(0.9);
+}
+
+@media screen and (max-width: 900px) {
+  .feedback-container {
+    bottom: 78px;
+    right: 60px;
+  }
+
+  .points-floating {
+    bottom: 100px;
+    right: 120px;
+  }
+
+  .boost-container {
+    bottom: 79px;
+    right: 49px;
+  }
 }
