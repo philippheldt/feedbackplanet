@@ -1,4 +1,4 @@
-@media screen and (max-width: 900px) {
+@media (max-width: 900px) {
   .container {
     width: 100%;
     margin: 20px;
@@ -15,7 +15,13 @@
   }
 }
 
-@media screen and (min-width: 900px) {
+@media (max-height: 800px) {
+  textarea {
+    height: 200px;
+  }
+}
+
+@media (min-width: 900px) {
   .form {
     width: 400px;
   }
