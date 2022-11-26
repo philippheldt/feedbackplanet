@@ -1,0 +1,100 @@
+.onboarding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.onboarding_title {
+  width: 100%;
+  font-size: 50px;
+}
+
+.onboarding_text {
+  width: 100%;
+  margin: 0 0 30px 0;
+}
+
+.onboarding_collection {
+  width: 2000px;
+  display: flex;
+  flex-direction: row;
+  transition: all;
+  transition: all 0.4s ease;
+}
+
+.onboarding_content_wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.onboarding_content {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status-wrapper {
+  width: 100%;
+  margin: 15px 0 20px 0;
+}
+
+#onboarding_status {
+  width: 100%;
+}
+
+.onboarding_icons {
+  width: 200px;
+  margin-bottom: 40px;
+}
+
+.form {
+  position: relative;
+}
+
+.buttons-overlay {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  width: 510px;
+  bottom: 45%;
+}
+
+.onboarding_button {
+  background-color: #fff;
+}
+
+.onboarding_footer {
+  position: fixed;
+}
+
+#prevq,
+#nextq {
+  transition: all 0.2s ease;
+}
+
+#widebtn {
+  width: 400px;
+}
+
+.transparent {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pos1 {
+  transform: translateX(-400px);
+}
+.pos2 {
+  transform: translateX(-800px);
+}
+.pos3 {
+  transform: translateX(-1200px);
+}
+.pos4 {
+  transform: translateX(-1600px);
+}
+.pos5 {
+  transform: translateX(-2000px);
+}

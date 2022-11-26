@@ -126,7 +126,7 @@ function register() {
         passwordRepeat.value = "";
         console.log("signed in");
         setTimeout(() => {
-          window.location.href = "index.html";
+          window.location.href = "onboarding.html";
         }, 5000);
 
         // ...

@@ -190,7 +190,7 @@ a:hover {
 .status {
   background-color: #ddebe4;
   border-radius: var(--border-radius);
-  width: 75%;
+  width: 70%;
   height: 15px;
 }
 
@@ -199,4 +199,5 @@ a:hover {
   width: 25%;
   border-radius: 10px;
   height: 15px;
+  transition: all 0.4s ease;
 }

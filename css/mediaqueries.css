@@ -13,6 +13,34 @@
   .form {
     margin: 20px;
   }
+  .buttons-overlay {
+    width: 105%;
+  }
+  .onboarding {
+    width: 75vw;
+    margin: auto;
+  }
+  .onboarding_collection {
+    width: 375vw;
+  }
+  .onboarding_content {
+    width: 75vw;
+  }
+  .pos1 {
+    transform: translateX(-75vw);
+  }
+  .pos2 {
+    transform: translateX(-150vw);
+  }
+  .pos3 {
+    transform: translateX(-225vw);
+  }
+  .pos4 {
+    transform: translateX(-300vw);
+  }
+  .pos5 {
+    transform: translateX(-375vw);
+  }
 }
 
 @media (max-height: 800px) {

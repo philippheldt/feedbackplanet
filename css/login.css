@@ -40,7 +40,7 @@ input::placeholder {
   font-weight: 600;
 }
 
-button {
+.registerSubmit {
   position: relative;
   z-index: 1;
   width: 100%;
@@ -59,7 +59,7 @@ button {
   transition: all 0.3s ease;
 }
 
-button:hover {
+.registerSubmit:hover {
   background-color: #78b195;
   color: #fff;
 }
@@ -75,12 +75,16 @@ button img {
   border: 0.5px solid #797979;
   font-size: 12pt;
   font-weight: 500;
+  width: 100%;
+  margin: 5px 0px;
 
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 15px;
   height: 60px;
+
+  cursor: pointer;
 }
 
 .secondary-btn:hover {
