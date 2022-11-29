@@ -41,9 +41,6 @@
   .pos5 {
     transform: translateX(-375vw);
   }
-  #widebtn {
-    width: 75vw;
-  }
 }
 
 @media (max-height: 800px) {
