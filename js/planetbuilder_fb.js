@@ -458,6 +458,7 @@ var boost = 1;
 var prevBoost = 1;
 var newBoost = false;
 var wordCount = 0;
+var wordsValue = "";
 const pointsFloating = document.querySelector(".points-floating");
 const boostBar = document.querySelector(".boost-container");
 
@@ -466,7 +467,8 @@ function analyzeText() {
   const goodStartText = goodStartTextArray[Math.floor(Math.random() * goodStartTextArray.length)];
   const extensiveFeedbackText =
     extensiveFeedbackTextArray[Math.floor(Math.random() * extensiveFeedbackTextArray.length)];
-  wordCount = input.value.split(" ").length;
+  wordCount = input.textContent.split(" ").length;
+  wordsValue = input.textContent.split(" ");
   console.log("Number of words: " + wordCount);
   console.log("Before analyzeText: " + newBoost);
   if (gamestate.extensiveBoost >= 2) {
@@ -500,6 +502,24 @@ function analyzeText() {
     goodStart = true;
     gamestate.points = gamestate.points + 10 * boost;
     gamestate.goodStartBoost = gamestate.goodStartBoost + 1;
+
+    var tempText = "";
+
+    // for (var i = 0; i <= 20; i++) {
+    //   tempText = tempText + `<div class="marked">${wordsValue[i]} </div>` + " ";
+    // }
+    // for (var i = 21; i < wordsValue.length; i++) {
+    //   tempText = tempText + wordsValue[i] + " ";
+    // }
+
+    input.innerHTML = input.textContent.replace(
+      "hallo",
+      (match) => `<div class="marked">${match} </div>`
+    );
+
+    const end = wordsValue.length;
+    input.setSelectionRange(end, end);
+    input.focus();
 
     feedbackBarCall(goodStartText, 10 * boost, "feedback-good");
   }
