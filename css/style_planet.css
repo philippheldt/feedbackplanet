@@ -11,12 +11,16 @@
   bottom: 55px;
   right: 55px;
   width: 150px;
-  transition: all 0.7s ease;
-  pointer-events: none;
+  transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
+  cursor: pointer;
 }
 
 .pl-embedded:hover {
   transform: scale(1.05);
+}
+
+.no-action {
+  pointer-events: none;
 }
 
 .pl-asset {
@@ -36,16 +40,13 @@
 
 @keyframes typing {
   0% {
-    filter: brightness(100%);
-    transform: scale(1);
+    filter: brightness(100%) blur(0);
   }
   50% {
-    filter: brightness(110%);
-    transform: scale(1.05);
+    filter: brightness(120%) blur(0.5px);
   }
   100% {
-    filter: brightness(100%);
-    transform: scale(1);
+    filter: brightness(100%) blur(0);
   }
 }
 
@@ -55,7 +56,8 @@
 .tree-back,
 .bush,
 .sky,
-.sprite-container {
+.sprite-container,
+.pl-buttons {
   width: 100%;
   height: 100%;
   grid-column: 1/2;
@@ -238,58 +240,18 @@
   grid-template-columns: 1fr;
 }
 
-.sky-1 {
-  transform: rotate(0deg);
-}
-.sky-2 {
-  transform: rotate(45deg);
-}
-.sky-3 {
-  transform: rotate(90deg);
-}
-.sky-4 {
-  transform: rotate(135deg);
-}
-.sky-5 {
-  transform: rotate(180deg);
-}
-.sky-6 {
-  transform: rotate(225deg);
-}
-.sky-7 {
-  transform: rotate(270deg);
-}
-.sky-8 {
-  transform: rotate(315deg);
-}
-
-.sky-slow {
-  animation-name: rotate-forward;
-  animation-duration: 500s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-.sky-medium {
-  animation-name: rotate-forward;
-  animation-duration: 200s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-.sky-fast {
-  animation-name: rotate-forward;
-  animation-duration: 50s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-@keyframes rotate-forward {
+@keyframes rotate-trigger-animation {
   0% {
     transform: rotate(0deg);
   }
+  20% {
+    transform: rotate(3deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
   100% {
-    transform: rotate(360deg);
+    transform: rotate(0deg);
   }
 }
 
@@ -298,4 +260,113 @@
     bottom: 30px;
     right: 0px;
   }
+}
+
+/* Planet editor overlay */
+
+.pl-extended {
+  width: 400px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  bottom: calc(50vh - 250px);
+  right: calc(50vw - 250px);
+}
+
+.rotate-animation {
+  animation: rotate-trigger-animation 3s cubic-bezier(0.54, 0.32, 0.37, 1.19) infinite;
+}
+
+.pl-buttons {
+  transition: all 0.5s ease;
+}
+
+.pl-buttons .primarybtn {
+  position: absolute;
+  bottom: calc(50% - 25px);
+  width: fit-content;
+  fill: #78b195;
+  padding: 8px 10px 8px 10px;
+  cursor: pointer;
+  z-index: 12;
+}
+
+.pl-buttons .primarybtn:nth-child(1) {
+  right: -25px;
+}
+
+.pl-buttons .primarybtn:nth-child(2) {
+  left: -25px;
+}
+
+.pl-buttons .primarybtn:hover {
+  fill: #ddebe4;
+}
+
+#close-details {
+  position: absolute;
+  padding: 9px;
+  background-color: #fff;
+  width: fit-content;
+  fill: #78b195;
+  top: -25px;
+  right: -25px;
+  cursor: pointer;
+  z-index: 15;
+}
+
+.pl-extended:hover {
+  transform: scale(1);
+}
+
+.points-view {
+  z-index: 10;
+
+  box-sizing: border-box;
+  text-align: center;
+  transform: translateY(5px);
+  position: absolute;
+  bottom: 40px;
+  left: calc(50% - 50px);
+  font-size: 14pt;
+  width: 100px;
+  background-color: #ddebe4;
+  color: #76b093;
+  padding: 13px 10px 9px 10px;
+  border-radius: 30px;
+  font-family: "Luckiest Guy", cursive;
+}
+
+/* Planet rotations */
+
+.pos-1 {
+  transform: rotate(0deg);
+}
+.pos-2 {
+  transform: rotate(45deg);
+}
+.pos-3 {
+  transform: rotate(90deg);
+}
+.pos-4 {
+  transform: rotate(135deg);
+}
+.pos-5 {
+  transform: rotate(180deg);
+}
+.pos-6 {
+  transform: rotate(225deg);
+}
+.pos-7 {
+  transform: rotate(270deg);
+}
+.pos-8 {
+  transform: rotate(315deg);
+}
+.pos-9 {
+  transform: rotate(360deg);
+}
+
+.rotate-on-click-animation {
+  transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
 }

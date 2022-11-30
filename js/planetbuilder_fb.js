@@ -56,6 +56,7 @@ const gamestate = {
   goodStartBoost: 0,
   extensiveBoost: 0,
   activeBoost: false,
+  planetPosition: 1,
 };
 
 import {
@@ -111,6 +112,7 @@ function getData() {
         for (let i = 0; i < 8; i++) {
           gamestate.buildings[i] = snapshot.val()["building" + (i + 1)];
         }
+        gamestate.planetPosition = snapshot.val().planetPosition;
         gamestate.points = snapshot.val().points;
         gamestate.planet = snapshot.val().planet;
         gamestate.activeBoost = snapshot.val().activeBoost;
@@ -175,6 +177,7 @@ function updateData() {
     goodStartBoost: gamestate.goodStartBoost,
     extensiveBoost: gamestate.extensiveBoost,
     activeBoost: gamestate.activeBoost,
+    planetPosition: gamestate.planetPosition,
   })
     .then(() => {
       console.log("Data saved successfully");
@@ -211,11 +214,14 @@ var building = document.querySelector(".building");
 var treeBack = document.querySelector(".tree-back");
 var treeFront = document.querySelector(".tree-front");
 var bushFront = document.querySelector(".bush");
+const pointsView = document.querySelector(".points-view");
 
 function createPlanet() {
   //setup
   //create planet
   planet.innerHTML = `<img class="pl-asset" src="assets/planet_assets/planets/${gamestate.planet}.png" id="planet-background" alt="">`;
+  planetContainer.classList.add("pos-" + gamestate.planetPosition);
+  pointsView.innerHTML = gamestate.points;
 
   //TODO Add random video element
 
@@ -232,7 +238,10 @@ function createPlanet() {
   treeBack.innerHTML = "";
   treeFront.innerHTML = "";
 
-  if (gamestate.buildings[0] === "non0.no0.no0.no0.no0") {
+  if (
+    gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
+    "non0.no0.no0.no0.no0"
+  ) {
     buildingSelectorBar();
   }
 
@@ -297,7 +306,9 @@ const progressElement = document.querySelector(".progress-segment");
 // Updating buildings based on inputted points
 
 function updateBuildings() {
-  if (gamestate.buildings[0] != "non0.no0.no0.no0.no0") {
+  if (
+    gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] != "non0.no0.no0.no0.no0"
+  ) {
     fetch("../json/gamestate.json")
       .then((res) => res.json())
       .then((data) => (obj = data))
@@ -305,9 +316,13 @@ function updateBuildings() {
         const progressElement = document.querySelector(".progress-segment");
         console.log(obj);
         //check which building is selected
-        const currentBuilding = gamestate.buildings[0].slice(0, 3);
+        const currentBuilding = gamestate.buildings[
+          calculateBuildingNumber(gamestate.planetPosition)
+        ].slice(0, 3);
         let currentBuildingIndex;
-        let currentBuildingStage = gamestate.buildings[0].slice(3, 4);
+        let currentBuildingStage = gamestate.buildings[
+          calculateBuildingNumber(gamestate.planetPosition)
+        ].slice(3, 4);
 
         for (let i = 0; i < obj.length; i++) {
           if (obj[i].shortcut === currentBuilding) {
@@ -333,85 +348,93 @@ function updateBuildings() {
           currentBuildingStage = Number(currentBuildingStage) + 1;
           // check if building is at max stage
           if (currentBuildingStage < 5) {
-            gamestate.buildings[0] = currentBuilding + currentBuildingStage + ".no0.no0.no0.no0";
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
+              currentBuilding + currentBuildingStage + ".no0.no0.no0.no0";
           } else {
-            gamestate.buildings[0] =
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
               currentBuilding +
               currentBuildingStage +
               "." +
-              gamestate.buildings[0].split(".")[1] +
+              gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] +
               "." +
-              gamestate.buildings[0].split(".")[2] +
+              gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] +
               "." +
-              gamestate.buildings[0].split(".")[3] +
+              gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] +
               "." +
-              gamestate.buildings[0].split(".")[4];
+              gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4];
           }
           gamestate.points = 0;
           createPlanet();
         }
 
         const percentageToNextBuildingStage = gamestate.points / pointsToNextBuildingStage;
-        progressElement.style.background = `repeating-conic-gradient(from 230deg, #ffffff4f 0% ${
+        progressElement.style.background = `repeating-conic-gradient(from 230deg, #ddebe4 0% ${
           percentageToNextBuildingStage * 70
         }%, #ffffff00 0% 100%)`;
         console.log(percentageToNextBuildingStage);
 
         // build a new tree when one more quarter of points to the next stage is reached
-        if (gamestate.points > 0 && gamestate.buildings[0].split(".")[1] === "no0") {
-          gamestate.buildings[0] =
-            gamestate.buildings[0].split(".")[0] +
+        if (
+          gamestate.points > 0 &&
+          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] ===
+            "no0"
+        ) {
+          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
             "." +
             randomTree +
             "." +
-            gamestate.buildings[0].split(".")[2] +
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] +
             "." +
-            gamestate.buildings[0].split(".")[3] +
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] +
             "." +
-            gamestate.buildings[0].split(".")[4];
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4];
           createPlanet();
         } else if (
           gamestate.points > pointsToNextBuildigStageQuarter &&
-          gamestate.buildings[0].split(".")[2] === "no0"
+          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] ===
+            "no0"
         ) {
-          gamestate.buildings[0] =
-            gamestate.buildings[0].split(".")[0] +
+          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
             "." +
-            gamestate.buildings[0].split(".")[1] +
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] +
             "." +
             randomTree +
             "." +
-            gamestate.buildings[0].split(".")[3] +
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] +
             "." +
-            gamestate.buildings[0].split(".")[4];
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4];
           createPlanet();
         } else if (
           gamestate.points > pointsToNextBuildigStageQuarter * 2 &&
-          gamestate.buildings[0].split(".")[3] === "no0"
+          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] ===
+            "no0"
         ) {
-          gamestate.buildings[0] =
-            gamestate.buildings[0].split(".")[0] +
+          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
             "." +
-            gamestate.buildings[0].split(".")[1] +
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] +
             "." +
-            gamestate.buildings[0].split(".")[2] +
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] +
             "." +
             randomTree +
             "." +
-            gamestate.buildings[0].split(".")[4];
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4];
           createPlanet();
         } else if (
           gamestate.points > pointsToNextBuildigStageQuarter * 3 &&
-          gamestate.buildings[0].split(".")[4] === "no0"
+          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4] ===
+            "no0"
         ) {
-          gamestate.buildings[0] =
-            gamestate.buildings[0].split(".")[0] +
+          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
             "." +
-            gamestate.buildings[0].split(".")[1] +
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] +
             "." +
-            gamestate.buildings[0].split(".")[2] +
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] +
             "." +
-            gamestate.buildings[0].split(".")[3] +
+            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] +
             "." +
             randomBush;
           createPlanet();
@@ -430,7 +453,8 @@ function updateBuildings() {
           gamestate.points =
             accumulatedPoints -
             obj[currentBuildingIndex].accumulatedStages[currentBuildingStage - 1];
-          gamestate.buildings[0] = currentBuilding + currentBuildingStage + ".no0.no0.no0.no0";
+          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
+            currentBuilding + currentBuildingStage + ".no0.no0.no0.no0";
           createPlanet();
         }
       });
@@ -659,6 +683,7 @@ function planetSelectorBar() {
       <img src="./assets/planet_assets/planets/preview/${pl1Random}no.png" class="planet-icon" id="pl1">
       <img src="./assets/planet_assets/planets/preview/${pl2Random}no.png" class="planet-icon" id="pl2">
       <img src="./assets/planet_assets/planets/preview/${pl3Random}no.png" class="planet-icon" id="pl3">`;
+    planetEmbedded.classList.add("no-action");
     feedbackBar.classList.add("feedback-good");
     feedbackBar.classList.remove("bar-closed");
 
@@ -726,6 +751,7 @@ function colorSelector(selected) {
   ).src = `./assets/planet_assets/planets/${selected}.png`;
   feedbackBar.classList.add("bar-closed");
   feedbackBar.classList.remove("planet-selector");
+  planetEmbedded.classList.remove("no-action");
   updateData();
   setTimeout(() => {
     addRandomSky();
@@ -766,6 +792,7 @@ function buildingSelectorBar() {
       <img src="./assets/planet_assets/planets/preview/${b1Random}.png" class="planet-icon" id="b1">
       <img src="./assets/planet_assets/planets/preview/${b2Random}.png" class="planet-icon" id="b2">
       <img src="./assets/planet_assets/planets/preview/${b3Random}.png" class="planet-icon" id="b3">`;
+    planetEmbedded.classList.add("no-action");
     feedbackBar.classList.add("feedback-good");
     feedbackBar.classList.remove("bar-closed");
 
@@ -782,9 +809,136 @@ function buildingSelectorBar() {
 }
 
 function buildingSelector(selected) {
-  gamestate.buildings[0] = selected + "1.no0.no0.no0.no0";
+  console.log("Building selected: " + gamestate.planetPosition - 1);
+  gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
+    selected + "1.no0.no0.no0.no0";
   updateData();
   createPlanet();
   feedbackBar.classList.add("bar-closed");
   feedbackBar.classList.remove("planet-selector");
+  planetEmbedded.classList.remove("no-action");
 }
+
+// Planet Rotation
+
+const rotateRight = document.querySelector("#rotate-right");
+const rotateLeft = document.querySelector("#rotate-left");
+
+rotateRight.addEventListener("click", rotatePlanetRight);
+rotateLeft.addEventListener("click", rotatePlanetLeft);
+
+function rotatePlanetRight() {
+  planetContainer.classList.remove("rotate-animation");
+  planetContainer.classList.add("rotate-on-click-animation");
+  setTimeout(() => {
+    planetContainer.classList.remove("pos-" + gamestate.planetPosition);
+    if (gamestate.planetPosition >= 8) {
+      gamestate.planetPosition++;
+      planetContainer.classList.add("pos-" + gamestate.planetPosition);
+
+      setTimeout(() => {
+        planetContainer.classList.remove("rotate-on-click-animation");
+        planetContainer.classList.remove("pos-" + gamestate.planetPosition);
+        gamestate.planetPosition = 1;
+        planetContainer.classList.add("pos-" + gamestate.planetPosition);
+        console.log("Position: " + gamestate.planetPosition);
+        console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
+      }, 501);
+    } else {
+      gamestate.planetPosition++;
+      planetContainer.classList.add("pos-" + gamestate.planetPosition);
+      console.log("Position: " + gamestate.planetPosition);
+      console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
+    }
+  }, 50);
+}
+
+function rotatePlanetLeft() {
+  planetContainer.classList.remove("rotate-animation");
+  planetContainer.classList.add("rotate-on-click-animation");
+
+  if (gamestate.planetPosition <= 1) {
+    planetContainer.classList.remove("rotate-on-click-animation");
+    planetContainer.classList.remove("pos-" + gamestate.planetPosition);
+    gamestate.planetPosition = 9;
+    planetContainer.classList.add("pos-" + gamestate.planetPosition);
+    setTimeout(() => {
+      planetContainer.classList.add("rotate-on-click-animation");
+      planetContainer.classList.remove("pos-" + gamestate.planetPosition);
+      gamestate.planetPosition--;
+      planetContainer.classList.add("pos-" + gamestate.planetPosition);
+      console.log("Position: " + gamestate.planetPosition);
+      console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
+    }, 50);
+  } else {
+    planetContainer.classList.remove("pos-" + gamestate.planetPosition);
+    gamestate.planetPosition--;
+    planetContainer.classList.add("pos-" + gamestate.planetPosition);
+    console.log("Position: " + gamestate.planetPosition);
+    console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
+  }
+}
+
+function calculateBuildingNumber(plPosition) {
+  let buildingNumber = 0;
+  if (plPosition == 1) {
+    buildingNumber = 1;
+    buildingNumber = buildingNumber - 1;
+  } else {
+    buildingNumber = 10 - plPosition;
+    buildingNumber = buildingNumber - 1;
+  }
+  return buildingNumber;
+}
+
+// Overlay Toggle
+const overlay = document.querySelector(".dark-overlay");
+const closeDetails = document.querySelector("#close-details");
+const planetEmbedded = document.querySelector(".pl-embedded");
+const plButtons = document.querySelector(".pl-buttons");
+const userNameOutput = document.querySelector("#userName");
+const userIcon = document.querySelector("#userIcon");
+
+function closeOverlay() {
+  overlay.classList.add("opacity-hidden");
+  plButtons.classList.add("opacity-hidden");
+  planetContainer.classList.remove("rotate-animation");
+  planetEmbedded.classList.remove("pl-extended");
+
+  setTimeout(() => {
+    overlay.classList.add("hidden");
+    plButtons.classList.add("hidden");
+    boostBar.classList.remove("opacity-hidden");
+    progressElement.classList.remove("opacity-hidden");
+    if (
+      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
+      "non0.no0.no0.no0.no0"
+    ) {
+      buildingSelectorBar();
+    }
+    updateBuildings();
+    updateData();
+  }, 500);
+}
+
+function openOverlay() {
+  overlay.classList.remove("hidden");
+  plButtons.classList.remove("hidden");
+  boostBar.classList.add("opacity-hidden");
+  progressElement.classList.add("opacity-hidden");
+  if (gamestate.planetPosition == 1) {
+    planetContainer.classList.add("rotate-animation");
+  }
+  planetEmbedded.classList.add("pl-extended");
+  setTimeout(() => {
+    overlay.classList.remove("opacity-hidden");
+    plButtons.classList.remove("opacity-hidden");
+  }, 100);
+}
+
+overlay.addEventListener("click", closeOverlay);
+closeDetails.addEventListener("click", closeOverlay);
+
+planetContainer.addEventListener("click", openOverlay);
+userNameOutput.addEventListener("click", openOverlay);
+userIcon.addEventListener("click", openOverlay);

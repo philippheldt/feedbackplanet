@@ -166,6 +166,7 @@ function insertData(newUUID) {
         extensiveBoost: 0,
         goodStartBoost: 0,
         activeBoost: false,
+        planetPosition: 1,
       })
         .then(() => {
           console.log("Gamestate Created!");
