@@ -114,9 +114,9 @@ function register() {
         // Signed in
         const user = userCredential.user;
 
-        sendEmailVerification(auth.currentUser).then(() => {
-          console.log("Email sent!");
-        });
+        // sendEmailVerification(auth.currentUser).then(() => {
+        //   console.log("Email sent!");
+        // });
 
         //TODO: add Loading indicator
         insertData(user.uid);
@@ -125,6 +125,8 @@ function register() {
         password.value = "";
         passwordRepeat.value = "";
         console.log("signed in");
+
+
         setTimeout(() => {
           window.location.href = "onboarding.html";
         }, 5000);

@@ -240,7 +240,8 @@ function createPlanet() {
 
   if (
     gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
-    "non0.no0.no0.no0.no0"
+      "non0.no0.no0.no0.no0" &&
+    deletedBuilding == false
   ) {
     buildingSelectorBar();
   }
@@ -569,7 +570,7 @@ function feedbackBarCall(message, acheivedPoints, color) {
         }</div>`;
         boost > 1 ? feedbackBar.classList.add("feedback-boost") : null;
         feedbackBar.classList.remove("bar-closed");
-        countTo(acheivedPoints);
+        countTo(acheivedPoints, ".feedback-content", 20, 900);
         setTimeout(() => {
           feedbackBar.classList.add("bar-closed");
           pointsFloating.classList.remove("points-floating-animation-add");
@@ -637,12 +638,12 @@ function submitFeedback() {
 //add eventlistener for submitFeedback
 document.getElementById("nextq").addEventListener("click", submitFeedback);
 
-function countTo(addedPoints) {
+function countTo(addedPoints, place, interval, timeout) {
   let from = gamestate.points - addedPoints;
   let to = gamestate.points;
   let step = to > from ? 1 : -1;
-  let interval = 20;
-  const feedbackContent = document.querySelector(".feedback-content");
+
+  const feedbackContent = document.querySelector(place);
 
   setTimeout(function () {
     if (from == to) {
@@ -657,7 +658,7 @@ function countTo(addedPoints) {
         clearInterval(counter);
       }
     }, interval);
-  }, 900);
+  }, timeout);
 }
 
 //Building and Planet selector boxes
@@ -910,6 +911,7 @@ function closeOverlay() {
     plButtons.classList.add("hidden");
     boostBar.classList.remove("opacity-hidden");
     progressElement.classList.remove("opacity-hidden");
+    deletedBuilding = false;
     if (
       gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
       "non0.no0.no0.no0.no0"
@@ -922,6 +924,7 @@ function closeOverlay() {
 }
 
 function openOverlay() {
+  createPlanet();
   overlay.classList.remove("hidden");
   plButtons.classList.remove("hidden");
   boostBar.classList.add("opacity-hidden");
@@ -942,3 +945,144 @@ closeDetails.addEventListener("click", closeOverlay);
 planetContainer.addEventListener("click", openOverlay);
 userNameOutput.addEventListener("click", openOverlay);
 userIcon.addEventListener("click", openOverlay);
+
+// open trees toolbar on edit click
+
+const editView = document.querySelector(".edit-view");
+let editToolbarOpen = false;
+
+function toggleTrees() {
+  const buildingPosition = calculateBuildingNumber(gamestate.planetPosition);
+  const buildingArray = gamestate.buildings[buildingPosition].split(".");
+
+  for (let i = 0; i < buildingArray.length; i++) {
+    if (i > 0) {
+      document.querySelector("#tree-" + i + " .icons-stacking img").src =
+        "./assets/planet_assets/tree_icons/" + buildingArray[i] + ".png";
+    }
+  }
+
+  for (let i = 1; i <= 4; i++) {
+    editToolbarOpen
+      ? document.querySelector("#tree-" + i).classList.remove("selected")
+      : document.querySelector("#tree-" + i).classList.add("selected");
+  }
+  editToolbarOpen = !editToolbarOpen;
+  editView.innerHTML = editToolbarOpen ? "close" : "edit";
+}
+
+editView.addEventListener("click", toggleTrees);
+
+// exchange trees
+
+const tree1 = document.querySelector("#tree-1");
+const tree2 = document.querySelector("#tree-2");
+const tree3 = document.querySelector("#tree-3");
+const tree4 = document.querySelector("#tree-4");
+
+function exchangeTree(treeNumber) {
+  const treeStyles = [
+    "ei1",
+    "ei2",
+    "ei3",
+    "ei4",
+    "ei5",
+    "ei6",
+    "ma1",
+    "ma2",
+    "ma3",
+    "ma4",
+    "ma5",
+    "ma6",
+    "pa1",
+    "pa2",
+    "pa3",
+    "pi1",
+    "pi2",
+    "pi3",
+  ];
+  const bushStyles = ["bu1", "bu2", "bu3", "gr1", "gr2", "gr3", "ro1", "ro2", "ro3"];
+  const buildingPosition = calculateBuildingNumber(gamestate.planetPosition);
+  const randomTree = Math.floor(Math.random() * treeStyles.length);
+  const randomBush = Math.floor(Math.random() * bushStyles.length);
+  const buildingArray = gamestate.buildings[buildingPosition].split(".");
+  let newBuildingCode = "";
+
+  if (buildingArray[treeNumber] != "no0") {
+    for (let i = 0; i < buildingArray.length; i++) {
+      if (i == 0) {
+        newBuildingCode = newBuildingCode + buildingArray[i];
+      } else if (i == 1 && i == treeNumber) {
+        newBuildingCode = newBuildingCode + "." + treeStyles[randomTree];
+      } else if (i == 1 && i != treeNumber) {
+        newBuildingCode = newBuildingCode + "." + buildingArray[i];
+      } else if (i == 2 && i == treeNumber) {
+        newBuildingCode = newBuildingCode + "." + treeStyles[randomTree];
+      } else if (i == 2 && i != treeNumber) {
+        newBuildingCode = newBuildingCode + "." + buildingArray[i];
+      } else if (i == 3 && i == treeNumber) {
+        newBuildingCode = newBuildingCode + "." + treeStyles[randomTree];
+      } else if (i == 3 && i != treeNumber) {
+        newBuildingCode = newBuildingCode + "." + buildingArray[i];
+      } else if (i == 4 && i == treeNumber) {
+        newBuildingCode = newBuildingCode + "." + bushStyles[randomBush];
+      } else if (i == 4 && i != treeNumber) {
+        newBuildingCode = newBuildingCode + "." + buildingArray[i];
+      }
+    }
+    gamestate.points = gamestate.points - 10;
+    countTo(-10, ".points-view", 50, 100);
+    toggleTrees();
+    setTimeout(() => {
+      gamestate.buildings[buildingPosition] = newBuildingCode;
+      console.log(treeNumber);
+      console.log(newBuildingCode);
+      updateBuildings();
+      createPlanet();
+      updateData();
+    }, 1000);
+  } else {
+    return;
+  }
+}
+
+tree1.addEventListener("click", () => exchangeTree(1));
+tree2.addEventListener("click", () => exchangeTree(2));
+tree3.addEventListener("click", () => exchangeTree(3));
+tree4.addEventListener("click", () => exchangeTree(4));
+
+// remove building
+
+const removeBuildingButton = document.querySelector(".delete-view");
+let deletedBuilding = false;
+const confirmAlert = document.querySelector("#confirm-alert");
+const cancelAlert = document.querySelector("#cancel-alert");
+const alertOverlay = document.querySelector(".alert-overlay");
+
+function removeBuilding() {
+  const buildingPosition = calculateBuildingNumber(gamestate.planetPosition);
+  gamestate.buildings[buildingPosition] = "non0.no0.no0.no0.no0";
+  deletedBuilding = true;
+  updateBuildings();
+  createPlanet();
+  updateData();
+}
+
+function removeBuildingConfirmation() {
+  alertOverlay.classList.remove("hidden");
+  setTimeout(() => {
+    alertOverlay.classList.remove("opacity-hidden");
+  }, 100);
+}
+
+function cancelRemoveBuilding() {
+  alertOverlay.classList.add("opacity-hidden");
+  setTimeout(() => {
+    alertOverlay.classList.add("hidden");
+  }, 500);
+}
+
+removeBuildingButton.addEventListener("click", removeBuildingConfirmation);
+confirmAlert.addEventListener("click", removeBuilding);
+cancelAlert.addEventListener("click", cancelRemoveBuilding);
+alertOverlay.addEventListener("click", cancelRemoveBuilding);

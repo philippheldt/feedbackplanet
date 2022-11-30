@@ -108,11 +108,11 @@
         <div class="progress-segment"></div>
     </div>
 
-    <div class="dark-overlay opacity-hidden hidden">
+    <div class="dark-overlay opacity-hidden hidden"></div>
 
-    </div>
 
     <div class="pl-embedded ">
+
         <div class="pl-buttons opacity-hidden hidden">
 
             <button class="primarybtn" id="rotate-right">
@@ -150,9 +150,60 @@
                     close
                 </span>
             </button>
-            <div class="points-view">
-                200
+            <div class="pl-toolbar">
+                <div class="pl-toolbar-items points-view">
+                    200
+                </div>
+
+
+                <div class="tree-preview" id="tree-2">
+                    <div class="icons-stacking">
+                        <span class="material-symbols-outlined .sync-icon">
+                            sync
+                        </span>
+                        <img src="./assets/planet_assets/tree_icons/ma4.png" alt="">
+                    </div>
+                    <div class="price price-visible">-10</div>
+                </div>
+                <div class="tree-preview" id="tree-1">
+                    <div class="icons-stacking">
+                        <span class="material-symbols-outlined .sync-icon">
+                            sync
+                        </span>
+                        <img src="./assets/planet_assets/tree_icons/ma4.png" alt="">
+                    </div>
+                    <div class="price price-visible">-10</div>
+                </div>
+                <div class="tree-preview" id="tree-3">
+                    <div class="icons-stacking">
+                        <span class="material-symbols-outlined .sync-icon">
+                            sync
+                        </span>
+                        <img src="./assets/planet_assets/tree_icons/ma4.png" alt="">
+                    </div>
+                    <div class="price price-visible">-10</div>
+                </div>
+                <div class="tree-preview" id="tree-4">
+                    <div class="icons-stacking">
+                        <span class="material-symbols-outlined .sync-icon">
+                            sync
+                        </span>
+                        <img src="./assets/planet_assets/tree_icons/ma4.png" alt="">
+                    </div>
+                    <div class="price price-visible">-10</div>
+                </div>
+
+
+                <span class="material-symbols-outlined pl-toolbar-items delete-view">
+                    delete
+                </span>
+                <span class="material-symbols-outlined pl-toolbar-items edit-view">
+                    edit
+                </span>
+
+
             </div>
+
         </div>
         <div class="pl-container"></div>
 
@@ -166,13 +217,17 @@
         </div>
     </div>
 
-
-
-
-    <div id="login" class="hidden">
-        <h2>Login</h2>
-        <label>Username</label> <input id="username" value="jennyphi" type="text"> <br>
-        <button id="selbtn">Einloggen</button>
+    <div class="alert-overlay opacity-hidden hidden">
+        <div class="alert-container">
+            <div class="alert-content">
+                <div class="alert-title">Möchtest du das Gebäude wirklich löschen?</div>
+                <div class="alert-message">Diese Aktion lässt sich nicht rückgängig machen!</div>
+                <div class="alert-buttons">
+                    <button class="secondarybtn" id="cancel-alert">Abbrechen</button>
+                    <button class="primarybtn" id="confirm-alert">Ja</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 

@@ -116,6 +116,7 @@ button {
 
 .hidden {
   display: none;
+  pointer-events: none;
 }
 
 .header {
@@ -215,4 +216,62 @@ a:hover {
 
 .opacity-hidden {
   opacity: 0;
+}
+
+.alert-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: all 0.5s ease;
+}
+
+.opacity-hidden {
+  opacity: 0;
+}
+
+.alert-overlay.hidden {
+  display: none;
+  pointer-events: none;
+}
+
+.alert-container {
+  box-sizing: border-box;
+  position: absolute;
+  top: calc(50vh - 150px);
+  left: calc(50vw - 200px);
+  background-color: #fff;
+  padding: 40px;
+  border-radius: var(--border-radius);
+  width: 400px;
+}
+
+.alert-title {
+  font-size: 15pt;
+  font-weight: 500;
+  margin-bottom: 15px;
+  color: #de576e;
+}
+
+.alert-message {
+  font-size: 12pt;
+  margin-bottom: 20px;
+  color: #202020;
+}
+
+#confirm-alert {
+  background-color: #f5e1e4;
+  color: #de576e;
+  width: 100px;
+}
+
+#confirm-alert:hover {
+  background-color: #de576e;
+  color: #f5e1e4;
 }

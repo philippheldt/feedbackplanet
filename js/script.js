@@ -21,3 +21,4 @@ input.addEventListener("keyup", function (e) {
     animationStarted = false;
   }, 250);
 });
+

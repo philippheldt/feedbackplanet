@@ -266,11 +266,13 @@
 
 .pl-extended {
   width: 400px;
+  box-sizing: border-box;
+
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  bottom: calc(50vh - 250px);
-  right: calc(50vw - 250px);
+  bottom: calc(50vh - 200px);
+  right: calc(50vw - 200px);
 }
 
 .rotate-animation {
@@ -319,22 +321,149 @@
   transform: scale(1);
 }
 
-.points-view {
+.pl-toolbar {
+  display: flex;
   z-index: 10;
+  justify-content: center;
+  gap: 10px;
+  width: 400px;
 
   box-sizing: border-box;
   text-align: center;
-  transform: translateY(5px);
   position: absolute;
   bottom: 40px;
-  left: calc(50% - 50px);
+}
+
+.pl-toolbar-items {
+  padding: 8px 5px 2px 5px;
+  border-radius: 30px;
+
+  text-align: center;
+
   font-size: 14pt;
+  cursor: pointer;
+}
+
+.points-view {
+  font-family: "Luckiest Guy", cursive;
+  padding: 14px 10px 6px 10px;
   width: 100px;
   background-color: #ddebe4;
   color: #76b093;
-  padding: 13px 10px 9px 10px;
+}
+
+.edit-view {
+  z-index: 20;
+  position: relative;
+  transform: translateY(0px);
+  font-weight: bold;
+  font-size: 17pt;
+  background-color: #eaeaea;
+  color: #b0b0b0;
+}
+
+.edit-view:hover {
+  font-weight: 900;
+  background-color: #b0b0b0;
+  color: #eaeaea;
+}
+
+.delete-view {
+  z-index: -1;
+  transform: translateY(0px);
+  font-size: 17pt;
+  font-weight: 900;
+  background-color: #f5e1e4;
+  color: #de576e;
+}
+.delete-view:hover {
+  background-color: #de576e;
+  color: #f5e1e4;
+}
+
+/* Preview Icons trees */
+
+.tree-preview {
+  position: absolute;
+  left: 270px;
+  bottom: 0px;
+  transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
+
+  display: flex;
+  align-items: center;
+
+  padding: 5px;
   border-radius: 30px;
+  background-color: #ddebe4;
+}
+.icons-stacking img {
+  width: 30px;
+  grid-area: 1/2;
+  transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
+}
+
+.icons-stacking:hover span {
+  opacity: 1;
+  color: #3a5c4c;
+}
+
+.icons-stacking:hover img {
+  opacity: 0.25;
+}
+
+.icons-stacking span {
+  grid-area: 1/2;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
+  transform-origin: 15px 12.25px;
+  animation: rotate-tree-arrow 2s cubic-bezier(0.54, 0.32, 0.37, 1.19) infinite;
+}
+.price {
   font-family: "Luckiest Guy", cursive;
+  transform: translateY(2px);
+  font-size: 14pt;
+  overflow: hidden;
+  width: 0px;
+  color: #76b093;
+  transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
+  cursor: pointer;
+}
+
+.icons-stacking:hover + .price {
+  width: 25.5px;
+  margin: 0 5px;
+}
+
+.icons-stacking {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+#tree-4.selected {
+  transform: translateX(50px);
+}
+
+#tree-1.selected {
+  transform: translate(-25px, -50px);
+}
+
+#tree-2.selected {
+  transform: translate(25px, -50px);
+}
+#tree-3.selected {
+  transform: translate(-50px, 0px);
+}
+
+@keyframes rotate-tree-arrow {
+  0% {
+    transform: translateY(2px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(2px) rotate(-360deg);
+  }
+  100% {
+    transform: translateY(2px) rotate(-360deg);
+  }
 }
 
 /* Planet rotations */
