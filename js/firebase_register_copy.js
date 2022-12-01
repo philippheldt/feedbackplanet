@@ -106,8 +106,12 @@ userPasswordRepeat.addEventListener("blur", validation);
 //register user to firebase
 
 function register() {
-  validation();
-  submitValidation();
+  document.querySelector(".loading-indicator-overlay").classList.remove("hidden");
+
+  setTimeout(() => {
+    document.querySelector(".loading-indicator-overlay").classList.remove("opacity-hidden");
+  }, 100);
+
   if (validation() === true && submitValidation() === true) {
     createUserWithEmailAndPassword(auth, email.value, password.value)
       .then((userCredential) => {
@@ -126,7 +130,6 @@ function register() {
         passwordRepeat.value = "";
         console.log("signed in");
 
-
         setTimeout(() => {
           window.location.href = "onboarding.html";
         }, 5000);
@@ -140,9 +143,19 @@ function register() {
         if (errorCode === "auth/email-already-in-use") {
           userEmailAlert.innerText = "Diese E-Mail Adresse ist bereits registriert!";
           userEmailAlert.classList.remove("alert-hidden");
+
+          document.querySelector(".loading-indicator-overlay").classList.add("opacity-hidden");
+          setTimeout(() => {
+            document.querySelector(".loading-indicator-overlay").classList.add("hidden");
+          }, 100);
         }
         // ..
       });
+  } else {
+    document.querySelector(".loading-indicator-overlay").classList.add("opacity-hidden");
+    setTimeout(() => {
+      document.querySelector(".loading-indicator-overlay").classList.add("hidden");
+    }, 100);
   }
 }
 

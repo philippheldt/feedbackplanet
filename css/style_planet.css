@@ -433,6 +433,9 @@
   width: 25.5px;
   margin: 0 5px;
 }
+.tree-preview:hover {
+  z-index: 30;
+}
 
 .icons-stacking {
   display: grid;

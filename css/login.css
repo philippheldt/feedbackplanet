@@ -149,3 +149,59 @@ button img {
   text-align: center;
   max-width: 400px;
 }
+
+.loading-indicator-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+
+.loading-indicator-overlay.opacity-hidden {
+  opacity: 0;
+}
+
+.loading-indicator-overlay.hidden {
+  display: none;
+}
+
+.loading-indicator-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: grid;
+  grid-template-columns: 1fr;
+
+  background: #fff;
+  border-radius: 15px;
+}
+
+.pl-loading {
+  justify-self: center;
+  align-self: center;
+  width: 90%;
+  grid-area: 1/1;
+  animation: pl-loading 2s infinite cubic-bezier(0.54, 0.32, 0.37, 1.19);
+}
+
+.pl-loading-inner {
+  width: 100%;
+  grid-area: 1/1;
+}
+
+@keyframes pl-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
