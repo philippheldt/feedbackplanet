@@ -1,0 +1,20 @@
+export const gamestate = {
+  uid: "",
+  points: 0,
+  planet: "nono",
+  buildings: [
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+    "non0.no0.no0.no0.no0",
+  ],
+  sky: ["non", "non", "non", "non", "non", "non", "non", "non"],
+  goodStartBoost: 0,
+  extensiveBoost: 0,
+  activeBoost: false,
+  planetPosition: 1,
+};

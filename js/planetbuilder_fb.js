@@ -38,26 +38,9 @@ var uid = document.getElementById("username");
 var planet = document.getElementById("planet");
 let skySet = false;
 
-const gamestate = {
-  uid: "",
-  points: 0,
-  planet: "nono",
-  buildings: [
-    "non0.no0.no0.no0.no0",
-    "non0.no0.no0.no0.no0",
-    "non0.no0.no0.no0.no0",
-    "non0.no0.no0.no0.no0",
-    "non0.no0.no0.no0.no0",
-    "non0.no0.no0.no0.no0",
-    "non0.no0.no0.no0.no0",
-    "non0.no0.no0.no0.no0",
-  ],
-  sky: ["non", "non", "non", "non", "non", "non", "non", "non"],
-  goodStartBoost: 0,
-  extensiveBoost: 0,
-  activeBoost: false,
-  planetPosition: 1,
-};
+//expot gamestate constant
+
+import { gamestate } from "./gamestate.js";
 
 import {
   getAuth,
