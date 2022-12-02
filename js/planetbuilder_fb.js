@@ -214,7 +214,8 @@ var building = document.querySelector(".building");
 var treeBack = document.querySelector(".tree-back");
 var treeFront = document.querySelector(".tree-front");
 var bushFront = document.querySelector(".bush");
-const pointsView = document.querySelector(".points-view");
+const pointsView = document.querySelector("#current-points");
+const nextStageView = document.querySelector("#next-stage");
 
 function createPlanet() {
   //setup
@@ -248,45 +249,111 @@ function createPlanet() {
 
   for (let i = 0; i < gamestate.buildings.length; i++) {
     let buildingSetup = gamestate.buildings[i].split(".");
+    const buildingSetupPrevious = buildingChanged.split(".");
     //adding building to scene
     if (buildingSetup[0] != "non0") {
-      let builingImage = document.createElement("img");
-      builingImage.setAttribute("src", `assets/planet_assets/buildings/${buildingSetup[0]}.png`);
-      builingImage.classList.add(`pl-asset`);
-      builingImage.classList.add(`building-${i + 1}`);
-      building.appendChild(builingImage);
+      addAndAnimateAssets(
+        buildingSetup[0],
+        buildingSetupPrevious[0],
+        building,
+        "building-",
+        i,
+        i + 1,
+        "assets/planet_assets/buildings/",
+        ".png"
+      );
     }
     //adding trees to scene
     for (let tree = 1; tree <= 4; tree++) {
       if (buildingSetup[tree] != "no0" && tree <= 2) {
-        let treeImage = document.createElement("img");
-        treeImage.setAttribute("src", `assets/planet_assets/trees_back/${buildingSetup[tree]}.png`);
-        treeImage.classList.add(`pl-asset`);
-        treeImage.classList.add(`tree-back-${i + i + tree}`);
-        treeBack.appendChild(treeImage);
+        addAndAnimateAssets(
+          buildingSetup[tree],
+          buildingSetupPrevious[tree],
+          treeBack,
+          "tree-back-",
+          i,
+          i + i + tree,
+          "assets/planet_assets/trees_back/",
+          ".png"
+        );
       } else if (buildingSetup[tree] != "no0" && tree === 3) {
-        let treeImage = document.createElement("video");
-        treeImage.setAttribute(
-          "src",
-          `assets/planet_assets/trees_front/tree/${buildingSetup[tree]}.webm`
+        addAndAnimateAssets(
+          buildingSetup[tree],
+          buildingSetupPrevious[tree],
+          treeFront,
+          "tree-front-",
+          i,
+          i + tree - 2,
+          "assets/planet_assets/trees_back/",
+          ".webm"
         );
-        treeImage.setAttribute("autoplay", "");
-        treeImage.setAttribute("loop", "");
-        treeImage.setAttribute("muted", "");
-        treeImage.classList.add(`pl-asset`);
-        treeImage.classList.add(`tree-front-${i + tree - 2}`);
-        treeFront.appendChild(treeImage);
       } else if (buildingSetup[tree] != "no0" && tree === 4) {
-        let treeImage = document.createElement("img");
-        treeImage.setAttribute(
-          "src",
-          `assets/planet_assets/trees_front/bush/${buildingSetup[tree]}.png`
+        addAndAnimateAssets(
+          buildingSetup[tree],
+          buildingSetupPrevious[tree],
+          treeFront,
+          "bush-",
+          i,
+          i + tree - 3,
+          "assets/planet_assets/trees_front/bush/",
+          ".png"
         );
-        treeImage.classList.add(`pl-asset`);
-        treeImage.classList.add(`bush-${i + tree - 3}`);
-        treeFront.appendChild(treeImage);
       }
     }
+  }
+}
+
+function addAndAnimateAssets(
+  newAsset,
+  previousAsset,
+  placement,
+  assetClassName,
+  i,
+  iCalculated,
+  filePath,
+  fileExtention
+) {
+  let builingImage;
+  if (fileExtention == ".png") {
+    builingImage = document.createElement("img");
+  } else if (fileExtention == ".webm") {
+    builingImage = document.createElement("video");
+    builingImage.setAttribute("autoplay", "");
+    builingImage.setAttribute("loop", "");
+    builingImage.setAttribute("muted", "");
+  }
+  let animationContainer = document.createElement("div");
+  if (
+    newAsset != previousAsset &&
+    i == calculateBuildingNumber(gamestate.planetPosition) &&
+    previousAsset != ""
+  ) {
+    animationContainer.classList.add("animate-disappear");
+    animationContainer.classList.add(`pl-asset`);
+    builingImage.classList.add(`pl-asset`);
+    builingImage.classList.add(`${assetClassName}${iCalculated}`);
+
+    animationContainer.appendChild(builingImage);
+    placement.appendChild(animationContainer);
+
+    if (previousAsset != "non0" && previousAsset != "no0" && previousAsset != undefined) {
+      builingImage.setAttribute("src", `${filePath}${previousAsset}${fileExtention}`);
+    }
+    setTimeout(() => {
+      animationContainer.classList.remove("animate-disappear");
+      document
+        .querySelector(`.${assetClassName}${iCalculated}`)
+        .setAttribute("src", `${filePath}${newAsset}${fileExtention}`);
+      animationContainer.classList.add("animate-appear");
+      buildingChanged = gamestate.buildings[i];
+    }, 500);
+  } else {
+    builingImage.setAttribute("src", `${filePath}${newAsset}${fileExtention}`);
+    animationContainer.classList.add(`pl-asset`);
+    builingImage.classList.add(`pl-asset`);
+    builingImage.classList.add(`${assetClassName}${iCalculated}`);
+    animationContainer.appendChild(builingImage);
+    placement.appendChild(animationContainer);
   }
 }
 
@@ -305,6 +372,8 @@ var obj;
 const progressElement = document.querySelector(".progress-segment");
 
 // Updating buildings based on inputted points
+
+let buildingChanged = "";
 
 function updateBuildings() {
   if (
@@ -334,6 +403,7 @@ function updateBuildings() {
           obj[currentBuildingIndex].buildingStages[currentBuildingStage];
         const pointsToNextBuildigStageQuarter = pointsToNextBuildingStage / 4;
 
+        nextStageView.innerHTML = ` / ${pointsToNextBuildingStage}`;
         //select random element from array and save it to a const
         const randomTree =
           obj[currentBuildingIndex].trees[
@@ -346,6 +416,7 @@ function updateBuildings() {
 
         //check if there are enough points to build the next stage
         if (gamestate.points >= pointsToNextBuildingStage) {
+          buildingChanged = gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)];
           currentBuildingStage = Number(currentBuildingStage) + 1;
           // check if building is at max stage
           if (currentBuildingStage < 5) {
@@ -829,8 +900,10 @@ rotateRight.addEventListener("click", rotatePlanetRight);
 rotateLeft.addEventListener("click", rotatePlanetLeft);
 
 function rotatePlanetRight() {
+  editToolbarOpen ? toggleTrees() : null;
   planetContainer.classList.remove("rotate-animation");
   planetContainer.classList.add("rotate-on-click-animation");
+
   setTimeout(() => {
     planetContainer.classList.remove("pos-" + gamestate.planetPosition);
     if (gamestate.planetPosition >= 8) {
@@ -844,17 +917,24 @@ function rotatePlanetRight() {
         planetContainer.classList.add("pos-" + gamestate.planetPosition);
         console.log("Position: " + gamestate.planetPosition);
         console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
+        buildingChanged = gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)];
+        nextStageView.innerHTML = ` / ${0}`;
+        updateBuildings();
       }, 501);
     } else {
       gamestate.planetPosition++;
       planetContainer.classList.add("pos-" + gamestate.planetPosition);
       console.log("Position: " + gamestate.planetPosition);
       console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
+      buildingChanged = gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)];
+      nextStageView.innerHTML = ` / ${0}`;
+      updateBuildings();
     }
   }, 50);
 }
 
 function rotatePlanetLeft() {
+  editToolbarOpen ? toggleTrees() : null;
   planetContainer.classList.remove("rotate-animation");
   planetContainer.classList.add("rotate-on-click-animation");
 
@@ -870,6 +950,9 @@ function rotatePlanetLeft() {
       planetContainer.classList.add("pos-" + gamestate.planetPosition);
       console.log("Position: " + gamestate.planetPosition);
       console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
+      buildingChanged = gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)];
+      nextStageView.innerHTML = ` / ${0}`;
+      updateBuildings();
     }, 50);
   } else {
     planetContainer.classList.remove("pos-" + gamestate.planetPosition);
@@ -877,6 +960,9 @@ function rotatePlanetLeft() {
     planetContainer.classList.add("pos-" + gamestate.planetPosition);
     console.log("Position: " + gamestate.planetPosition);
     console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
+    buildingChanged = gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)];
+    nextStageView.innerHTML = ` / ${0}`;
+    updateBuildings();
   }
 }
 
@@ -912,6 +998,7 @@ function closeOverlay() {
     boostBar.classList.remove("opacity-hidden");
     progressElement.classList.remove("opacity-hidden");
     deletedBuilding = false;
+
     if (
       gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
       "non0.no0.no0.no0.no0"
@@ -925,6 +1012,7 @@ function closeOverlay() {
 
 function openOverlay() {
   createPlanet();
+  updateBuildings();
   overlay.classList.remove("hidden");
   plButtons.classList.remove("hidden");
   boostBar.classList.add("opacity-hidden");
@@ -957,15 +1045,26 @@ function toggleTrees() {
 
   for (let i = 0; i < buildingArray.length; i++) {
     if (i > 0) {
-      document.querySelector("#tree-" + i + " .icons-stacking img").src =
-        "./assets/planet_assets/tree_icons/" + buildingArray[i] + ".png";
+      const currentTree = document.querySelector("#tree-" + i);
+      const currentTreeImage = document.querySelector("#tree-" + i + " .icons-stacking img");
+      if (buildingArray[i] != "no0") {
+        currentTreeImage.src = "./assets/planet_assets/tree_icons/" + buildingArray[i] + ".png";
+      } else {
+        currentTree.classList.add("hidden");
+      }
     }
   }
 
   for (let i = 1; i <= 4; i++) {
-    editToolbarOpen
-      ? document.querySelector("#tree-" + i).classList.remove("selected")
-      : document.querySelector("#tree-" + i).classList.add("selected");
+    const currentTree = document.querySelector("#tree-" + i);
+    const currentTreeImage = document.querySelector("#tree-" + i + " .icons-stacking img");
+
+    if (editToolbarOpen) {
+      currentTree.classList.remove("selected");
+      currentTree.classList.remove("hidden");
+    } else {
+      currentTree.classList.add("selected");
+    }
   }
   editToolbarOpen = !editToolbarOpen;
   editView.innerHTML = editToolbarOpen ? "close" : "edit";
@@ -1008,41 +1107,43 @@ function exchangeTree(treeNumber) {
   const buildingArray = gamestate.buildings[buildingPosition].split(".");
   let newBuildingCode = "";
 
-  if (buildingArray[treeNumber] != "no0") {
-    for (let i = 0; i < buildingArray.length; i++) {
-      if (i == 0) {
-        newBuildingCode = newBuildingCode + buildingArray[i];
-      } else if (i == 1 && i == treeNumber) {
-        newBuildingCode = newBuildingCode + "." + treeStyles[randomTree];
-      } else if (i == 1 && i != treeNumber) {
-        newBuildingCode = newBuildingCode + "." + buildingArray[i];
-      } else if (i == 2 && i == treeNumber) {
-        newBuildingCode = newBuildingCode + "." + treeStyles[randomTree];
-      } else if (i == 2 && i != treeNumber) {
-        newBuildingCode = newBuildingCode + "." + buildingArray[i];
-      } else if (i == 3 && i == treeNumber) {
-        newBuildingCode = newBuildingCode + "." + treeStyles[randomTree];
-      } else if (i == 3 && i != treeNumber) {
-        newBuildingCode = newBuildingCode + "." + buildingArray[i];
-      } else if (i == 4 && i == treeNumber) {
-        newBuildingCode = newBuildingCode + "." + bushStyles[randomBush];
-      } else if (i == 4 && i != treeNumber) {
-        newBuildingCode = newBuildingCode + "." + buildingArray[i];
+  if (gamestate.points >= 10) {
+    if (buildingArray[treeNumber] != "no0") {
+      for (let i = 0; i < buildingArray.length; i++) {
+        if (i == 0) {
+          newBuildingCode = newBuildingCode + buildingArray[i];
+        } else if (i == 1 && i == treeNumber) {
+          newBuildingCode = newBuildingCode + "." + treeStyles[randomTree];
+        } else if (i == 1 && i != treeNumber) {
+          newBuildingCode = newBuildingCode + "." + buildingArray[i];
+        } else if (i == 2 && i == treeNumber) {
+          newBuildingCode = newBuildingCode + "." + treeStyles[randomTree];
+        } else if (i == 2 && i != treeNumber) {
+          newBuildingCode = newBuildingCode + "." + buildingArray[i];
+        } else if (i == 3 && i == treeNumber) {
+          newBuildingCode = newBuildingCode + "." + treeStyles[randomTree];
+        } else if (i == 3 && i != treeNumber) {
+          newBuildingCode = newBuildingCode + "." + buildingArray[i];
+        } else if (i == 4 && i == treeNumber) {
+          newBuildingCode = newBuildingCode + "." + bushStyles[randomBush];
+        } else if (i == 4 && i != treeNumber) {
+          newBuildingCode = newBuildingCode + "." + buildingArray[i];
+        }
       }
+      gamestate.points = gamestate.points - 10;
+      countTo(-10, "#current-points", 50, 100);
+      toggleTrees();
+      setTimeout(() => {
+        gamestate.buildings[buildingPosition] = newBuildingCode;
+        console.log(treeNumber);
+        console.log(newBuildingCode);
+        updateBuildings();
+        createPlanet();
+        updateData();
+      }, 1000);
+    } else {
+      return;
     }
-    gamestate.points = gamestate.points - 10;
-    countTo(-10, ".points-view", 50, 100);
-    toggleTrees();
-    setTimeout(() => {
-      gamestate.buildings[buildingPosition] = newBuildingCode;
-      console.log(treeNumber);
-      console.log(newBuildingCode);
-      updateBuildings();
-      createPlanet();
-      updateData();
-    }, 1000);
-  } else {
-    return;
   }
 }
 

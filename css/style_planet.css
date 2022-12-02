@@ -28,7 +28,6 @@
   grid-column: 1/2;
   grid-row: 1/2;
   width: 100%;
-  height: 100%;
 }
 
 .typing {
@@ -66,6 +65,32 @@
   display: grid;
   grid-template-columns: 1fr;
   overflow: hidden;
+}
+
+.animate-appear {
+  animation: asset-appear 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
+}
+
+@keyframes asset-appear {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-disappear {
+  animation: asset-disappear 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
+}
+
+@keyframes asset-disappear {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
 }
 
 .sky video {
@@ -273,6 +298,7 @@
   border-radius: 10px;
   bottom: calc(50vh - 200px);
   right: calc(50vw - 200px);
+  cursor: auto;
 }
 
 .rotate-animation {
@@ -326,7 +352,7 @@
   z-index: 10;
   justify-content: center;
   gap: 10px;
-  width: 400px;
+  width: 360px;
 
   box-sizing: border-box;
   text-align: center;
@@ -350,6 +376,11 @@
   width: 100px;
   background-color: #ddebe4;
   color: #76b093;
+}
+
+#current-points,
+#next-stage {
+  display: inline;
 }
 
 .edit-view {
@@ -385,7 +416,7 @@
 
 .tree-preview {
   position: absolute;
-  left: 270px;
+  left: 250px;
   bottom: 0px;
   transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
 
@@ -395,6 +426,7 @@
   padding: 5px;
   border-radius: 30px;
   background-color: #ddebe4;
+  cursor: pointer;
 }
 .icons-stacking img {
   width: 30px;
@@ -426,7 +458,7 @@
   width: 0px;
   color: #76b093;
   transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
-  cursor: pointer;
+  cursor: auto;
 }
 
 .icons-stacking:hover + .price {
@@ -455,6 +487,13 @@
 }
 #tree-3.selected {
   transform: translate(-50px, 0px);
+}
+
+#tree-1.hidden,
+#tree-2.hidden,
+#tree-3.hidden,
+#tree-4.hidden {
+  display: none;
 }
 
 @keyframes rotate-tree-arrow {
