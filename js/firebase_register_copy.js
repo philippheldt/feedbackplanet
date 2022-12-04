@@ -183,6 +183,7 @@ function insertData(newUUID, newEmail) {
         activeBoost: false,
         planetPosition: 1,
         planetClicks: 0,
+        bannerInteractions: 0,
         editTreeClicks: 0,
         turnClicks: 0,
         boosts: 0,

@@ -122,6 +122,7 @@ function getData() {
         gamestate.trackingData.extensiveAmount = snapshot.val().extensiveAmount;
         gamestate.trackingData.email = snapshot.val().email;
         gamestate.trackingData.contactQuery = snapshot.val().contactQuery;
+        gamestate.trackingData.bannerInteractions = snapshot.val().bannerInteractions;
 
         console.log(gamestate);
 
@@ -181,6 +182,7 @@ function updateData() {
     goodStartAmount: gamestate.trackingData.boostKind.goodStartAmount,
     extensiveAmount: gamestate.trackingData.boostKind.extensiveAmount,
     contactQuery: gamestate.trackingData.contactQuery,
+    bannerInteractions: gamestate.trackingData.bannerInteractions,
   })
     .then(() => {
       console.log("Data saved successfully");
@@ -659,7 +661,10 @@ function feedbackBarCall(message, acheivedPoints, color) {
   }, 2000);
 }
 
+import { submitData, researchData } from "./google_form_submission.js";
+
 function submitFeedback() {
+  submitData();
   // if basic feedback isn't given, boosts are reset
   if (goodStart) {
     gamestate.activeBoost = true;
@@ -746,6 +751,7 @@ function countTo(addedPoints, place, interval, timeout) {
 
 function planetSelectorBar() {
   feedbackBar.classList.add("planet-selector");
+
   setTimeout(() => {
     const planetStyles = ["ma", "ve", "sa", "ne", "mo"];
 
@@ -782,6 +788,7 @@ function planetSelectorBar() {
 }
 
 function planetSelector(selected) {
+  gamestate.trackingData.bannerInteractions++;
   gamestate.planet = selected;
   console.log("Planet selected: " + selected);
   document.querySelector(
@@ -826,6 +833,7 @@ function colorSelectorBar(pSelected) {
 }
 
 function colorSelector(selected) {
+  gamestate.trackingData.bannerInteractions++;
   gamestate.planet = selected;
   console.log("Color selected: " + selected);
   document.querySelector(
@@ -891,6 +899,7 @@ function buildingSelectorBar() {
 }
 
 function buildingSelector(selected) {
+  gamestate.trackingData.bannerInteractions++;
   console.log("Building selected: " + gamestate.planetPosition - 1);
   gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
     selected + "1.no0.no0.no0.no0";

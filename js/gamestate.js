@@ -19,6 +19,7 @@ export const gamestate = {
   planetPosition: 1,
   trackingData: {
     planetClicks: 0,
+    bannerInteractions: 0,
     editTreeClicks: 0,
     turnClicks: 0,
     boosts: 0,
