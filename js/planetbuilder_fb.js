@@ -112,6 +112,17 @@ function getData() {
           gamestate.extensiveBoost = 0;
           gamestate.activeBoost = false;
         }
+
+        //trackingData
+        gamestate.trackingData.planetClicks = snapshot.val().planetClicks;
+        gamestate.trackingData.editTreeClicks = snapshot.val().editTreeClicks;
+        gamestate.trackingData.turnClicks = snapshot.val().turnClicks;
+        gamestate.trackingData.boosts = snapshot.val().boosts;
+        gamestate.trackingData.goodStartAmount = snapshot.val().goodStartAmount;
+        gamestate.trackingData.extensiveAmount = snapshot.val().extensiveAmount;
+        gamestate.trackingData.email = snapshot.val().email;
+        gamestate.trackingData.contactQuery = snapshot.val().contactQuery;
+
         console.log(gamestate);
 
         //Login
@@ -161,6 +172,15 @@ function updateData() {
     extensiveBoost: gamestate.extensiveBoost,
     activeBoost: gamestate.activeBoost,
     planetPosition: gamestate.planetPosition,
+
+    //trackingData
+    planetClicks: gamestate.trackingData.planetClicks,
+    editTreeClicks: gamestate.trackingData.editTreeClicks,
+    turnClicks: gamestate.trackingData.turnClicks,
+    boosts: gamestate.trackingData.boosts,
+    goodStartAmount: gamestate.trackingData.boostKind.goodStartAmount,
+    extensiveAmount: gamestate.trackingData.boostKind.extensiveAmount,
+    contactQuery: gamestate.trackingData.contactQuery,
   })
     .then(() => {
       console.log("Data saved successfully");
@@ -221,14 +241,6 @@ function createPlanet() {
   building.innerHTML = "";
   treeBack.innerHTML = "";
   treeFront.innerHTML = "";
-
-  if (
-    gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
-      "non0.no0.no0.no0.no0" &&
-    deletedBuilding == false
-  ) {
-    buildingSelectorBar();
-  }
 
   for (let i = 0; i < gamestate.buildings.length; i++) {
     let buildingSetup = gamestate.buildings[i].split(".");
@@ -359,6 +371,16 @@ const progressElement = document.querySelector(".progress-segment");
 let buildingChanged = "";
 
 function updateBuildings() {
+  setTimeout(() => {
+    if (
+      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
+        "non0.no0.no0.no0.no0" &&
+      deletedBuilding == false &&
+      gamestate.points >= 10
+    ) {
+      buildingSelectorBar();
+    }
+  }, 500);
   if (
     gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] != "non0.no0.no0.no0.no0"
   ) {
@@ -548,6 +570,7 @@ function analyzeText() {
   wordCount = input.value.split(" ").length;
   console.log("Number of words: " + wordCount);
   console.log("Before analyzeText: " + newBoost);
+
   if (gamestate.extensiveBoost >= 2) {
     boost != 3 ? (newBoost = true) : (newBoost = false);
     boost = 3;
@@ -649,6 +672,7 @@ function submitFeedback() {
   if (gamestate.extensiveBoost >= 2) {
     boost != 3 ? (newBoost = true) : (newBoost = false);
     boost = 3;
+    gamestate.trackingData.boostKind.extensiveAmount++;
   } else {
     boost = 1;
   }
@@ -660,6 +684,7 @@ function submitFeedback() {
     } else {
       boost != prevBoost ? (newBoost = true) : (newBoost = false);
       boost = 2;
+      gamestate.trackingData.boostKind.goodStartAmount++;
     }
   } else {
     if (boost == 3) {
@@ -676,6 +701,8 @@ function submitFeedback() {
   if (boost > prevBoost) {
     boostBar.classList.remove("boost-hidden");
     feedbackBarCall("Neuer Boost!", 0, "feedback-boost");
+    gamestate.trackingData.boosts++;
+    console;
   } else if (boost < prevBoost) {
     boostBar.classList.add("boost-hidden");
     feedbackBarCall("Boost verloren!", 0, "feedback-bad");
@@ -867,11 +894,12 @@ function buildingSelector(selected) {
   console.log("Building selected: " + gamestate.planetPosition - 1);
   gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
     selected + "1.no0.no0.no0.no0";
-  updateData();
-  createPlanet();
+
   feedbackBar.classList.add("bar-closed");
   feedbackBar.classList.remove("planet-selector");
   planetEmbedded.classList.remove("no-action");
+  updateData();
+  updateBuildings();
 }
 
 // Planet Rotation
@@ -883,6 +911,7 @@ rotateRight.addEventListener("click", rotatePlanetRight);
 rotateLeft.addEventListener("click", rotatePlanetLeft);
 
 function rotatePlanetRight() {
+  gamestate.trackingData.turnClicks++;
   editToolbarOpen ? toggleTrees() : null;
   planetContainer.classList.remove("rotate-animation");
   planetContainer.classList.add("rotate-on-click-animation");
@@ -917,6 +946,7 @@ function rotatePlanetRight() {
 }
 
 function rotatePlanetLeft() {
+  gamestate.trackingData.turnClicks++;
   editToolbarOpen ? toggleTrees() : null;
   planetContainer.classList.remove("rotate-animation");
   planetContainer.classList.add("rotate-on-click-animation");
@@ -984,7 +1014,8 @@ function closeOverlay() {
 
     if (
       gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
-      "non0.no0.no0.no0.no0"
+        "non0.no0.no0.no0.no0" &&
+      gamestate.points >= 10
     ) {
       buildingSelectorBar();
     }
@@ -994,6 +1025,7 @@ function closeOverlay() {
 }
 
 function openOverlay() {
+  gamestate.trackingData.planetClicks++;
   createPlanet();
   updateBuildings();
   overlay.classList.remove("hidden");
@@ -1089,6 +1121,8 @@ function exchangeTree(treeNumber) {
   const randomBush = Math.floor(Math.random() * bushStyles.length);
   const buildingArray = gamestate.buildings[buildingPosition].split(".");
   let newBuildingCode = "";
+
+  gamestate.trackingData.editTreeClicks++;
 
   if (gamestate.points >= 10) {
     if (buildingArray[treeNumber] != "no0") {

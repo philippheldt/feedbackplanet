@@ -123,7 +123,7 @@ function register() {
         // });
 
         //TODO: add Loading indicator
-        insertData(user.uid);
+        insertData(user.uid, email.value);
         userEmailAlert.classList.add("alert-hidden");
         email.value = "";
         password.value = "";
@@ -159,9 +159,9 @@ function register() {
   }
 }
 
-function insertData(newUUID) {
+function insertData(newUUID, newEmail) {
   set(ref(db, "users/" + newUUID), {
-    email: email.value,
+    email: newEmail,
     uid: newUUID,
   })
     .then(() => {
@@ -182,6 +182,14 @@ function insertData(newUUID) {
         goodStartBoost: 0,
         activeBoost: false,
         planetPosition: 1,
+        planetClicks: 0,
+        editTreeClicks: 0,
+        turnClicks: 0,
+        boosts: 0,
+        goodStartAmount: 0,
+        extensiveAmount: 0,
+        email: newEmail,
+        contactQuery: false,
       })
         .then(() => {
           console.log("Gamestate Created!");
@@ -213,8 +221,10 @@ function signInWithGoogle() {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      insertData(user.uid);
-      window.location.href = "home.html";
+      insertData(user.uid, user.email);
+      setTimeout(() => {
+        window.location.href = "onboarding.html";
+      }, 5000);
       // ...
     })
     .catch((error) => {

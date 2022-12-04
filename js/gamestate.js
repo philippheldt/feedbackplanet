@@ -17,4 +17,18 @@ export const gamestate = {
   extensiveBoost: 0,
   activeBoost: false,
   planetPosition: 1,
+  trackingData: {
+    planetClicks: 0,
+    editTreeClicks: 0,
+    turnClicks: 0,
+    boosts: 0,
+    boostKind: {
+      goodStartAmount: 0,
+      extensiveAmount: 0,
+    },
+    // pointsPerSlide: [],
+    // wordsWritten: 0,
+    email: "beispiel@email.com",
+    contactQuery: false,
+  },
 };

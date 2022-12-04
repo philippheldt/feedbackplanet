@@ -43,7 +43,7 @@ const researchData = {
     skala5: ["entry.1309987470", "5"],
   },
   gameData: {
-    buildings: ["entry.1048153492", ""],
+    buildings: ["entry.1048153492", "buildings-999"],
     planet: ["entry.1811621375", "planet-999"],
     points: ["entry.1120390467", "points-999"],
     planetClicks: ["entry.788632169", 0],
@@ -110,7 +110,12 @@ function submitData() {
   researchData.gameData.editTreeClicks[1] = gamestate.editTreeClicks;
   researchData.gameData.turnClicks[1] = gamestate.turnClicks;
   researchData.gameData.boosts[1] = gamestate.boosts;
-  researchData.gameData.boostKind[1] = gamestate.boostKind;
+
+  for(const boostKind in gamestate.trackingData.boostKind){
+    researchData.gameData.boostKind[1] += boostKind + "-"+ gamestate.trackingData.boostKind[boostKind];
+    }
+
+  researchData.gameData.boostKind[1] = 
   researchData.gameData.pointsPerSlide[1] = gamestate.pointsPerSlide;
   researchData.gameData.wordsWritten[1] = gamestate.wordsWritten;
 
