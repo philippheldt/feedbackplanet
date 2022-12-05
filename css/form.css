@@ -100,3 +100,50 @@ input[type="radio"]:checked::before {
 input[type="radio"]:checked {
   background-color: #ddebe4;
 }
+
+.consent-group {
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  box-sizing: border-box;
+  width: 800px;
+  padding: 40px;
+  display: flex;
+  gap: 20px;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+
+  display: grid;
+
+  font: inherit;
+  width: 20px;
+  height: 20px;
+  border: 0.5px solid #797979;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 15px;
+  height: 15px;
+
+  border-radius: 3px;
+  transform: scale(0);
+  transition: 0.2s transform ease-in-out;
+  background-color: #78b195;
+
+  position: relative;
+  top: 2px;
+  left: 2px;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+input[type="checkbox"]:checked {
+  background-color: #ddebe4;
+}
