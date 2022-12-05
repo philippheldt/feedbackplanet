@@ -722,7 +722,7 @@ function submitFeedback() {
 }
 
 //add eventlistener for submitFeedback
-document.getElementById("nextq").addEventListener("click", submitFeedback);
+document.getElementById("submit").addEventListener("click", submitFeedback);
 
 function countTo(addedPoints, place, interval, timeout) {
   let from = gamestate.points - addedPoints;

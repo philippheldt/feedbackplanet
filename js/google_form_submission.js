@@ -90,9 +90,9 @@ export function submitData() {
   //Update contact data values
   //Contact Data
   researchData.contactData.email[1] = gamestate.trackingData.email;
-  contactQuery.checked
-    ? (researchData.contactData.contactQuery[1] = contactQuery.value)
-    : (researchData.contactData.contactQuery[1] = "Nein");
+  //   contactQuery.checked
+  //     ? (researchData.contactData.contactQuery[1] = contactQuery.value)
+  //     : (researchData.contactData.contactQuery[1] = "Nein");
   researchData.contactData.testGroup[1] = "A";
 
   // formFields
