@@ -5,6 +5,9 @@
   grid-template-columns: 1fr;
   overflow: hidden;
 }
+.pl-container.hidden {
+  display: none;
+}
 
 .pl-embedded {
   position: fixed;

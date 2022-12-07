@@ -30,6 +30,7 @@ import {
 const db = getDatabase();
 
 const feedbackBar = document.querySelector(".feedback-bar");
+const feedbackContainer = document.querySelector(".feedback-container");
 var homescreen = document.getElementById("homescreen");
 var login = document.getElementById("login");
 var welcomeMessage = document.getElementById("welcome-message");
@@ -114,6 +115,7 @@ export function getData() {
         }
 
         //trackingData
+        gamestate.trackingData.testGroup = snapshot.val().testGroup;
         gamestate.trackingData.planetClicks = snapshot.val().planetClicks;
         gamestate.trackingData.editTreeClicks = snapshot.val().editTreeClicks;
         gamestate.trackingData.turnClicks = snapshot.val().turnClicks;
@@ -222,6 +224,16 @@ var bushFront = document.querySelector(".bush");
 const pointsView = document.querySelector("#current-points");
 const nextStageView = document.querySelector("#next-stage");
 
+function checkTestGroup() {
+  if (gamestate.trackingData.testGroup == "A") {
+    planetContainer.classList.remove("hidden");
+    feedbackContainer.classList.remove("hidden");
+    pointsFloating.classList.remove("hidden");
+    userNameOutput.style.pointerEvents = "none";
+    userIcon.style.pointerEvents = "none";
+  }
+}
+
 export function createPlanet() {
   //setup
   //create planet
@@ -229,6 +241,7 @@ export function createPlanet() {
   planetContainer.classList.add("pos-" + gamestate.planetPosition);
   pointsView.innerHTML = gamestate.points;
 
+  checkTestGroup();
   //TODO Add random video element
 
   if (gamestate.planet == "nono") {

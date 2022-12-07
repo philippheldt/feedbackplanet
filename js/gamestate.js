@@ -18,6 +18,7 @@ export const gamestate = {
   activeBoost: false,
   planetPosition: 1,
   trackingData: {
+    testGroup: "",
     planetClicks: 0,
     bannerInteractions: 0,
     editTreeClicks: 0,

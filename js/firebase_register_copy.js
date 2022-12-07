@@ -53,6 +53,9 @@ const submitAlert = document.getElementById("submitAlert");
 const googleAuth = document.getElementById("googleAuth");
 const appleAuth = document.getElementById("appleAuth");
 const githubAuth = document.getElementById("githubAuth");
+
+const testGroup = ["A", "B"];
+const selectedTestGroup = testGroup[Math.floor(Math.random() * testGroup.length)];
 //validate inputs
 
 function validation() {
@@ -131,7 +134,9 @@ function register() {
         console.log("signed in");
 
         setTimeout(() => {
-          window.location.href = "onboarding.html";
+          selectedTestGroup === "A"
+            ? (window.location.href = "onboarding_a.html")
+            : (window.location.href = "onboarding_b.html");
         }, 5000);
 
         // ...
@@ -182,6 +187,7 @@ function insertData(newUUID, newEmail) {
         goodStartBoost: 0,
         activeBoost: false,
         planetPosition: 1,
+        testGroup: selectedTestGroup,
         planetClicks: 0,
         bannerInteractions: 0,
         editTreeClicks: 0,

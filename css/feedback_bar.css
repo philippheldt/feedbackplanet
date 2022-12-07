@@ -16,6 +16,10 @@
   align-items: center;
 }
 
+.feedback-bar.hidden {
+  display: none;
+}
+
 .feedback-good {
   background-color: #ddebe4;
   color: #76b093;
@@ -53,6 +57,10 @@
   font-family: "Luckiest Guy", cursive;
   color: #76b093;
   opacity: 0;
+}
+
+.points-floating.hidden {
+  display: none;
 }
 
 .points-floating-animation-add {

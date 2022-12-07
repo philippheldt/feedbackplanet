@@ -95,7 +95,7 @@ export function submitData() {
   //   contactQuery.checked
   //     ? (researchData.contactData.contactQuery[1] = contactQuery.value)
   //     : (researchData.contactData.contactQuery[1] = "Nein");
-  researchData.contactData.testGroup[1] = "A";
+  researchData.contactData.testGroup[1] = gamestate.trackingData.testGroup;
 
   // formFields
   getRadioValue(skala1) != undefined
