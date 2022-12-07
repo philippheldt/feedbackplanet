@@ -1,0 +1,56 @@
+/* create variables for the colors */
+:root {
+  --blue-lighter: #d5e8ef;
+  --blue-light: #cde0e7;
+  --blue-medium: #bad2d7;
+  --blue-medium-dark: #aec7cc;
+  --blue-dark: #4e6166;
+  --blue-darker: #394447;
+
+  --border-radius: 0.75rem;
+}
+
+.poll-selector {
+  margin-top: 130px;
+  display: grid;
+  box-sizing: border-box;
+  grid-template-columns: 1fr 1fr;
+  background-color: #fff;
+  width: 100%;
+  border-radius: var(--border-radius);
+  padding: 40px;
+  grid-gap: 20px;
+}
+
+.poll {
+  box-sizing: border-box;
+  background-color: #ddebe4;
+  color: #78b195;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.54, 0.32, 0.37, 1.19);
+}
+
+.poll:hover {
+  background-color: #78b195;
+  color: #ddebe4;
+  transform: scale(1.02);
+  text-decoration: none;
+}
+
+.poll:hover img {
+  filter: brightness(0.9);
+}
+
+.poll-heading {
+  box-sizing: border-box;
+  margin: 20px;
+  text-decoration: none;
+}
+
+.poll img {
+  filter: brightness(0.95);
+  width: 100%;
+}

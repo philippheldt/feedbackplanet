@@ -84,7 +84,7 @@ function insertData() {
 // insbtn.addEventListener("click", insertData);
 
 //Get data from firebase
-function getData() {
+export function getData() {
   const dbref = ref(db);
 
   get(child(dbref, "feedbackplanet/" + gamestate.uid))
@@ -157,7 +157,7 @@ function getData() {
 //selbtn.addEventListener("click", getData);
 
 //Update data to firebase
-function updateData() {
+export function updateData() {
   update(ref(db, "feedbackplanet/" + gamestate.uid), {
     building1: gamestate.buildings[0],
     building2: gamestate.buildings[1],
@@ -222,7 +222,7 @@ var bushFront = document.querySelector(".bush");
 const pointsView = document.querySelector("#current-points");
 const nextStageView = document.querySelector("#next-stage");
 
-function createPlanet() {
+export function createPlanet() {
   //setup
   //create planet
   planet.innerHTML = `<img class="pl-asset" src="assets/planet_assets/planets/${gamestate.planet}.png" id="planet-background" alt="">`;
@@ -300,7 +300,7 @@ function createPlanet() {
   }
 }
 
-function addAndAnimateAssets(
+export function addAndAnimateAssets(
   newAsset,
   previousAsset,
   placement,
@@ -354,15 +354,8 @@ function addAndAnimateAssets(
   }
 }
 
-// document.querySelector("#buibtn").addEventListener("click", createPlanet);
-
 //Update Data from Textfield input
 
-// Get the input box
-let input = document.getElementById("feedback-input");
-// Init a timeout variable to be used below
-let timeout = null;
-let animationStarted = false;
 var obj;
 
 //select progress element
@@ -372,14 +365,16 @@ const progressElement = document.querySelector(".progress-segment");
 
 let buildingChanged = "";
 
-function updateBuildings() {
+export function updateBuildings() {
   setTimeout(() => {
+    console.log(gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)]);
     if (
       gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
         "non0.no0.no0.no0.no0" &&
       deletedBuilding == false &&
       gamestate.points >= 10
     ) {
+      console.log("building added");
       buildingSelectorBar();
     }
   }, 500);
@@ -540,8 +535,6 @@ function updateBuildings() {
   }
 }
 
-// analyzing input and updating points
-
 // Auführlichkeitsbewertung
 var goodStart = false;
 var goodStartTextArray = [
@@ -564,7 +557,7 @@ var wordCount = 0;
 const pointsFloating = document.querySelector(".points-floating");
 const boostBar = document.querySelector(".boost-container");
 
-function analyzeText() {
+export function analyzeText(input) {
   prevBoost = boost;
   const goodStartText = goodStartTextArray[Math.floor(Math.random() * goodStartTextArray.length)];
   const extensiveFeedbackText =
@@ -617,21 +610,19 @@ function analyzeText() {
   }
 }
 
-input.addEventListener("keyup", function (e) {
-  !animationStarted ? planetContainer.classList.add("typing") : null;
-  animationStarted = true;
-  clearTimeout(timeout);
+export function analyzeRadio(radioInput) {
+  if (radioInput != undefined) {
+    gamestate.points = gamestate.points + 5 * boost;
+    feedbackBarCall("Danke für das Feedback!", 5 * boost, "feedback-good");
+    goodStart = true;
+  } else {
+    gamestate.points = gamestate.points - 5 * boost;
+    feedbackBarCall("Schade, keine Angabe!", -5 * boost, "feedback-bad");
+    goodStart = false;
+  }
+}
 
-  timeout = setTimeout(function () {
-    planetContainer.classList.remove("typing");
-    animationStarted = false;
-
-    // add points and gamestate data to temporary object
-    analyzeText();
-  }, 250);
-});
-
-function feedbackBarCall(message, acheivedPoints, color) {
+export function feedbackBarCall(message, acheivedPoints, color) {
   feedbackBar.innerHTML = `<div class="feedback-content">${message}</div>`;
   feedbackBar.classList.remove("feedback-bad");
   feedbackBar.classList.remove("feedback-good");
@@ -642,7 +633,8 @@ function feedbackBarCall(message, acheivedPoints, color) {
     feedbackBar.classList.add("bar-closed");
     if (acheivedPoints != 0) {
       setTimeout(() => {
-        pointsFloating.innerText = `+${acheivedPoints}`;
+        pointsFloating.innerText = `${acheivedPoints}`;
+        pointsFloating.style.color = color == "feedback-good" ? "#76b093" : "#de576e";
         pointsFloating.classList.add("points-floating-animation-add");
         feedbackBar.innerHTML = `<img src="./assets/icons/plus.png" class="feedback-icon" alt=""><div class="feedback-content">${
           gamestate.points - acheivedPoints
@@ -663,8 +655,7 @@ function feedbackBarCall(message, acheivedPoints, color) {
 
 import { submitData, researchData } from "./google_form_submission.js";
 
-function submitFeedback() {
-  submitData();
+export function submitFeedback() {
   // if basic feedback isn't given, boosts are reset
   if (goodStart) {
     gamestate.activeBoost = true;
@@ -716,15 +707,14 @@ function submitFeedback() {
 
   // reset values
   prevBoost = boost;
-  input.value = "";
   goodStart = false;
   extensiveFeedback = false;
 }
 
 //add eventlistener for submitFeedback
-document.getElementById("submit").addEventListener("click", submitFeedback);
+// document.getElementById("submit").addEventListener("click", submitFeedback);
 
-function countTo(addedPoints, place, interval, timeout) {
+export function countTo(addedPoints, place, interval, timeout) {
   let from = gamestate.points - addedPoints;
   let to = gamestate.points;
   let step = to > from ? 1 : -1;
@@ -749,7 +739,7 @@ function countTo(addedPoints, place, interval, timeout) {
 
 //Building and Planet selector boxes
 
-function planetSelectorBar() {
+export function planetSelectorBar() {
   feedbackBar.classList.add("planet-selector");
 
   setTimeout(() => {
@@ -787,7 +777,7 @@ function planetSelectorBar() {
   }, 100);
 }
 
-function planetSelector(selected) {
+export function planetSelector(selected) {
   gamestate.trackingData.bannerInteractions++;
   gamestate.planet = selected;
   console.log("Planet selected: " + selected);
@@ -800,7 +790,7 @@ function planetSelector(selected) {
   }, 1000);
 }
 
-function colorSelectorBar(pSelected) {
+export function colorSelectorBar(pSelected) {
   feedbackBar.innerHTML = ` 
   <div class="feedback-content ">Wähle eine Farbe:</div>
       <img src="./assets/planet_assets/planets/preview/pu.png" class="planet-icon" id="pu">
@@ -832,7 +822,7 @@ function colorSelectorBar(pSelected) {
   });
 }
 
-function colorSelector(selected) {
+export function colorSelector(selected) {
   gamestate.trackingData.bannerInteractions++;
   gamestate.planet = selected;
   console.log("Color selected: " + selected);
@@ -849,7 +839,7 @@ function colorSelector(selected) {
   }, 1000);
 }
 
-function addRandomSky() {
+export function addRandomSky() {
   const skyStyles = ["day1"];
 
   let randomNumber = Math.floor(Math.random() * skyStyles.length);
@@ -861,7 +851,7 @@ function addRandomSky() {
   skySet = true;
 }
 
-function buildingSelectorBar() {
+export function buildingSelectorBar() {
   feedbackBar.classList.add("planet-selector");
   setTimeout(() => {
     const buildingStyles = ["iba", "aba", "bre", "ekf", "ghb", "kkf"];
@@ -898,17 +888,20 @@ function buildingSelectorBar() {
   }, 100);
 }
 
-function buildingSelector(selected) {
+export function buildingSelector(selected) {
   gamestate.trackingData.bannerInteractions++;
-  console.log("Building selected: " + gamestate.planetPosition - 1);
+
   gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
     selected + "1.no0.no0.no0.no0";
+
+  console.log(gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)]);
 
   feedbackBar.classList.add("bar-closed");
   feedbackBar.classList.remove("planet-selector");
   planetEmbedded.classList.remove("no-action");
   updateData();
   updateBuildings();
+  console.log("Building selected: " + selected);
 }
 
 // Planet Rotation
@@ -919,7 +912,7 @@ const rotateLeft = document.querySelector("#rotate-left");
 rotateRight.addEventListener("click", rotatePlanetRight);
 rotateLeft.addEventListener("click", rotatePlanetLeft);
 
-function rotatePlanetRight() {
+export function rotatePlanetRight() {
   gamestate.trackingData.turnClicks++;
   editToolbarOpen ? toggleTrees() : null;
   planetContainer.classList.remove("rotate-animation");
@@ -954,7 +947,7 @@ function rotatePlanetRight() {
   }, 50);
 }
 
-function rotatePlanetLeft() {
+export function rotatePlanetLeft() {
   gamestate.trackingData.turnClicks++;
   editToolbarOpen ? toggleTrees() : null;
   planetContainer.classList.remove("rotate-animation");
@@ -988,7 +981,7 @@ function rotatePlanetLeft() {
   }
 }
 
-function calculateBuildingNumber(plPosition) {
+export function calculateBuildingNumber(plPosition) {
   let buildingNumber = 0;
   if (plPosition == 1) {
     buildingNumber = 1;
@@ -1008,7 +1001,7 @@ const plButtons = document.querySelector(".pl-buttons");
 const userNameOutput = document.querySelector("#userName");
 const userIcon = document.querySelector("#userIcon");
 
-function closeOverlay() {
+export function closeOverlay() {
   overlay.classList.add("opacity-hidden");
   plButtons.classList.add("opacity-hidden");
   planetContainer.classList.remove("rotate-animation");
@@ -1033,7 +1026,7 @@ function closeOverlay() {
   }, 500);
 }
 
-function openOverlay() {
+export function openOverlay() {
   gamestate.trackingData.planetClicks++;
   createPlanet();
   updateBuildings();
@@ -1063,7 +1056,7 @@ userIcon.addEventListener("click", openOverlay);
 const editView = document.querySelector(".edit-view");
 let editToolbarOpen = false;
 
-function toggleTrees() {
+export function toggleTrees() {
   const buildingPosition = calculateBuildingNumber(gamestate.planetPosition);
   const buildingArray = gamestate.buildings[buildingPosition].split(".");
 
@@ -1103,7 +1096,7 @@ const tree2 = document.querySelector("#tree-2");
 const tree3 = document.querySelector("#tree-3");
 const tree4 = document.querySelector("#tree-4");
 
-function exchangeTree(treeNumber) {
+export function exchangeTree(treeNumber) {
   const treeStyles = [
     "ei1",
     "ei2",
@@ -1186,7 +1179,7 @@ const confirmAlert = document.querySelector("#confirm-alert");
 const cancelAlert = document.querySelector("#cancel-alert");
 const alertOverlay = document.querySelector(".alert-overlay");
 
-function removeBuilding() {
+export function removeBuilding() {
   const buildingPosition = calculateBuildingNumber(gamestate.planetPosition);
   gamestate.buildings[buildingPosition] = "non0.no0.no0.no0.no0";
   deletedBuilding = true;
@@ -1195,14 +1188,14 @@ function removeBuilding() {
   updateData();
 }
 
-function removeBuildingConfirmation() {
+export function removeBuildingConfirmation() {
   alertOverlay.classList.remove("hidden");
   setTimeout(() => {
     alertOverlay.classList.remove("opacity-hidden");
   }, 100);
 }
 
-function cancelRemoveBuilding() {
+export function cancelRemoveBuilding() {
   alertOverlay.classList.add("opacity-hidden");
   setTimeout(() => {
     alertOverlay.classList.add("hidden");

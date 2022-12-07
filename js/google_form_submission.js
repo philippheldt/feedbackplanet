@@ -78,9 +78,11 @@ const skala3 = document.querySelectorAll('input[name="' + researchData.formField
 const skala4 = document.querySelectorAll('input[name="' + researchData.formFields.skala4[0] + '"]');
 const skala5 = document.querySelectorAll('input[name="' + researchData.formFields.skala5[0] + '"]');
 
+export const skalen = [skala1, skala2, skala3, skala4, skala5];
+
 //textareas
 // const freitext1 = document.querySelector("#freitext-1");
-const freitext1 = document.querySelector("#feedback-input");
+const freitext1 = document.querySelector("#freitext-1");
 const freitext2 = document.querySelector("#freitext-2");
 const freitext3 = document.querySelector("#freitext-3");
 
@@ -147,11 +149,11 @@ export function submitData() {
     }
   }
 
-  //   window.open(submitURL, "_blank").focus();
-  console.log(researchData);
+  window.open(submitURL, "_blank").focus();
+  // console.log(researchData);
 }
 
-function getRadioValue(radioButtons) {
+export function getRadioValue(radioButtons) {
   for (let i = 0; i < radioButtons.length; i++) {
     if (radioButtons[i].checked) {
       return radioButtons[i].value;
