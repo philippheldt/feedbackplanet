@@ -63,11 +63,13 @@
                 <div class="feedback-form-container">
 
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/B38viYbl0j0"
+                        <!-- <iframe src="https://www.youtube.com/embed/B38viYbl0j0"
                             title="Wie erkenne ich Fake News? | Odysso – Wissen im SWR" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen>
-                        </iframe>
+                        </iframe> -->
+                        <div id="player"></div>
+
                     </div>
 
                     <div class="radio-button-container">
@@ -471,9 +473,10 @@
             </div>
         </div>
     </div>
-
+    <div class="seconds-output hidden"></div>
 
     <footer></footer>
+    <script src="./js/youtube_player_api.js"></script>
     <script src="./js/form_content_switcher.js"></script>
     <script src="./js/firebase_home_copy.js" type="module"></script>
     <script src="./js/planetbuilder_umfrage.js" type="module"></script>

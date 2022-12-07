@@ -224,15 +224,7 @@ var bushFront = document.querySelector(".bush");
 const pointsView = document.querySelector("#current-points");
 const nextStageView = document.querySelector("#next-stage");
 
-function checkTestGroup() {
-  if (gamestate.trackingData.testGroup == "A") {
-    planetContainer.classList.remove("hidden");
-    feedbackContainer.classList.remove("hidden");
-    pointsFloating.classList.remove("hidden");
-    userNameOutput.style.pointerEvents = "none";
-    userIcon.style.pointerEvents = "none";
-  }
-}
+function checkTestGroup() {}
 
 export function createPlanet() {
   //setup
@@ -241,7 +233,13 @@ export function createPlanet() {
   planetContainer.classList.add("pos-" + gamestate.planetPosition);
   pointsView.innerHTML = gamestate.points;
 
-  checkTestGroup();
+  if (gamestate.trackingData.testGroup == "A") {
+    planetContainer.classList.remove("hidden");
+    feedbackContainer.classList.remove("hidden");
+    pointsFloating.classList.remove("hidden");
+    userNameOutput.style.pointerEvents = "none";
+    userIcon.style.pointerEvents = "none";
+  }
   //TODO Add random video element
 
   if (gamestate.planet == "nono") {

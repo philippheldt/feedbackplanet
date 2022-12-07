@@ -15,4 +15,4 @@ setTimeout(() => {
     planetSelectorBar();
     console.log("no planet selected");
   }
-}, 1000);
+}, 5000);
