@@ -9,7 +9,7 @@
 
 .feedback-bar {
   font-size: 14pt;
-  padding: 15px 60px 15px 20px;
+  padding: 15px 80px 15px 20px;
   border-radius: 30px;
   transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
   display: flex;
@@ -52,7 +52,7 @@
 .points-floating {
   position: fixed;
   bottom: 125px;
-  right: 175px;
+  right: 190px;
   font-size: 14pt;
   font-family: "Luckiest Guy", cursive;
   color: #76b093;

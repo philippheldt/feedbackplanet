@@ -982,6 +982,7 @@ export function rotatePlanetRight() {
         console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
         buildingChanged = gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)];
         nextStageView.innerHTML = ` / ${0}`;
+        deletedBuilding = true;
         updateBuildings();
       }, 501);
     } else {
@@ -991,6 +992,7 @@ export function rotatePlanetRight() {
       console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
       buildingChanged = gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)];
       nextStageView.innerHTML = ` / ${0}`;
+      deletedBuilding = true;
       updateBuildings();
     }
   }, 50);
@@ -1016,6 +1018,7 @@ export function rotatePlanetLeft() {
       console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
       buildingChanged = gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)];
       nextStageView.innerHTML = ` / ${0}`;
+      deletedBuilding = true;
       updateBuildings();
     }, 50);
   } else {
@@ -1026,6 +1029,7 @@ export function rotatePlanetLeft() {
     console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
     buildingChanged = gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)];
     nextStageView.innerHTML = ` / ${0}`;
+    deletedBuilding = true;
     updateBuildings();
   }
 }
