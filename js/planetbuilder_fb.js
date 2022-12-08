@@ -865,7 +865,45 @@ export function addRandomSky() {
 export function buildingSelectorBar() {
   feedbackBar.classList.add("planet-selector");
   setTimeout(() => {
-    const buildingStyles = ["iba", "aba", "bre", "ekf", "ghb", "kkf"];
+    const buildingStyles = [
+      "iba",
+      "aba",
+      "bre",
+      "ekf",
+      "ghb",
+      "kkf",
+      "bbt",
+      "bft",
+      "brr",
+      "csr",
+      "dhg",
+      "dhh",
+      "dhl",
+      "dhm",
+      "dhr",
+      "ekf",
+      "etp",
+      "hhg",
+      "hhh",
+      "hhl",
+      "hhm",
+      "hhr",
+      "mtf",
+      "rhg",
+      "rhh",
+      "rhl",
+      "rhm",
+      "rhr",
+      "scf",
+      "scg",
+      "sch",
+      "scl",
+      "scm",
+      "scr",
+      "ssh",
+      "ssr",
+      "stf",
+    ];
 
     let randomNumber = Math.floor(Math.random() * buildingStyles.length);
     let b1Random = buildingStyles[randomNumber];
