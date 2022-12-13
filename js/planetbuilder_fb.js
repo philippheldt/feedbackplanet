@@ -212,10 +212,17 @@ function removeData() {
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-var planetContainer = document.querySelector(".pl-container");
-planetContainer.innerHTML =
-  '<div class="sky"> <video id="background-video-sky" src="" autoplay loop muted></video></div> <div class="tree-back"></div><div class="building"></div><div class="tree-front"></div><div class="planet"><img class="pl-asset" src="assets/planet_assets/planets/nono.png" id="planet-background"></div><div class="bush"></div>';
+import { getBrowser } from "./checkBrowser.js";
 
+var planetContainer = document.querySelector(".pl-container");
+
+if (getBrowser() == "Safari") {
+  planetContainer.innerHTML =
+    '<div class="sky"> <img id="background-image-sky" src="" ></img></div> <div class="tree-back"></div><div class="building"></div><div class="tree-front"></div><div class="planet"><img class="pl-asset" src="assets/planet_assets/planets/nono.png" id="planet-background"></div><div class="bush"></div>';
+} else {
+  planetContainer.innerHTML =
+    '<div class="sky"> <video id="background-video-sky" src="" autoplay loop muted></video></div> <div class="tree-back"></div><div class="building"></div><div class="tree-front"></div><div class="planet"><img class="pl-asset" src="assets/planet_assets/planets/nono.png" id="planet-background"></div><div class="bush"></div>';
+}
 var planet = document.querySelector(".planet");
 var building = document.querySelector(".building");
 var treeBack = document.querySelector(".tree-back");
@@ -285,16 +292,29 @@ export function createPlanet() {
           ".png"
         );
       } else if (buildingSetup[tree] != "no0" && tree === 3) {
-        addAndAnimateAssets(
-          buildingSetup[tree],
-          buildingSetupPrevious[tree],
-          treeFront,
-          "tree-front-",
-          i,
-          i + tree - 2,
-          "assets/planet_assets/trees_back/",
-          ".webm"
-        );
+        if (getBrowser() == "Safari") {
+          addAndAnimateAssets(
+            buildingSetup[tree],
+            buildingSetupPrevious[tree],
+            treeFront,
+            "tree-front-",
+            i,
+            i + tree - 2,
+            "assets/planet_assets/trees_back/",
+            ".png"
+          );
+        } else {
+          addAndAnimateAssets(
+            buildingSetup[tree],
+            buildingSetupPrevious[tree],
+            treeFront,
+            "tree-front-",
+            i,
+            i + tree - 2,
+            "assets/planet_assets/trees_back/",
+            ".webm"
+          );
+        }
       } else if (buildingSetup[tree] != "no0" && tree === 4) {
         addAndAnimateAssets(
           buildingSetup[tree],
@@ -856,9 +876,15 @@ export function addRandomSky() {
   let randomNumber = Math.floor(Math.random() * skyStyles.length);
   let skyRandom = skyStyles[randomNumber];
 
-  document.querySelector(
-    "#background-video-sky"
-  ).src = `./assets/planet_assets/sky/${skyRandom}.webm`;
+  if (getBrowser() === "Safari") {
+    document.querySelector(
+      "#background-image-sky"
+    ).src = `./assets/planet_assets/sky/${skyRandom}.png`;
+  } else {
+    document.querySelector(
+      "#background-video-sky"
+    ).src = `./assets/planet_assets/sky/${skyRandom}.webm`;
+  }
   skySet = true;
 }
 

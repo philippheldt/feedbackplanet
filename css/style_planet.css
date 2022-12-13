@@ -101,6 +101,11 @@
   height: 100%;
 }
 
+.sky img {
+  width: 100%;
+  height: 100%;
+}
+
 .sprite-content {
   width: 600%;
   animation-name: sprite-animation;
