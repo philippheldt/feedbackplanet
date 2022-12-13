@@ -385,16 +385,14 @@ export function addAndAnimateAssets(
   }
 }
 
-//Update Data from Textfield input
-
-var obj;
-
 //select progress element
 const progressElement = document.querySelector(".progress-segment");
 
 // Updating buildings based on inputted points
 
 let buildingChanged = "";
+
+import { buildingCollection } from "./building_collection.js";
 
 export function updateBuildings() {
   setTimeout(() => {
@@ -412,157 +410,148 @@ export function updateBuildings() {
   if (
     gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] != "non0.no0.no0.no0.no0"
   ) {
-    fetch("../json/gamestate.json")
-      .then((res) => res.json())
-      .then((data) => (obj = data))
-      .then(() => {
-        const progressElement = document.querySelector(".progress-segment");
-        console.log(obj);
-        //check which building is selected
-        const currentBuilding = gamestate.buildings[
-          calculateBuildingNumber(gamestate.planetPosition)
-        ].slice(0, 3);
-        let currentBuildingIndex;
-        let currentBuildingStage = gamestate.buildings[
-          calculateBuildingNumber(gamestate.planetPosition)
-        ].slice(3, 4);
+    const progressElement = document.querySelector(".progress-segment");
+    console.log(buildingCollection);
+    //check which building is selected
+    const currentBuilding = gamestate.buildings[
+      calculateBuildingNumber(gamestate.planetPosition)
+    ].slice(0, 3);
+    let currentBuildingIndex;
+    let currentBuildingStage = gamestate.buildings[
+      calculateBuildingNumber(gamestate.planetPosition)
+    ].slice(3, 4);
 
-        for (let i = 0; i < obj.length; i++) {
-          if (obj[i].shortcut === currentBuilding) {
-            currentBuildingIndex = i;
-          }
+    for (let i = 0; i < buildingCollection.length; i++) {
+      if (buildingCollection[i].shortcut === currentBuilding) {
+        currentBuildingIndex = i;
+      }
+    }
+    const pointsToNextBuildingStage =
+      buildingCollection[currentBuildingIndex].buildingStages[currentBuildingStage];
+    const pointsToNextBuildigStageQuarter = pointsToNextBuildingStage / 4;
+
+    nextStageView.innerHTML = ` / ${pointsToNextBuildingStage}`;
+    //select random element from array and save it to a const
+    const randomTree =
+      buildingCollection[currentBuildingIndex].trees[
+        Math.floor(Math.random() * buildingCollection[currentBuildingIndex].trees.length)
+      ];
+    const randomBush =
+      buildingCollection[currentBuildingIndex].bushes[
+        Math.floor(Math.random() * buildingCollection[currentBuildingIndex].bushes.length)
+      ];
+
+    //check if there are enough points to build the next stage
+    if (gamestate.points >= pointsToNextBuildingStage) {
+      buildingChanged = gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)];
+      currentBuildingStage = Number(currentBuildingStage) + 1;
+      // check if building is at max stage
+      if (currentBuildingStage < 5) {
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
+          currentBuilding + currentBuildingStage + ".no0.no0.no0.no0";
+      } else {
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
+          currentBuilding +
+          currentBuildingStage +
+          "." +
+          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] +
+          "." +
+          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] +
+          "." +
+          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] +
+          "." +
+          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4];
+      }
+      gamestate.points = 0;
+      createPlanet();
+    }
+
+    const percentageToNextBuildingStage = gamestate.points / pointsToNextBuildingStage;
+    progressElement.style.background = `repeating-conic-gradient(from 230deg, #ddebe4 0% ${
+      percentageToNextBuildingStage * 70
+    }%, #ffffff00 0% 100%)`;
+    console.log(percentageToNextBuildingStage);
+
+    // build a new tree when one more quarter of points to the next stage is reached
+    if (
+      gamestate.points > 0 &&
+      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] === "no0"
+    ) {
+      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
+        "." +
+        randomTree +
+        "." +
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] +
+        "." +
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] +
+        "." +
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4];
+      createPlanet();
+    } else if (
+      gamestate.points > pointsToNextBuildigStageQuarter &&
+      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] === "no0"
+    ) {
+      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
+        "." +
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] +
+        "." +
+        randomTree +
+        "." +
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] +
+        "." +
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4];
+      createPlanet();
+    } else if (
+      gamestate.points > pointsToNextBuildigStageQuarter * 2 &&
+      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] === "no0"
+    ) {
+      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
+        "." +
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] +
+        "." +
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] +
+        "." +
+        randomTree +
+        "." +
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4];
+      createPlanet();
+    } else if (
+      gamestate.points > pointsToNextBuildigStageQuarter * 3 &&
+      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4] === "no0"
+    ) {
+      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
+        "." +
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] +
+        "." +
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] +
+        "." +
+        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] +
+        "." +
+        randomBush;
+      createPlanet();
+    }
+
+    if (gamestate.points < 0) {
+      const accumulatedPoints =
+        buildingCollection[currentBuildingIndex].accumulatedStages[currentBuildingStage - 1] +
+        gamestate.points;
+      //loop throug all accumulatedstages and check if the accumulated points are higher than the current stage
+      for (let i = 0; i < buildingCollection[currentBuildingIndex].accumulatedStages.length; i++) {
+        if (accumulatedPoints >= buildingCollection[currentBuildingIndex].accumulatedStages[i]) {
+          currentBuildingStage = i + 1;
         }
-        const pointsToNextBuildingStage =
-          obj[currentBuildingIndex].buildingStages[currentBuildingStage];
-        const pointsToNextBuildigStageQuarter = pointsToNextBuildingStage / 4;
-
-        nextStageView.innerHTML = ` / ${pointsToNextBuildingStage}`;
-        //select random element from array and save it to a const
-        const randomTree =
-          obj[currentBuildingIndex].trees[
-            Math.floor(Math.random() * obj[currentBuildingIndex].trees.length)
-          ];
-        const randomBush =
-          obj[currentBuildingIndex].bushes[
-            Math.floor(Math.random() * obj[currentBuildingIndex].bushes.length)
-          ];
-
-        //check if there are enough points to build the next stage
-        if (gamestate.points >= pointsToNextBuildingStage) {
-          buildingChanged = gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)];
-          currentBuildingStage = Number(currentBuildingStage) + 1;
-          // check if building is at max stage
-          if (currentBuildingStage < 5) {
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
-              currentBuilding + currentBuildingStage + ".no0.no0.no0.no0";
-          } else {
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
-              currentBuilding +
-              currentBuildingStage +
-              "." +
-              gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] +
-              "." +
-              gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] +
-              "." +
-              gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] +
-              "." +
-              gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4];
-          }
-          gamestate.points = 0;
-          createPlanet();
-        }
-
-        const percentageToNextBuildingStage = gamestate.points / pointsToNextBuildingStage;
-        progressElement.style.background = `repeating-conic-gradient(from 230deg, #ddebe4 0% ${
-          percentageToNextBuildingStage * 70
-        }%, #ffffff00 0% 100%)`;
-        console.log(percentageToNextBuildingStage);
-
-        // build a new tree when one more quarter of points to the next stage is reached
-        if (
-          gamestate.points > 0 &&
-          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] ===
-            "no0"
-        ) {
-          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
-            "." +
-            randomTree +
-            "." +
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] +
-            "." +
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] +
-            "." +
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4];
-          createPlanet();
-        } else if (
-          gamestate.points > pointsToNextBuildigStageQuarter &&
-          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] ===
-            "no0"
-        ) {
-          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
-            "." +
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] +
-            "." +
-            randomTree +
-            "." +
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] +
-            "." +
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4];
-          createPlanet();
-        } else if (
-          gamestate.points > pointsToNextBuildigStageQuarter * 2 &&
-          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] ===
-            "no0"
-        ) {
-          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
-            "." +
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] +
-            "." +
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] +
-            "." +
-            randomTree +
-            "." +
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4];
-          createPlanet();
-        } else if (
-          gamestate.points > pointsToNextBuildigStageQuarter * 3 &&
-          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4] ===
-            "no0"
-        ) {
-          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
-            "." +
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] +
-            "." +
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] +
-            "." +
-            gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] +
-            "." +
-            randomBush;
-          createPlanet();
-        }
-
-        if (gamestate.points < 0) {
-          const accumulatedPoints =
-            obj[currentBuildingIndex].accumulatedStages[currentBuildingStage - 1] +
-            gamestate.points;
-          //loop throug all accumulatedstages and check if the accumulated points are higher than the current stage
-          for (let i = 0; i < obj[currentBuildingIndex].accumulatedStages.length; i++) {
-            if (accumulatedPoints >= obj[currentBuildingIndex].accumulatedStages[i]) {
-              currentBuildingStage = i + 1;
-            }
-          }
-          gamestate.points =
-            accumulatedPoints -
-            obj[currentBuildingIndex].accumulatedStages[currentBuildingStage - 1];
-          gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
-            currentBuilding + currentBuildingStage + ".no0.no0.no0.no0";
-          createPlanet();
-        }
-      });
+      }
+      gamestate.points =
+        accumulatedPoints -
+        buildingCollection[currentBuildingIndex].accumulatedStages[currentBuildingStage - 1];
+      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
+        currentBuilding + currentBuildingStage + ".no0.no0.no0.no0";
+      createPlanet();
+    }
   }
 }
 
@@ -901,84 +890,51 @@ export function addRandomSky() {
 export function buildingSelectorBar() {
   feedbackBar.classList.add("planet-selector");
   setTimeout(() => {
-    const buildingStyles = [
-      "iba",
-      "aba",
-      "bre",
-      "ekf",
-      "ghb",
-      "kkf",
-      "bbt",
-      "bft",
-      "brr",
-      "csr",
-      "dhg",
-      "dhh",
-      "dhl",
-      "dhm",
-      "dhr",
-      "ekf",
-      "etp",
-      "hhg",
-      "hhh",
-      "hhl",
-      "hhm",
-      "hhr",
-      "mtf",
-      "rhg",
-      "rhh",
-      "rhl",
-      "rhm",
-      "rhr",
-      "scf",
-      "scg",
-      "sch",
-      "scl",
-      "scm",
-      "scr",
-      "ssh",
-      "ssr",
-      "stf",
-    ];
+    //get all building styles from the building collection and add them to an array
+    let buildingStyles = [];
+    for (let i = 0; i < buildingCollection.length; i++) {
+      buildingStyles.push(i);
+    }
 
     let randomNumber = Math.floor(Math.random() * buildingStyles.length);
-    let b1Random = buildingStyles[randomNumber];
+    let b1Index = buildingStyles[randomNumber];
 
     buildingStyles.splice(randomNumber, 1);
     randomNumber = Math.floor(Math.random() * buildingStyles.length);
-    let b2Random = buildingStyles[randomNumber];
+    let b2Index = buildingStyles[randomNumber];
 
     buildingStyles.splice(randomNumber, 1);
     randomNumber = Math.floor(Math.random() * buildingStyles.length);
-    let b3Random = buildingStyles[randomNumber];
+    let b3Index = buildingStyles[randomNumber];
 
     feedbackBar.innerHTML = ` 
       <div class="feedback-content ">Wähle ein Gebäude:</div>
       <div class="first-building-container">
+        
+        <img src="./assets/planet_assets/planets/preview/${buildingCollection[b1Index].shortcut}.png" class="planet-icon" id="b1">
         <div id="countdown">
             <svg>
                 <circle r="18" cx="20" cy="20"></circle>
             </svg>
         </div>
-        <img src="./assets/planet_assets/planets/preview/${b1Random}.png" class="planet-icon" id="b1">
       </div>
-      <img src="./assets/planet_assets/planets/preview/${b2Random}.png" class="planet-icon" id="b2">
-      <img src="./assets/planet_assets/planets/preview/${b3Random}.png" class="planet-icon" id="b3">`;
+      <img src="./assets/planet_assets/planets/preview/${buildingCollection[b2Index].shortcut}.png" class="planet-icon" id="b2">
+      <img src="./assets/planet_assets/planets/preview/${buildingCollection[b3Index].shortcut}.png" class="planet-icon" id="b3">`;
     planetEmbedded.classList.add("no-action");
     feedbackBar.classList.add("feedback-good");
     feedbackBar.classList.remove("bar-closed");
 
     document.querySelector("#b1").addEventListener("click", function () {
-      buildingSelector(b1Random);
+      buildingSelector(buildingCollection[b1Index].shortcut);
     });
     document.querySelector("#b2").addEventListener("click", function () {
-      buildingSelector(b2Random);
+      buildingSelector(buildingCollection[b2Index].shortcut);
     });
     document.querySelector("#b3").addEventListener("click", function () {
-      buildingSelector(b3Random);
+      buildingSelector(buildingCollection[b3Index].shortcut);
     });
     setTimeout(() => {
-      buildingSelector(b1Random);
+      buildingSelector(buildingCollection[b1Index].shortcut);
     }, 20000);
   }, 100);
 }
@@ -1113,13 +1069,13 @@ export function closeOverlay() {
     progressElement.classList.remove("opacity-hidden");
     deletedBuilding = false;
 
-    // if (
-    //   gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
-    //     "non0.no0.no0.no0.no0" &&
-    //   gamestate.points >= 10
-    // ) {
-    //   buildingSelectorBar();
-    // }
+    if (
+      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
+        "non0.no0.no0.no0.no0" &&
+      gamestate.points >= 10
+    ) {
+      buildingSelectorBar();
+    }
     updateBuildings();
     updateData();
   }, 500);
