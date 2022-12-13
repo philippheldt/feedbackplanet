@@ -213,3 +213,46 @@
     right: 49px;
   }
 }
+
+.first-building-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.first-building-container img {
+  grid-area: 1/1;
+}
+
+.first-building-container #countdown {
+  grid-area: 1/1;
+  padding: 5px 0px 5px 5px;
+  height: 40px;
+}
+
+#countdown svg {
+  width: 40px;
+  height: 40px;
+  transform: rotateY(-180deg) rotateZ(-90deg);
+}
+
+#countdown svg circle {
+  stroke-dasharray: 113px;
+  stroke-dashoffset: 0px;
+  stroke-linecap: round;
+  stroke-width: 4px;
+  stroke: #76b093;
+  fill: none;
+  animation: countdown 20s linear backwards;
+}
+
+@keyframes countdown {
+  from {
+    stroke-dashoffset: -113px;
+  }
+
+  to {
+    stroke-dashoffset: 0px;
+  }
+}

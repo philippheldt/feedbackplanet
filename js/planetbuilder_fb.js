@@ -399,15 +399,15 @@ let buildingChanged = "";
 export function updateBuildings() {
   setTimeout(() => {
     console.log(gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)]);
-    if (
-      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
-        "non0.no0.no0.no0.no0" &&
-      deletedBuilding == false &&
-      gamestate.points >= 10
-    ) {
-      console.log("building added");
-      buildingSelectorBar();
-    }
+    // if (
+    //   gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
+    //     "non0.no0.no0.no0.no0" &&
+    //   deletedBuilding == false &&
+    //   gamestate.points >= 10
+    // ) {
+    //   console.log("building added");
+    //   buildingSelectorBar();
+    // }
   }, 500);
   if (
     gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] != "non0.no0.no0.no0.no0"
@@ -677,7 +677,17 @@ export function feedbackBarCall(message, acheivedPoints, color) {
           feedbackBar.classList.add("bar-closed");
           pointsFloating.classList.remove("points-floating-animation-add");
           boost > 1 ? feedbackBar.classList.remove("feedback-boost") : null;
-          updateBuildings();
+          setTimeout(() => {
+            if (
+              gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
+                "non0.no0.no0.no0.no0" &&
+              deletedBuilding == false &&
+              gamestate.points >= 10
+            ) {
+              buildingSelectorBar();
+            }
+            updateBuildings();
+          }, 300);
         }, 2600 + 20 * acheivedPoints);
       }, 300);
     }
@@ -944,7 +954,14 @@ export function buildingSelectorBar() {
 
     feedbackBar.innerHTML = ` 
       <div class="feedback-content ">Wähle ein Gebäude:</div>
-      <img src="./assets/planet_assets/planets/preview/${b1Random}.png" class="planet-icon" id="b1">
+      <div class="first-building-container">
+        <div id="countdown">
+            <svg>
+                <circle r="18" cx="20" cy="20"></circle>
+            </svg>
+        </div>
+        <img src="./assets/planet_assets/planets/preview/${b1Random}.png" class="planet-icon" id="b1">
+      </div>
       <img src="./assets/planet_assets/planets/preview/${b2Random}.png" class="planet-icon" id="b2">
       <img src="./assets/planet_assets/planets/preview/${b3Random}.png" class="planet-icon" id="b3">`;
     planetEmbedded.classList.add("no-action");
@@ -960,6 +977,9 @@ export function buildingSelectorBar() {
     document.querySelector("#b3").addEventListener("click", function () {
       buildingSelector(b3Random);
     });
+    setTimeout(() => {
+      buildingSelector(b1Random);
+    }, 20000);
   }, 100);
 }
 
@@ -1093,13 +1113,13 @@ export function closeOverlay() {
     progressElement.classList.remove("opacity-hidden");
     deletedBuilding = false;
 
-    if (
-      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
-        "non0.no0.no0.no0.no0" &&
-      gamestate.points >= 10
-    ) {
-      buildingSelectorBar();
-    }
+    // if (
+    //   gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
+    //     "non0.no0.no0.no0.no0" &&
+    //   gamestate.points >= 10
+    // ) {
+    //   buildingSelectorBar();
+    // }
     updateBuildings();
     updateData();
   }, 500);

@@ -35,8 +35,10 @@ nextButton.addEventListener("click", () => {
       feedbackBarCall("Video angefangen!", 5, "feedback-good");
     }
   }
+  console.log("button submit");
   updateBuildings();
   submitFeedback();
+
   if (skalenContainerPositionsWerte[containerPosition] != null) {
     analyzeRadio(getRadioValue(skalen[skalenContainerPositionsWerte[containerPosition]]));
   }
