@@ -258,3 +258,55 @@
     stroke-dashoffset: 0px;
   }
 }
+
+/* Prices */
+
+.price-preview {
+  position: absolute;
+  right: 200px;
+  bottom: 110px;
+  display: flex;
+  align-items: center;
+  width: 100px;
+  border-radius: 30px;
+  background-color: #faf3e2;
+  transform: translateY(0px);
+  transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
+  opacity: 0;
+}
+
+.price-preview:nth-child(1).price-preview-active {
+  opacity: 1;
+  transform: translateY(-50px);
+}
+.price-preview:nth-child(2).price-preview-active {
+  opacity: 1;
+  transform: translateY(-85px);
+}
+
+.price-preview .icons-stacking {
+  background-color: #ffd15e;
+  border-radius: 30px;
+  padding: 7px;
+}
+
+.price-preview .icons-stacking img {
+  width: 15px;
+}
+
+.price-preview .price {
+  color: #ffd15e;
+  width: fit-content;
+  margin: 0 20px 0 10px;
+  transform: translateY(3px);
+  overflow: visible;
+}
+
+.price-preview .icons-stacking:hover + .price {
+  width: fit-content;
+  margin: 0 20px 0 10px;
+}
+
+.price-preview .icons-stacking:hover img {
+  opacity: 1;
+}

@@ -369,21 +369,48 @@
 }
 
 .pl-toolbar-items {
-  padding: 8px 5px 2px 5px;
   border-radius: 30px;
-
   text-align: center;
 
   font-size: 14pt;
   cursor: pointer;
+}
+.edit-view,
+.delete-view {
+  display: grid;
+  grid-template-columns: 1fr;
+  transition: all 0.3s ease;
+}
+
+.pl-toolbar-items img {
+  margin: 8px 10px 12px 10px;
+  width: 20px;
+  grid-area: 1/1;
+  transition: all 0.3s ease;
+}
+
+.pl-toolbar-items img:nth-child(1) {
+  opacity: 0;
+}
+
+.pl-toolbar-items img:nth-child(2) {
+  opacity: 1;
+}
+
+.pl-toolbar-items:hover img:nth-child(1) {
+  opacity: 1;
+}
+
+.pl-toolbar-items:hover img:nth-child(2) {
+  opacity: 0;
 }
 
 .points-view {
   font-family: "Luckiest Guy", cursive;
   padding: 14px 10px 6px 10px;
   width: 100px;
-  background-color: #ddebe4;
-  color: #76b093;
+  background-color: #faf3e2;
+  color: #ffd15e;
 }
 
 #current-points,
@@ -397,14 +424,12 @@
   transform: translateY(0px);
   font-weight: bold;
   font-size: 17pt;
-  background-color: #eaeaea;
+  background-color: #ddebe4;
   color: #b0b0b0;
 }
 
 .edit-view:hover {
-  font-weight: 900;
-  background-color: #b0b0b0;
-  color: #eaeaea;
+  background-color: #76b093;
 }
 
 .delete-view {
@@ -412,12 +437,12 @@
   transform: translateY(0px);
   font-size: 17pt;
   font-weight: 900;
-  background-color: #f5e1e4;
+  background-color: #ddebe4;
   color: #de576e;
 }
+
 .delete-view:hover {
-  background-color: #de576e;
-  color: #f5e1e4;
+  background-color: #f5e1e4;
 }
 
 /* Preview Icons trees */
@@ -436,6 +461,7 @@
   background-color: #ddebe4;
   cursor: pointer;
 }
+
 .icons-stacking img {
   width: 30px;
   grid-area: 1/2;

@@ -421,6 +421,8 @@ export function updateBuildings() {
       calculateBuildingNumber(gamestate.planetPosition)
     ].slice(3, 4);
 
+    changeBuildingStageIndicator(currentBuildingStage - 1);
+
     for (let i = 0; i < buildingCollection.length; i++) {
       if (buildingCollection[i].shortcut === currentBuilding) {
         currentBuildingIndex = i;
@@ -933,10 +935,53 @@ export function buildingSelectorBar() {
     document.querySelector("#b3").addEventListener("click", function () {
       buildingSelector(buildingCollection[b3Index].shortcut);
     });
+
+    priceReveal(
+      buildingCollection[b1Index],
+      buildingCollection[b2Index],
+      buildingCollection[b3Index]
+    );
+
     setTimeout(() => {
       buildingSelector(buildingCollection[b1Index].shortcut);
     }, 20000);
   }, 100);
+}
+
+function priceReveal(building1, building2, building3) {
+  const buildingPreviews = document.querySelectorAll(".planet-icon");
+  const stage1PriceLabel = document.querySelector(".price-preview:nth-child(1)");
+  const stage1Price = document.querySelector("#stage-1-price");
+  const stage2PriceLabel = document.querySelector(".price-preview:nth-child(2)");
+  const stage2Price = document.querySelector("#stage-2-price");
+
+  document.querySelector("#b1").addEventListener("mouseover", function () {
+    stage1PriceLabel.classList.add("price-preview-active");
+    stage2PriceLabel.classList.add("price-preview-active");
+    stage1Price.innerHTML = building1.buildingStages[1];
+    stage2Price.innerHTML = building1.accumulatedStages[4];
+  });
+
+  document.querySelector("#b2").addEventListener("mouseover", function () {
+    stage1PriceLabel.classList.add("price-preview-active");
+    stage2PriceLabel.classList.add("price-preview-active");
+    stage1Price.innerHTML = building2.buildingStages[1];
+    stage2Price.innerHTML = building2.accumulatedStages[4];
+  });
+
+  document.querySelector("#b3").addEventListener("mouseover", function () {
+    stage1PriceLabel.classList.add("price-preview-active");
+    stage2PriceLabel.classList.add("price-preview-active");
+    stage1Price.innerHTML = building3.buildingStages[1];
+    stage2Price.innerHTML = building3.accumulatedStages[4];
+  });
+
+  buildingPreviews.forEach((buildingPreview) => {
+    buildingPreview.addEventListener("mouseleave", function () {
+      stage1PriceLabel.classList.remove("price-preview-active");
+      stage2PriceLabel.classList.remove("price-preview-active");
+    });
+  });
 }
 
 export function buildingSelector(selected) {
@@ -1109,6 +1154,8 @@ userIcon.addEventListener("click", openOverlay);
 // open trees toolbar on edit click
 
 const editView = document.querySelector(".edit-view");
+const editImgWhite = document.querySelector(".edit-view img:nth-child(1)");
+const editImgGreen = document.querySelector(".edit-view img:nth-child(2)");
 let editToolbarOpen = false;
 
 export function toggleTrees() {
@@ -1139,7 +1186,13 @@ export function toggleTrees() {
     }
   }
   editToolbarOpen = !editToolbarOpen;
-  editView.innerHTML = editToolbarOpen ? "close" : "edit";
+  if (!editToolbarOpen) {
+    editImgWhite.setAttribute("src", "./assets/icons/tree/tree_white.png");
+    editImgGreen.setAttribute("src", "./assets/icons/tree/tree_green.png");
+  } else {
+    editImgWhite.setAttribute("src", "./assets/icons/tree/close_white.png");
+    editImgGreen.setAttribute("src", "./assets/icons/tree/close_green.png");
+  }
 }
 
 editView.addEventListener("click", toggleTrees);
@@ -1261,3 +1314,8 @@ removeBuildingButton.addEventListener("click", removeBuildingConfirmation);
 confirmAlert.addEventListener("click", removeBuilding);
 cancelAlert.addEventListener("click", cancelRemoveBuilding);
 alertOverlay.addEventListener("click", cancelRemoveBuilding);
+
+function changeBuildingStageIndicator(buildingStage) {
+  const deleteviewIcon = document.querySelector(".delete-view img:nth-child(2)");
+  deleteviewIcon.setAttribute("src", "./assets/icons/house/stage" + buildingStage + "_green.png");
+}
