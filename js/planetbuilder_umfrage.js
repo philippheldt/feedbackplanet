@@ -1,4 +1,5 @@
 import { gamestate } from "./gamestate.js";
+import { getSentiment } from "./sentiment_analysis.js";
 import {
   buildingSelectorBar,
   calculateBuildingNumber,
@@ -13,11 +14,12 @@ import {
   feedbackBarCall,
 } from "./planetbuilder_fb.js";
 
-import { getRadioValue, skalen, submitData } from "./google_form_submission.js";
+import { getRadioValue, skalen, freitexte, submitData } from "./google_form_submission.js";
 
 let containerPosition = 0;
 
-const skalenContainerPositionsWerte = [null, 0, 1, 2, 3, null, null, null, 4, null];
+const radioContainerPositions = [null, 0, 1, 2, 3, null, null, null, 4, null];
+const textfieldContainerPositions = [null, null, null, null, null, 0, 1, 2, null, null];
 
 const nextButton = document.querySelector("#nextq");
 const input = document.querySelectorAll(".feedback-input");
@@ -39,8 +41,12 @@ nextButton.addEventListener("click", () => {
   updateBuildings();
   submitFeedback();
 
-  if (skalenContainerPositionsWerte[containerPosition] != null) {
-    analyzeRadio(getRadioValue(skalen[skalenContainerPositionsWerte[containerPosition]]));
+  if (radioContainerPositions[containerPosition] != null) {
+    analyzeRadio(getRadioValue(skalen[radioContainerPositions[containerPosition]]));
+  }
+  if (textfieldContainerPositions[containerPosition] != null) {
+    //console.log(freitexte[textfieldContainerPositions[containerPosition]].value);
+    getSentiment(freitexte[textfieldContainerPositions[containerPosition]].value);
   }
   containerPosition++;
 });

@@ -86,6 +86,8 @@ const freitext1 = document.querySelector("#freitext-1");
 const freitext2 = document.querySelector("#freitext-2");
 const freitext3 = document.querySelector("#freitext-3");
 
+export const freitexte = [freitext1, freitext2, freitext3];
+
 //submitButton.addEventListener("click", submitData);
 
 export function submitData() {
