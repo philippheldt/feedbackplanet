@@ -428,6 +428,8 @@ export function updateBuildings() {
         currentBuildingIndex = i;
       }
     }
+
+    changeBuildingName(currentBuildingIndex);
     const pointsToNextBuildingStage =
       buildingCollection[currentBuildingIndex].buildingStages[currentBuildingStage];
     const pointsToNextBuildigStageQuarter = pointsToNextBuildingStage / 4;
@@ -554,6 +556,9 @@ export function updateBuildings() {
         currentBuilding + currentBuildingStage + ".no0.no0.no0.no0";
       createPlanet();
     }
+  } else {
+    changeBuildingName(10000);
+    changeBuildingStageIndicator(0);
   }
 }
 
@@ -658,7 +663,10 @@ export function feedbackBarCall(message, acheivedPoints, color) {
         pointsFloating.innerText = `${acheivedPoints}`;
         pointsFloating.style.color = color == "feedback-good" ? "#76b093" : "#de576e";
         pointsFloating.classList.add("points-floating-animation-add");
-        feedbackBar.innerHTML = `<img src="./assets/icons/plus.png" class="feedback-icon" alt=""><div class="feedback-content">${
+        // feedbackBar.innerHTML = `<img src="./assets/icons/currency.png" class="feedback-icon" alt=""><div class="feedback-content">${
+        //   gamestate.points - acheivedPoints
+        // }</div>`;
+        feedbackBar.innerHTML = `<div class="feedback-content">${
           gamestate.points - acheivedPoints
         }</div>`;
         boost > 1 ? feedbackBar.classList.add("feedback-boost") : null;
@@ -1318,4 +1326,16 @@ alertOverlay.addEventListener("click", cancelRemoveBuilding);
 function changeBuildingStageIndicator(buildingStage) {
   const deleteviewIcon = document.querySelector(".delete-view img:nth-child(2)");
   deleteviewIcon.setAttribute("src", "./assets/icons/house/stage" + buildingStage + "_green.png");
+}
+
+function changeBuildingName(buildingIndex) {
+  const buildingTitle = document.querySelector(".building-title");
+  const buildingSubtitle = document.querySelector(".building-subtitle");
+  if (buildingIndex != 10000) {
+    buildingTitle.innerHTML = buildingCollection[buildingIndex].building;
+    buildingSubtitle.innerHTML = buildingCollection[buildingIndex].collection;
+  } else {
+    buildingTitle.innerHTML = "Freier Bauplatz";
+    buildingSubtitle.innerHTML = "---";
+  }
 }

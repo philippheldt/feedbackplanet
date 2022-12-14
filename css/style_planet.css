@@ -10,8 +10,9 @@
 }
 
 .pl-embedded {
+  display: grid;
   position: fixed;
-  bottom: 55px;
+  bottom: 30px;
   right: 55px;
   width: 150px;
   transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
@@ -443,6 +444,18 @@
 
 .delete-view:hover {
   background-color: #f5e1e4;
+}
+
+.building-title {
+  text-align: center;
+  color: #76b093;
+  margin-bottom: 0px;
+}
+
+.building-subtitle {
+  text-align: center;
+  color: #202020;
+  margin-bottom: 0px;
 }
 
 /* Preview Icons trees */
