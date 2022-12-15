@@ -880,7 +880,20 @@ export function colorSelector(selected) {
 }
 
 export function addRandomSky() {
-  const skyStyles = ["day1"];
+  const skyStyles = [
+    "dar1",
+    "dar2",
+    "dar3",
+    "dar4",
+    "day1",
+    "day2",
+    "day3",
+    "day4",
+    "day5",
+    "day6",
+    "day7",
+    "day8",
+  ];
 
   let randomNumber = Math.floor(Math.random() * skyStyles.length);
   let skyRandom = skyStyles[randomNumber];
@@ -896,6 +909,8 @@ export function addRandomSky() {
   }
   skySet = true;
 }
+
+let autoselection = true;
 
 export function buildingSelectorBar() {
   feedbackBar.classList.add("planet-selector");
@@ -936,12 +951,15 @@ export function buildingSelectorBar() {
 
     document.querySelector("#b1").addEventListener("click", function () {
       buildingSelector(buildingCollection[b1Index].shortcut);
+      autoselection = false;
     });
     document.querySelector("#b2").addEventListener("click", function () {
       buildingSelector(buildingCollection[b2Index].shortcut);
+      autoselection = false;
     });
     document.querySelector("#b3").addEventListener("click", function () {
       buildingSelector(buildingCollection[b3Index].shortcut);
+      autoselection = false;
     });
 
     priceReveal(
@@ -951,7 +969,7 @@ export function buildingSelectorBar() {
     );
 
     setTimeout(() => {
-      buildingSelector(buildingCollection[b1Index].shortcut);
+      autoselection ? buildingSelector(buildingCollection[b1Index].shortcut) : null;
     }, 20000);
   }, 100);
 }

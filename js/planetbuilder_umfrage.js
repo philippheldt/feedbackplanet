@@ -46,7 +46,9 @@ nextButton.addEventListener("click", () => {
   }
   if (textfieldContainerPositions[containerPosition] != null) {
     //console.log(freitexte[textfieldContainerPositions[containerPosition]].value);
-    getSentiment(freitexte[textfieldContainerPositions[containerPosition]].value);
+    if (freitexte[textfieldContainerPositions[containerPosition]].value != "") {
+      getSentiment(freitexte[textfieldContainerPositions[containerPosition]].value);
+    }
   }
   containerPosition++;
 });

@@ -9,7 +9,7 @@ let options = {
     authorization: "Bearer " + apikey,
   },
   data: {
-    providers: "google",
+    providers: "amazon",
     text: "",
     language: "de",
   },
@@ -20,11 +20,11 @@ export function getSentiment(input) {
   axios
     .request(options)
     .then((response) => {
-      console.log("Bewertung von Google: " + response.data.google.general_sentiment);
-      console.log("Sentiment rate: " + response.data.google.general_sentiment_rate);
-      const sentimentRate = response.data.google.general_sentiment_rate;
+      console.log("Bewertung von Google: " + response.data.amazon.general_sentiment);
+      console.log("Sentiment rate: " + response.data.amazon.general_sentiment_rate);
+      const sentimentRate = response.data.amazon.general_sentiment;
 
-      if (sentimentRate < 0.4 && sentimentRate > -0.2) {
+      if (sentimentRate == "Neutral" || sentimentRate == "Mixed") {
         gamestate.points = gamestate.points + 30;
         feedbackBarCall("Wertungsfreie Sprache!", 30, "feedback-good");
       }
