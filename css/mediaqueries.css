@@ -1,7 +1,15 @@
 @media (max-width: 900px) {
   .container {
-    width: 100%;
+    width: 95vw;
     margin: 20px;
+  }
+  .video-container,
+  .video-container iframe,
+  .radio-button-container,
+  .radio-group,
+  .text-input-container,
+  .text-input-container textarea {
+    width: 95vw;
   }
 
   #userIcon {
@@ -40,6 +48,43 @@
   }
   .pos5 {
     transform: translateX(-375vw);
+  }
+}
+@media (max-width: 500px) {
+  .pl-extended {
+    width: 95vw;
+    bottom: auto;
+    top: 150px;
+    right: calc(50vw - 47.5vw);
+  }
+  #rotate-right {
+    right: 5px;
+    transform: scale(0.8);
+  }
+  #rotate-left {
+    left: 5px;
+    transform: scale(0.8);
+  }
+  #close-details {
+    right: 5px;
+    top: 5px;
+    transform: scale(0.8);
+  }
+  .pl-toolbar {
+    width: 80vw;
+  }
+
+}
+
+@media (hover: none) {
+  .delete-view {
+    background-color: #f5e1e4;
+  }
+  .delete-view img:nth-child(1) {
+    opacity: 1;
+  }
+  .delete-view img:nth-child(2) {
+    opacity: 0;
   }
 }
 

@@ -19,6 +19,10 @@
   cursor: pointer;
 }
 
+.pl-extended .pl-buttons {
+  height: auto;
+}
+
 .pl-embedded:hover {
   transform: scale(1.05);
 }
@@ -316,6 +320,8 @@
 
 .pl-buttons {
   transition: all 0.5s ease;
+
+  height: 0px;
 }
 
 .pl-buttons .primarybtn {
@@ -460,9 +466,13 @@
 
 /* Preview Icons trees */
 
+.tree-collection-container {
+  position: relative;
+}
+
 .tree-preview {
   position: absolute;
-  left: 250px;
+  left: 0px;
   bottom: 0px;
   transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
 
