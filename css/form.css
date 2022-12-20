@@ -60,7 +60,14 @@
   display: flex;
   flex-direction: column;
   height: 80px;
+  width: 20%;
   justify-content: space-between;
+}
+
+.radio-group-single label {
+  height: 40px;
+  font-size: 10pt;
+  text-align: center;
 }
 
 input[type="radio"] {

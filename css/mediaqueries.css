@@ -12,6 +12,11 @@
     width: 95vw;
   }
 
+  .video-container iframe,
+  .text-input-container textarea {
+    height: calc((95vw / 16) * 9);
+  }
+
   #userIcon {
     display: block;
   }
@@ -50,6 +55,7 @@
     transform: translateX(-375vw);
   }
 }
+
 @media (max-width: 500px) {
   .pl-extended {
     width: 95vw;
@@ -74,6 +80,9 @@
     width: 80vw;
   }
 
+  .poll-selector {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (hover: none) {

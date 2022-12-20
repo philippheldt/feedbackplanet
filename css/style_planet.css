@@ -295,7 +295,7 @@
 
 @media screen and (max-width: 900px) {
   .pl-embedded {
-    bottom: 30px;
+    bottom: 5px;
     right: 0px;
   }
 }

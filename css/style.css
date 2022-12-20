@@ -24,6 +24,11 @@ p {
   margin: 20px 0;
 }
 
+.textarea-container {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
 textarea {
   outline: none;
 
@@ -33,6 +38,8 @@ textarea {
   font-weight: regular;
   resize: none;
   box-sizing: border-box;
+
+  grid-area: 1/2;
 
   padding: 40px;
   width: 800px;
@@ -53,6 +60,44 @@ textarea:focus {
   border: 0.5px solid #797979;
 }
 
+.textarea-duplicate-container {
+  grid-area: 1/2;
+  padding: 40px;
+}
+
+.duplicate-text {
+  pointer-events: none;
+  color: #ffffff00;
+  display: inline;
+}
+
+.textsuggestion {
+  display: none;
+  background-color: #ddebe4;
+  color: #78b195;
+  padding: 0px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+  transition: opacity 1s cubic-bezier(0.54, 0.32, 0.37, 1.19);
+  margin-left: 5px;
+  opacity: 1;
+}
+
+.textsuggestion.opacity-hidden {
+  opacity: 0;
+}
+
+.textsuggestion.hidden {
+  display: none;
+}
+
+.textsuggestion:hover {
+  background-color: #78b195;
+  color: #ddebe4;
+}
+
 .container {
   width: 800px;
 }
@@ -63,6 +108,13 @@ textarea:focus {
   width: 100%;
   height: 95vh;
   align-items: center; /* vertical */
+  justify-content: center; /* horizontal */
+}
+
+.fullscreen-overview {
+  display: flex;
+  grid-template-columns: 1fr;
+  width: 100%;
   justify-content: center; /* horizontal */
 }
 
@@ -153,9 +205,9 @@ button {
 
 footer {
   background-color: #78b195;
-  height: 40px;
+  height: 20px;
   box-sizing: border-box;
-  position: relative;
+  position: fixed;
   bottom: 0px;
   left: 0px;
   right: 0px;

@@ -22,9 +22,12 @@ const radioContainerPositions = [null, 0, 1, 2, 3, null, null, null, 4, null];
 const textfieldContainerPositions = [null, null, null, null, null, 0, 1, 2, null, null];
 
 const nextButton = document.querySelector("#nextq");
+const prevButton = document.querySelector("#prevq");
 const input = document.querySelectorAll(".feedback-input");
 const planetContainer = document.querySelector(".pl-container");
 const submitButton = document.querySelector("#submit");
+let suggestionTimeout = null;
+let textSuggestionCurrent = null;
 
 nextButton.addEventListener("click", () => {
   if (containerPosition == 0) {
@@ -44,6 +47,10 @@ nextButton.addEventListener("click", () => {
   if (radioContainerPositions[containerPosition] != null) {
     analyzeRadio(getRadioValue(skalen[radioContainerPositions[containerPosition]]));
   }
+  if (textfieldContainerPositions[containerPosition + 1] != null) {
+    textSuggestionCurrent = textfieldContainerPositions[containerPosition + 1];
+    displaySuggestions();
+  }
   if (textfieldContainerPositions[containerPosition] != null) {
     //console.log(freitexte[textfieldContainerPositions[containerPosition]].value);
     if (freitexte[textfieldContainerPositions[containerPosition]].value != "") {
@@ -53,24 +60,59 @@ nextButton.addEventListener("click", () => {
   containerPosition++;
 });
 
+prevButton.addEventListener("click", () => {
+  if (textfieldContainerPositions[containerPosition - 1] != null) {
+    textSuggestionCurrent = textfieldContainerPositions[containerPosition - 1];
+    displaySuggestions();
+  }
+  containerPosition--;
+});
+
 submitButton.addEventListener("click", () => {
   submitData();
 });
 
 //check inputs for changes
 let timeout = null;
+
 let animationStarted = false;
+
+const textinputs = document.querySelectorAll(".feedback-input");
+const duplicates = document.querySelectorAll(".duplicate-text");
+const textsuggestion = document.querySelectorAll(".textsuggestion");
 
 for (let i = 0; i < input.length; i++) {
   input[i].addEventListener("keyup", function (e) {
     !animationStarted ? planetContainer.classList.add("typing") : null;
     animationStarted = true;
+    textSuggestionCurrent != null
+      ? (textsuggestion[textSuggestionCurrent].style.display = "none")
+      : null;
+    textSuggestionCurrent != null
+      ? textsuggestion[textSuggestionCurrent].classList.add("opacity-hidden")
+      : null;
     clearTimeout(timeout);
+    clearTimeout(suggestionTimeout);
 
     timeout = setTimeout(function () {
       planetContainer.classList.remove("typing");
       animationStarted = false;
       analyzeText(input[i]);
+
+      for (let i = 0; i < textinputs.length; i++) {
+        duplicates[i].innerHTML = textinputs[i].value;
+      }
+      displaySuggestions();
     }, 250);
   });
 }
+
+function displaySuggestions() {
+  suggestionTimeout = setTimeout(function () {
+    textsuggestion[textSuggestionCurrent].style.display = "inline";
+    setTimeout(function () {
+      textsuggestion[textSuggestionCurrent].classList.remove("opacity-hidden");
+    }, 500);
+  }, 20000);
+}
+
