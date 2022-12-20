@@ -97,6 +97,23 @@ textarea:focus {
   color: #ddebe4;
 }
 
+.secondarybtn.close-suggestion {
+  display: none;
+  padding: 0px;
+  width: 23px;
+  height: 23px;
+  z-index: 20;
+  position: relative;
+  background-color: #fff;
+}
+
+.close-suggestion span {
+  height: 23px;
+  width: 23px;
+  font-size: initial;
+  transform: translate(-1.15px, 2.5px);
+}
+
 .container {
   width: 800px;
 }

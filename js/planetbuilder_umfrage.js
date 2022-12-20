@@ -14,6 +14,8 @@ import {
   feedbackBarCall,
 } from "./planetbuilder_fb.js";
 
+import { suggestions } from "./suggestions.js";
+
 import { getRadioValue, skalen, freitexte, submitData } from "./google_form_submission.js";
 
 let containerPosition = 0;
@@ -80,17 +82,13 @@ let animationStarted = false;
 const textinputs = document.querySelectorAll(".feedback-input");
 const duplicates = document.querySelectorAll(".duplicate-text");
 const textsuggestion = document.querySelectorAll(".textsuggestion");
+const textSuggestionClose = document.querySelectorAll(".close-suggestion");
 
 for (let i = 0; i < input.length; i++) {
   input[i].addEventListener("keyup", function (e) {
     !animationStarted ? planetContainer.classList.add("typing") : null;
     animationStarted = true;
-    textSuggestionCurrent != null
-      ? (textsuggestion[textSuggestionCurrent].style.display = "none")
-      : null;
-    textSuggestionCurrent != null
-      ? textsuggestion[textSuggestionCurrent].classList.add("opacity-hidden")
-      : null;
+    textSuggestionCurrent != null ? removeSuggestions() : null;
     clearTimeout(timeout);
     clearTimeout(suggestionTimeout);
 
@@ -107,11 +105,39 @@ for (let i = 0; i < input.length; i++) {
   });
 }
 
+textsuggestion.forEach((element) => {
+  element.addEventListener("click", function () {
+    textinputs[textSuggestionCurrent].value += " " + element.innerText;
+    textinputs[textSuggestionCurrent].dispatchEvent(new Event("keyup"));
+    console.log("added suggestion");
+  });
+});
+
+textSuggestionClose.forEach((element) => {
+  element.addEventListener("click", function () {
+    removeSuggestions();
+  });
+});
+
 function displaySuggestions() {
   suggestionTimeout = setTimeout(function () {
     textsuggestion[textSuggestionCurrent].style.display = "inline";
+    textSuggestionClose[textSuggestionCurrent].style.display = "inline";
+    const randomSuggestion = Math.floor(Math.random() * suggestions[textSuggestionCurrent].length);
+    textsuggestion[textSuggestionCurrent].innerText =
+      suggestions[textSuggestionCurrent][randomSuggestion];
     setTimeout(function () {
       textsuggestion[textSuggestionCurrent].classList.remove("opacity-hidden");
+      textSuggestionClose[textSuggestionCurrent].classList.remove("opacity-hidden");
     }, 500);
-  }, 20000);
+  }, 15000);
+}
+
+function removeSuggestions() {
+  for (let i = 0; i < textsuggestion.length; i++) {
+    textsuggestion[i].style.display = "none";
+    textSuggestionClose[i].style.display = "none";
+    textsuggestion[i].classList.add("opacity-hidden");
+    textSuggestionClose[i].classList.add("opacity-hidden");
+  }
 }
