@@ -115,4 +115,3 @@ function displaySuggestions() {
     }, 500);
   }, 20000);
 }
-

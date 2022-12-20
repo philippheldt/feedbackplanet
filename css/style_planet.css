@@ -309,7 +309,7 @@
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  bottom: calc(50vh - 200px);
+  bottom: calc(50vh - 250px);
   right: calc(50vw - 200px);
   cursor: auto;
 }
