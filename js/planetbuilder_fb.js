@@ -584,7 +584,7 @@ var wordCount = 0;
 const pointsFloating = document.querySelector(".points-floating");
 const boostBar = document.querySelector(".boost-container");
 
-export function analyzeText(input) {
+export function analyzeText(input, index) {
   prevBoost = boost;
   const goodStartText = goodStartTextArray[Math.floor(Math.random() * goodStartTextArray.length)];
   const extensiveFeedbackText =
@@ -624,7 +624,7 @@ export function analyzeText(input) {
     goodStart = true;
     gamestate.points = gamestate.points + 10 * boost;
     gamestate.goodStartBoost = gamestate.goodStartBoost + 1;
-
+    markText(0, 20, index);
     feedbackBarCall(goodStartText, 10 * boost, "feedback-good");
   }
 
@@ -632,9 +632,26 @@ export function analyzeText(input) {
     extensiveFeedback = true;
     gamestate.points = gamestate.points + 30 * boost;
     gamestate.extensiveBoost = gamestate.extensiveBoost + 1;
-
+    markText(0, 100, index);
     feedbackBarCall(extensiveFeedbackText, 30 * boost, "feedback-good");
   }
+}
+
+export function markText(indexFrom, indexTo, inputNumber) {
+  const duplicateInput = document.querySelectorAll(".duplicate-text")[inputNumber];
+  const inputText = duplicateInput.innerText;
+  const inputTextArray = inputText.split(" ");
+  let output = "";
+
+  for (let i = 0; i < inputTextArray.length; i++) {
+    if (i >= indexFrom && i < indexTo) {
+      output += `<div class="marked">${inputTextArray[i]}</div> `;
+    } else {
+      output += `${inputTextArray[i]} `;
+    }
+  }
+
+  duplicateInput.innerHTML = output;
 }
 
 export function analyzeRadio(radioInput) {

@@ -95,11 +95,11 @@ for (let i = 0; i < input.length; i++) {
     timeout = setTimeout(function () {
       planetContainer.classList.remove("typing");
       animationStarted = false;
-      analyzeText(input[i]);
-
       for (let i = 0; i < textinputs.length; i++) {
         duplicates[i].innerHTML = textinputs[i].value;
       }
+      analyzeText(input[i], i);
+
       displaySuggestions();
     }, 250);
   });
@@ -107,9 +107,11 @@ for (let i = 0; i < input.length; i++) {
 
 textsuggestion.forEach((element) => {
   element.addEventListener("click", function () {
-    textinputs[textSuggestionCurrent].value += " " + element.innerText;
+    textinputs[textSuggestionCurrent].value != ""
+      ? (textinputs[textSuggestionCurrent].value += " " + element.innerText)
+      : (textinputs[textSuggestionCurrent].value = element.innerText);
+
     textinputs[textSuggestionCurrent].dispatchEvent(new Event("keyup"));
-    console.log("added suggestion");
   });
 });
 
