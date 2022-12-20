@@ -8,6 +8,7 @@ import {
   planetSelectorBar,
   updateBuildings,
   updateData,
+  analyzeIchBotschaft,
   analyzeTextLength,
   analyzeConcreteness,
   analyzeRadio,
@@ -101,6 +102,7 @@ for (let i = 0; i < input.length; i++) {
       }
       analyzeTextLength(input[i], i);
       analyzeConcreteness(input[i], i);
+      analyzeIchBotschaft(input[i], i);
 
       displaySuggestions();
     }, 500);

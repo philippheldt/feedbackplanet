@@ -624,7 +624,7 @@ export function analyzeTextLength(input, index) {
     goodStart = true;
     gamestate.points = gamestate.points + 10 * boost;
     gamestate.goodStartBoost = gamestate.goodStartBoost + 1;
-    markText(0, 20, index);
+    markTextRange(0, 20, index);
     feedbackBarCall(goodStartText, 10 * boost, "feedback-good");
   }
 
@@ -632,38 +632,86 @@ export function analyzeTextLength(input, index) {
     extensiveFeedback = true;
     gamestate.points = gamestate.points + 30 * boost;
     gamestate.extensiveBoost = gamestate.extensiveBoost + 1;
-    markText(0, 100, index);
+    markTextRange(0, 100, index);
     feedbackBarCall(extensiveFeedbackText, 30 * boost, "feedback-good");
   }
 }
 
 let concrete = false;
-let prevIndex;
+let prevIndexConcrete;
 export function analyzeConcreteness(input, index) {
-  if (index != prevIndex) {
+  if (index != prevIndexConcrete) {
     concrete = false;
-    prevIndex = index;
+    prevIndexConcrete = index;
   }
   if (concrete != true) {
     const inputArray = input.value.split(" ");
     let containsNumber = false;
+    let concretePosition = [];
     //check is string in array contains number
     for (let i = 0; i < inputArray.length; i++) {
       if (inputArray[i].match(/\d+/g)) {
         containsNumber = true;
-        markText(i, i + 1, index);
+        concretePosition.push(true);
+      } else {
+        concretePosition.push(false);
       }
     }
 
     if (containsNumber) {
       gamestate.points = gamestate.points + 5 * boost;
       feedbackBarCall("Konkretes Feedback!", 5 * boost, "feedback-good");
+      markTextPositions(concretePosition, index);
       concrete = true;
     }
   }
 }
 
-export function markText(indexFrom, indexTo, inputNumber) {
+let contaiunsIch = false;
+let prevIndexIch;
+export function analyzeIchBotschaft(input, index) {
+  if (index != prevIndexIch) {
+    contaiunsIch = false;
+    prevIndexIch = index;
+  }
+
+  if (contaiunsIch != true) {
+    const inputArray = input.value.split(" ");
+    let ich = 0;
+    let ichPosition = [];
+
+    for (let i = 0; i < inputArray.length; i++) {
+      if (
+        inputArray[i].toLowerCase() == "ich" ||
+        inputArray[i].toLowerCase() == "mir" ||
+        inputArray[i].toLowerCase() == "mich" ||
+        inputArray[i].toLowerCase() == "mein" ||
+        inputArray[i].toLowerCase() == "meine" ||
+        inputArray[i].toLowerCase() == "meinen" ||
+        inputArray[i].toLowerCase() == "meiner" ||
+        inputArray[i].toLowerCase() == "meines" ||
+        inputArray[i].toLowerCase() == "meinem"
+      ) {
+        ich++;
+        ichPosition.push(true);
+      } else {
+        ichPosition.push(false);
+      }
+
+      const ichProportion = ich / inputArray.length;
+      if (ichProportion >= 0.1 && inputArray.length > 25) {
+        gamestate.points = gamestate.points + 20 * boost;
+        feedbackBarCall("Ich-Botschaft!", 20 * boost, "feedback-good");
+
+        markTextPositions(ichPosition, index);
+
+        contaiunsIch = true;
+      }
+    }
+  }
+}
+
+export function markTextRange(indexFrom, indexTo, inputNumber) {
   const duplicateInput = document.querySelectorAll(".duplicate-text")[inputNumber];
   const inputText = duplicateInput.innerText;
   const inputTextArray = inputText.split(" ");
@@ -671,6 +719,23 @@ export function markText(indexFrom, indexTo, inputNumber) {
 
   for (let i = 0; i < inputTextArray.length; i++) {
     if (i >= indexFrom && i < indexTo) {
+      output += `<div class="marked">${inputTextArray[i]}</div> `;
+    } else {
+      output += `${inputTextArray[i]} `;
+    }
+  }
+
+  duplicateInput.innerHTML = output;
+}
+
+export function markTextPositions(positions, inputNumber) {
+  const duplicateInput = document.querySelectorAll(".duplicate-text")[inputNumber];
+  const inputText = duplicateInput.innerText;
+  const inputTextArray = inputText.split(" ");
+  let output = "";
+
+  for (let i = 0; i < inputTextArray.length; i++) {
+    if (positions[i]) {
       output += `<div class="marked">${inputTextArray[i]}</div> `;
     } else {
       output += `${inputTextArray[i]} `;
