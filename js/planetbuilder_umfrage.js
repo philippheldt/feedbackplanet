@@ -8,6 +8,7 @@ import {
   planetSelectorBar,
   updateBuildings,
   updateData,
+  analyzeTextStructure,
   analyzeIchBotschaft,
   analyzeTextLength,
   analyzeConcreteness,
@@ -83,6 +84,7 @@ let animationStarted = false;
 
 const textinputs = document.querySelectorAll(".feedback-input");
 const duplicates = document.querySelectorAll(".duplicate-text");
+let duplicateTextWithLinebraks = "";
 const textsuggestion = document.querySelectorAll(".textsuggestion");
 const textSuggestionClose = document.querySelectorAll(".close-suggestion");
 
@@ -97,12 +99,14 @@ for (let i = 0; i < input.length; i++) {
     timeout = setTimeout(function () {
       planetContainer.classList.remove("typing");
       animationStarted = false;
+
       for (let i = 0; i < textinputs.length; i++) {
         duplicates[i].innerHTML = textinputs[i].value;
       }
       analyzeTextLength(input[i], i);
       analyzeConcreteness(input[i], i);
       analyzeIchBotschaft(input[i], i);
+      analyzeTextStructure(input[i], i);
 
       displaySuggestions();
     }, 500);

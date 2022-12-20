@@ -711,6 +711,49 @@ export function analyzeIchBotschaft(input, index) {
   }
 }
 
+let structuredText = false;
+let prevIndexStructured;
+export function analyzeTextStructure(input, index) {
+  if (index != prevIndexStructured) {
+    structuredText = false;
+    prevIndexStructured = index;
+  }
+  if (structuredText != true) {
+    const enteredText = input.value;
+    const inputArray = enteredText.split(" ");
+    let textStructurePosition = [];
+    //count number of line breaks
+    const numberOfLineBreaks = (enteredText.match(/\n/g) || []).length;
+    const numberOfNumberedBulletpoints = (enteredText.match(/\d\./g) || []).length;
+    const numberOfBulletpoints = (enteredText.match(/\*/g) || []).length;
+    const numberOfBulletpoints2 = (enteredText.match(/\-\s/g) || []).length;
+
+    if (
+      numberOfLineBreaks > 2 ||
+      numberOfBulletpoints2 > 2 ||
+      numberOfNumberedBulletpoints > 2 ||
+      numberOfBulletpoints > 2
+    ) {
+      gamestate.points = gamestate.points + 10 * boost;
+      feedbackBarCall("Textstruktur!", 10 * boost, "feedback-good");
+      structuredText = true;
+
+      for (let i = 0; i < inputArray.length; i++) {
+        if (
+          inputArray[i].match(/\d\./g) ||
+          inputArray[i].match(/\*/g) ||
+          inputArray[i].match(/\-\s/g)
+        ) {
+          textStructurePosition.push(true);
+        } else {
+          textStructurePosition.push(false);
+        }
+      }
+      markTextPositions(textStructurePosition, index);
+    }
+  }
+}
+
 export function markTextRange(indexFrom, indexTo, inputNumber) {
   const duplicateInput = document.querySelectorAll(".duplicate-text")[inputNumber];
   const inputText = duplicateInput.innerText;

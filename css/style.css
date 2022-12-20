@@ -69,6 +69,9 @@ textarea:focus {
   pointer-events: none;
   color: #ffffff00;
   display: inline;
+  font-size: inherit;
+  font-family: inherit;
+  white-space: pre-wrap;
 }
 
 .textsuggestion {
