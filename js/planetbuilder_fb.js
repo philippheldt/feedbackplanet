@@ -584,14 +584,14 @@ var wordCount = 0;
 const pointsFloating = document.querySelector(".points-floating");
 const boostBar = document.querySelector(".boost-container");
 
-export function analyzeText(input, index) {
+export function analyzeTextLength(input, index) {
   prevBoost = boost;
   const goodStartText = goodStartTextArray[Math.floor(Math.random() * goodStartTextArray.length)];
   const extensiveFeedbackText =
     extensiveFeedbackTextArray[Math.floor(Math.random() * extensiveFeedbackTextArray.length)];
   wordCount = input.value.split(" ").length;
   console.log("Number of words: " + wordCount);
-  console.log("Before analyzeText: " + newBoost);
+  console.log("Before analyzeTextLength: " + newBoost);
 
   if (gamestate.extensiveBoost >= 2) {
     boost != 3 ? (newBoost = true) : (newBoost = false);
@@ -618,7 +618,7 @@ export function analyzeText(input, index) {
     }
   }
 
-  console.log("analyzeText: " + newBoost);
+  console.log("analyzeTextLength: " + newBoost);
 
   if (wordCount > 20 && !goodStart) {
     goodStart = true;
@@ -634,6 +634,32 @@ export function analyzeText(input, index) {
     gamestate.extensiveBoost = gamestate.extensiveBoost + 1;
     markText(0, 100, index);
     feedbackBarCall(extensiveFeedbackText, 30 * boost, "feedback-good");
+  }
+}
+
+let concrete = false;
+let prevIndex;
+export function analyzeConcreteness(input, index) {
+  if (index != prevIndex) {
+    concrete = false;
+    prevIndex = index;
+  }
+  if (concrete != true) {
+    const inputArray = input.value.split(" ");
+    let containsNumber = false;
+    //check is string in array contains number
+    for (let i = 0; i < inputArray.length; i++) {
+      if (inputArray[i].match(/\d+/g)) {
+        containsNumber = true;
+        markText(i, i + 1, index);
+      }
+    }
+
+    if (containsNumber) {
+      gamestate.points = gamestate.points + 5 * boost;
+      feedbackBarCall("Konkretes Feedback!", 5 * boost, "feedback-good");
+      concrete = true;
+    }
   }
 }
 

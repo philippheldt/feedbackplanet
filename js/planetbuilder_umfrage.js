@@ -8,7 +8,8 @@ import {
   planetSelectorBar,
   updateBuildings,
   updateData,
-  analyzeText,
+  analyzeTextLength,
+  analyzeConcreteness,
   analyzeRadio,
   submitFeedback,
   feedbackBarCall,
@@ -98,10 +99,11 @@ for (let i = 0; i < input.length; i++) {
       for (let i = 0; i < textinputs.length; i++) {
         duplicates[i].innerHTML = textinputs[i].value;
       }
-      analyzeText(input[i], i);
+      analyzeTextLength(input[i], i);
+      analyzeConcreteness(input[i], i);
 
       displaySuggestions();
-    }, 250);
+    }, 500);
   });
 }
 
