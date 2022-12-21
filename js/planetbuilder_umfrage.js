@@ -23,8 +23,8 @@ import { getRadioValue, skalen, freitexte, submitData } from "./google_form_subm
 
 let containerPosition = 0;
 
-const radioContainerPositions = [null, 0, 1, 2, 3, null, null, null, 4, null];
-const textfieldContainerPositions = [null, null, null, null, null, 0, 1, 2, null, null];
+const radioContainerPositions = [null, 0, 1, 2, 3, null, null, null, null, 4, null];
+const textfieldContainerPositions = [null, null, null, null, null, 0, 1, 2, 3, null, null];
 
 const nextButton = document.querySelector("#nextq");
 const prevButton = document.querySelector("#prevq");

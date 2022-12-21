@@ -25,13 +25,19 @@
 // entry.215728538=points-per-slide-999
 //entry.99034290=wordswritten
 
+// entry.429392267=video+1
+// &entry.1252854881=Ja
+// entry.1352185246=hjashjashjas
+
 import { gamestate } from "./gamestate.js";
 
 export const researchData = {
   contactData: {
     email: ["entry.479648863", "test@email.de"],
     contactQuery: ["entry.650300513", "Nein"],
+    winQuery: ["entry.1252854881", "Nein"],
     testGroup: ["entry.51650865", "A"],
+    video: ["entry.429392267", "Testnachricht"],
   },
   formFields: {
     skala1: ["entry.245781336", ""],
@@ -41,6 +47,7 @@ export const researchData = {
     freitext1: ["entry.1252338745", "freitext1"],
     freitext2: ["entry.1669997417", "freitext2"],
     freitext3: ["entry.498440518", "freitext3"],
+    freitext4: ["entry.1352185246", "freitext4"],
     skala5: ["entry.1309987470", ""],
   },
   gameData: {
@@ -64,11 +71,16 @@ let submitURL =
   "https://docs.google.com/forms/d/e/1FAIpQLSfPu3SLdPx0RcX_L30IJn4DmZeS32LWOZH_5r3GZFeP4qHqTw/formResponse?";
 let boostKindLister = "";
 
+const videoMeta = document.querySelector("#video-meta");
+
 //buttons and ELements
 const submitButton = document.querySelector("#submit");
 //Contact Data
 const contactQuery = document.querySelector(
   'input[name="' + researchData.contactData.contactQuery[0] + '"]'
+);
+const winQuery = document.querySelector(
+  'input[name="' + researchData.contactData.winQuery[0] + '"]'
 );
 
 //radio buttons
@@ -85,8 +97,9 @@ export const skalen = [skala1, skala2, skala3, skala4, skala5];
 const freitext1 = document.querySelector("#freitext-1");
 const freitext2 = document.querySelector("#freitext-2");
 const freitext3 = document.querySelector("#freitext-3");
+const freitext4 = document.querySelector("#freitext-4");
 
-export const freitexte = [freitext1, freitext2, freitext3];
+export const freitexte = [freitext1, freitext2, freitext3, freitext4];
 
 //submitButton.addEventListener("click", submitData);
 
@@ -94,10 +107,14 @@ export function submitData() {
   //Update contact data values
   //Contact Data
   researchData.contactData.email[1] = gamestate.trackingData.email;
-  //   contactQuery.checked
-  //     ? (researchData.contactData.contactQuery[1] = contactQuery.value)
-  //     : (researchData.contactData.contactQuery[1] = "Nein");
+  contactQuery.checked
+    ? (researchData.contactData.contactQuery[1] = contactQuery.value)
+    : (researchData.contactData.contactQuery[1] = "Nein");
+  winQuery.checked
+    ? (researchData.contactData.winQuery[1] = winQuery.value)
+    : (researchData.contactData.winQuery[1] = "Nein");
   researchData.contactData.testGroup[1] = gamestate.trackingData.testGroup;
+  researchData.contactData.video[1] = videoMeta.innerText;
 
   // formFields
   getRadioValue(skala1) != undefined
@@ -119,6 +136,7 @@ export function submitData() {
   researchData.formFields.freitext1[1] = freitext1.value;
   researchData.formFields.freitext2[1] = freitext2.value;
   researchData.formFields.freitext3[1] = freitext3.value;
+  researchData.formFields.freitext4[1] = freitext4.value;
 
   //gameData
   for (let i = 0; i < gamestate.buildings.length; i++) {
