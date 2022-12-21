@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style_planet.css">
+    <link rel="stylesheet" href="./css/feedback_bar.css">
+    <link rel="stylesheet" href="./css/form.css">
+    <link rel="stylesheet" href="./css/text_marked.css">
+    <link rel="stylesheet" href="./css/mediaqueries.css">
+
+    <title>feedbackplanet demo</title>
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-container">
+            <div class="header-inner">
+                <div class="header-logo">
+                    <a href="index.html">
+                        <img class="logo" src="./assets/icons/logo.png" alt="">
+                    </a>
+                </div>
+                <div class="header-menu">
+
+                    <a id="userName"></a>
+                    <button class="secondarybtn" id="userIcon">
+                        <span class="material-symbols-outlined">
+                            person
+                        </span>
+                    </button>
+                    <button class="primarybtn" id="logout">
+                        <span class="material-symbols-outlined">
+                            logout
+                        </span>
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fullscreen">
+        <div class="container">
+            <div class="feedback-form-container-overflow">
+                <div class="feedback-form-container">
+                    <div class="hidden" id="video-meta">Video 4</div>
+                    <div class="video-container">
+                        <!-- <iframe src="https://www.youtube.com/embed/B38viYbl0j0"
+                            title="Wie erkenne ich Fake News? | Odysso – Wissen im SWR" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe> -->
+                        <div id="player"></div>
+
+                    </div>
+
+                    <div class="radio-button-container">
+                        <p>Das Lehrvideo hat mein Verständnis des Themas verbessert.</p>
+                        <div class="radio-group">
+                            <div class="radio-group-single">
+                                <label for="1">stimmt überhaupt nicht</label>
+                                <input type="radio" id="html" name="entry.245781336" value="1">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="2">stimmt eher nicht</label>
+                                <input type="radio" id="css" name="entry.245781336" value="2">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="3">neutral</label>
+                                <input type="radio" id="javascript" name="entry.245781336" value="3">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="4">stimmt eher</label>
+                                <input type="radio" id="javascript" name="entry.245781336" value="4">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="5">stimmt voll und ganz</label>
+                                <input type="radio" id="javascript" name="entry.245781336" value="5">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="radio-button-container">
+                        <p>Das Lehrvideo hat mich dazu motiviert, mehr über das Thema zu lernen.</p>
+                        <div class="radio-group">
+                            <div class="radio-group-single">
+                                <label for="1">stimmt überhaupt nicht</label>
+                                <input type="radio" id="html" name="entry.289552610" value="1">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="2">stimmt eher nicht</label>
+                                <input type="radio" id="css" name="entry.289552610" value="2">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="3">Medium</label>
+                                <input type="radio" id="javascript" name="entry.289552610" value="3">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="4">stimmt eher</label>
+                                <input type="radio" id="javascript" name="entry.289552610" value="4">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="5">stimmt voll und ganz</label>
+                                <input type="radio" id="javascript" name="entry.289552610" value="5">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="radio-button-container">
+                        <p>Das Lehrvideo war für mich leicht verständlich.</p>
+                        <div class="radio-group">
+                            <div class="radio-group-single">
+                                <label for="1">stimmt überhaupt nicht</label>
+                                <input type="radio" id="html" name="entry.819056584" value="1">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="2">stimmt eher nicht</label>
+                                <input type="radio" id="css" name="entry.819056584" value="2">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="3">neutral</label>
+                                <input type="radio" id="javascript" name="entry.819056584" value="3">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="4">stimmt eher</label>
+                                <input type="radio" id="javascript" name="entry.819056584" value="4">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="5">stimmt voll und ganz</label>
+                                <input type="radio" id="javascript" name="entry.819056584" value="5">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="radio-button-container">
+                        <p>Das Lehrvideo hat meine Aufmerksamkeit die ganze Zeit gehalten.</p>
+                        <div class="radio-group">
+                            <div class="radio-group-single">
+                                <label for="1">stimmt überhaupt nicht</label>
+                                <input type="radio" id="html" name="entry.1038952400" value="1">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="2">stimmt eher nicht</label>
+                                <input type="radio" id="css" name="entry.1038952400" value="2">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="3">neutral</label>
+                                <input type="radio" id="javascript" name="entry.1038952400" value="3" cols="30"
+                                    rows="10">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="4">stimmt eher</label>
+                                <input type="radio" id="javascript" name="entry.1038952400" value="4" cols="30"
+                                    rows="10">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="5">stimmt voll und ganz</label>
+                                <input type="radio" id="javascript" name="entry.1038952400" value="5" cols="30"
+                                    rows="10">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="text-input-container">
+                        <p>Was hat Ihnen am Lehrvideo am besten gefallen? Warum?</p>
+                        <div class="textarea-container">
+                            <div class="textarea-duplicate-container">
+                                <pre class="duplicate-text"></pre>
+                                <div class="textsuggestion"></div>
+                                <button class="secondarybtn close-suggestion">
+                                    <span class="material-symbols-outlined">
+                                        close
+                                    </span>
+                                </button>
+                            </div>
+                            <textarea placeholder="Feedback eingeben..." class="feedback-input" id="freitext-1"
+                                cols="30" rows="10"></textarea>
+
+                        </div>
+                    </div>
+
+
+                    <div class="text-input-container">
+                        <p>Was hat Ihnen am Lehrvideo am wenigsten gefallen? Warum?</p>
+                        <div class="textarea-container">
+                            <div class="textarea-duplicate-container">
+                                <pre class="duplicate-text"></pre>
+                                <div class="textsuggestion"></div>
+                                <button class="secondarybtn close-suggestion">
+                                    <span class="material-symbols-outlined">
+                                        close
+                                    </span>
+                                </button>
+                            </div>
+                            <textarea placeholder="Feedback eingeben..." class="feedback-input" id="freitext-2"
+                                cols="30" rows="10"></textarea>
+
+                        </div>
+                    </div>
+
+
+                    <div class="text-input-container">
+                        <p>Gab es etwas, das Sie im Lehrvideo für verwirrend oder ablenkend hielten? Könnten Sie das
+                            genauer beschreiben?</p>
+                        <div class="textarea-container">
+                            <div class="textarea-duplicate-container">
+                                <pre class="duplicate-text"></pre>
+                                <div class="textsuggestion"></div>
+                                <button class="secondarybtn close-suggestion">
+                                    <span class="material-symbols-outlined">
+                                        close
+                                    </span>
+                                </button>
+                            </div>
+                            <textarea placeholder="Feedback eingeben..." class="feedback-input" id="freitext-3"
+                                cols="30" rows="10"></textarea>
+
+                        </div>
+                    </div>
+
+                    <div class="text-input-container">
+                        <p>Gab es etwas, das Sie im Lehrvideo vermisst haben? Was war das?</p>
+                        <div class="textarea-container">
+                            <div class="textarea-duplicate-container">
+                                <pre class="duplicate-text"></pre>
+                                <div class="textsuggestion"></div>
+                                <button class="secondarybtn close-suggestion">
+                                    <span class="material-symbols-outlined">
+                                        close
+                                    </span>
+                                </button>
+                            </div>
+                            <textarea placeholder="Feedback eingeben..." class="feedback-input" id="freitext-4"
+                                cols="30" rows="10"></textarea>
+
+                        </div>
+                    </div>
+
+                    <div class="radio-button-container">
+                        <p>Frage zur Umfrage: <br>
+                            Es hat mir spaß gemacht, diese Umfrage auszufüllen.</p>
+                        <div class="radio-group">
+                            <div class="radio-group-single">
+                                <label for="1">stimmt überhaupt nicht</label>
+                                <input type="radio" id="html" name="entry.1309987470" value="1">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="2">stimmt eher nicht</label>
+                                <input type="radio" id="css" name="entry.1309987470" value="2">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="3">neutral</label>
+                                <input type="radio" id="javascript" name="entry.1309987470" value="3">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="4">stimmt eher</label>
+                                <input type="radio" id="javascript" name="entry.1309987470" value="4">
+
+                            </div>
+                            <div class="radio-group-single">
+                                <label for="5">stimmt voll und ganz</label>
+                                <input type="radio" id="javascript" name="entry.1309987470" value="5">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="radio-button-container">
+                        <p>Darf ich Sie für weitere Fragen kontaktieren?</p>
+                        <div class="consent-group">
+                            <input type="checkbox" name="entry.650300513" value="Ja">
+                            <label for="entry.650300513">Ja, kontaktieren Sie mich gerne über die angegebene E-Mail
+                                Addresse</label><br>
+                        </div>
+
+                        <p>Möchten Sie am Gewinnspiel für einen 50€ Amazon Gutschein teilnehemen?</p>
+                        <div class="consent-group">
+                            <input type="checkbox" name="entry.1252854881" value="Ja">
+                            <label for="entry.1252854881">Ja</label>
+                            <div>(Gewinner werden am 31.12.2022 per E-Mail kontaktiert.)</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button class="secondarybtn opacity-hidden no-click" id="prevq">
+                    <span class="material-symbols-outlined">
+                        arrow_back
+                    </span>
+                </button>
+                <div class="status">
+                    <div class="status-amount"></div>
+                </div>
+                <button class="primarybtn" id="nextq">
+                    <span class="material-symbols-outlined">
+                        arrow_forward
+                    </span>
+                </button>
+                <button class="primarybtn hidden" id="submit">
+                    <span class="material-symbols-outlined">
+                        done
+                    </span>
+                </button>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <div class="building-price-container">
+        <div class="price-preview">
+            <div class="icons-stacking">
+                <img src="./assets/icons/house/stage1_white.png" alt="">
+            </div>
+            <div class="price price-visible" id="stage-1-price">10</div>
+        </div>
+        <div class="price-preview">
+            <div class="icons-stacking">
+                <img src="./assets/icons/house/stage4_white.png" alt="">
+            </div>
+            <div class="price price-visible" id="stage-2-price">1000</div>
+        </div>
+    </div>
+
+    <!-- <div class="consent">
+            <p>consent</p>
+            <input type="checkbox" name="entry.650300513" value="Ja">
+            <label for="entry.650300513"> Ja</label><br>
+        </div>
+    </div> -->
+
+    <div class="feedback-container hidden">
+        <div class="feedback-bar bar-closed feedback-good">
+            <img src="./assets/icons/plus.png" class="feedback-icon" alt="">
+            <div class="feedback-content ">Guter Start!</div>
+        </div>
+    </div>
+    <!-- <div class="feedback-container">
+        <div class="feedback-bar feedback-white " id="planet-selector">
+            <img src="./assets/planet_assets/planets/preview/mano.png" class="planet-icon" id="pl1">
+            <img src="./assets/planet_assets/planets/preview/mono.png" class="planet-icon" id="pl2">
+            <img src="./assets/planet_assets/planets/preview/neno.png" class="planet-icon" id="pl3">
+        </div>
+    </div> -->
+    <div class="points-floating hidden"></div>
+
+
+    <div class="progress-container hidden">
+        <div class="progress-segment"></div>
+    </div>
+
+    <div class="dark-overlay opacity-hidden hidden"></div>
+
+
+    <div class="pl-embedded ">
+
+        <div class="pl-buttons opacity-hidden hidden">
+
+
+            <button class="primarybtn" id="rotate-right">
+                <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                    style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                    <rect id="Artboard1" x="0" y="0" width="48" height="48" style="fill:none;" />
+                    <g id="Artboard11" serif:id="Artboard1">
+                        <g transform="matrix(-1,0,0,1,98.2416,0)">
+                            <path
+                                d="M70.668,34.594L70.671,34.45L70.671,28.5L73.821,28.5L73.821,40.2L62.121,40.2L62.121,37.05L68.321,37.05L68.67,37.064C64.256,34.212 61.548,29.296 61.548,23.978C61.548,15.377 68.531,8.395 77.131,8.395C81.264,8.395 85.228,10.037 88.15,12.959L85.919,15.19C83.589,12.859 80.427,11.55 77.131,11.55C70.272,11.55 64.703,17.119 64.703,23.978C64.703,28.333 66.98,32.35 70.668,34.594Z" />
+                        </g>
+                    </g>
+                </svg>
+            </button>
+            <button class="primarybtn" id="rotate-left">
+                <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                    style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                    <g transform="matrix(1,0,0,1,-53.7707,0)">
+                        <g transform="matrix(1,0,0,1,53.7707,0)">
+                            <rect id="Artboard1" x="0" y="0" width="48" height="48" style="fill:none;" />
+                            <g id="Artboard11" serif:id="Artboard1">
+                                <g transform="matrix(1,0,0,1,-51.4567,0)">
+                                    <path
+                                        d="M70.668,34.594L70.671,34.45L70.671,28.5L73.821,28.5L73.821,40.2L62.121,40.2L62.121,37.05L68.321,37.05L68.67,37.064C64.256,34.212 61.548,29.296 61.548,23.978C61.548,15.377 68.531,8.395 77.131,8.395C81.264,8.395 85.228,10.037 88.15,12.959L85.919,15.19C83.589,12.859 80.427,11.55 77.131,11.55C70.272,11.55 64.703,17.119 64.703,23.978C64.703,28.333 66.98,32.35 70.668,34.594Z" />
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </button>
+
+            <h2 class="building-title">Hochschule Furtwangen</h2>
+            <div class="building-subtitle">Hochschule Furtwangen</div>
+            <button class="secondarybtn" id="close-details">
+                <span class="material-symbols-outlined">
+                    close
+                </span>
+            </button>
+            <div class="pl-toolbar">
+                <div class="pl-toolbar-items points-view">
+                    <div id="current-points">
+                        200
+                    </div>
+                    <div id="next-stage"> / 200</div>
+
+                </div>
+
+
+
+
+
+                <div class="delete-view pl-toolbar-items">
+                    <img src="./assets/icons/house/house_delete.png" alt="">
+                    <img src="./assets/icons/house/stage1_green.png" alt="">
+                </div>
+                <div class="tree-collection-container">
+                    <div class="tree-preview" id="tree-2">
+                        <div class="icons-stacking">
+                            <span class="material-symbols-outlined .sync-icon">
+                                sync
+                            </span>
+                            <img src="./assets/planet_assets/tree_icons/ma4.png" alt="">
+                        </div>
+                        <div class="price price-visible">-10</div>
+                    </div>
+                    <div class="tree-preview" id="tree-1">
+                        <div class="icons-stacking">
+                            <span class="material-symbols-outlined .sync-icon">
+                                sync
+                            </span>
+                            <img src="./assets/planet_assets/tree_icons/ma4.png" alt="">
+                        </div>
+                        <div class="price price-visible">-10</div>
+                    </div>
+                    <div class="tree-preview" id="tree-3">
+                        <div class="icons-stacking">
+                            <span class="material-symbols-outlined .sync-icon">
+                                sync
+                            </span>
+                            <img src="./assets/planet_assets/tree_icons/ma4.png" alt="">
+                        </div>
+                        <div class="price price-visible">-10</div>
+                    </div>
+                    <div class="tree-preview" id="tree-4">
+                        <div class="icons-stacking">
+                            <span class="material-symbols-outlined .sync-icon">
+                                sync
+                            </span>
+                            <img src="./assets/planet_assets/tree_icons/ma4.png" alt="">
+                        </div>
+                        <div class="price price-visible">-10</div>
+                    </div>
+                    <div class="edit-view pl-toolbar-items">
+                        <img src="./assets/icons/tree/tree_white.png" alt="">
+                        <img src="./assets/icons/tree/tree_green.png" alt="">
+                    </div>
+                </div>
+
+
+                <!-- <span class="material-symbols-outlined pl-toolbar-items delete-view">
+                    delete
+                </span> -->
+                <!-- <span class="material-symbols-outlined pl-toolbar-items edit-view">
+                    edit
+                </span> -->
+
+
+            </div>
+
+        </div>
+        <div class="pl-container hidden"></div>
+
+        <div class="building-subtitle opacity-hidden">PJ</div>
+
+    </div>
+
+    <div class="boost-container boost-hidden">
+        <div class="boost-bar">
+            <img src="./assets/icons/boost.png" class="boost-icon" alt="">
+            <!-- <div class="boost-content">2x</div> -->
+            <div class="animating-gradient"></div>
+        </div>
+    </div>
+
+    <div class="alert-overlay opacity-hidden hidden">
+        <div class="alert-container">
+            <div class="alert-content">
+                <div class="alert-title">Möchtest du das Gebäude wirklich löschen?</div>
+                <div class="alert-message">Diese Aktion lässt sich nicht rückgängig machen!</div>
+                <div class="alert-buttons">
+                    <button class="secondarybtn" id="cancel-alert">Abbrechen</button>
+                    <button class="primarybtn" id="confirm-alert">Löschen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="seconds-output hidden"></div>
+
+    <footer></footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+
+    <script src="./js/youtube_player_api.js"></script>
+    <script src="./js/form_content_switcher.js"></script>
+    <script src="./js/firebase_home_copy.js" type="module"></script>
+    <script src="./js/planetbuilder_umfrage.js" type="module"></script>
+
+
+</body>
+
+</html>
