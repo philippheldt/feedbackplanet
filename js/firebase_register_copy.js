@@ -47,6 +47,9 @@ const auth = getAuth();
 const email = document.getElementById("userEmail");
 const password = document.getElementById("userPassword");
 const passwordRepeat = document.getElementById("userPasswordRepeat");
+const terms = document.getElementById("terms");
+const termsLabel = document.getElementById("terms-label");
+const termsLink = document.querySelector("#terms-label a");
 const userEmailAlert = document.getElementById("userEmailAlert");
 const userPasswordAlert = document.getElementById("userPasswordAlert");
 const submitAlert = document.getElementById("submitAlert");
@@ -84,6 +87,11 @@ function validation() {
     return false;
   } else {
     userPasswordAlert.classList.add("alert-hidden");
+  }
+  if (terms.checked === false) {
+    termsLabel.classList.add("alert-terms");
+    termsLink.classList.add("alert-terms");
+    return false;
   }
   return true;
 }

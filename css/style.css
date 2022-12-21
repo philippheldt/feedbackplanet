@@ -349,3 +349,11 @@ a:hover {
   background-color: #de576e;
   color: #f5e1e4;
 }
+
+.datenschutz {
+  max-width: 600px;
+  margin: auto;
+  border-radius: 11px;
+  background-color: #fff;
+  padding: 20px 30px;
+}
