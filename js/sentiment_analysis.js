@@ -15,7 +15,15 @@ let options = {
   },
 };
 
+const setimentArray = [
+  "Wertungsfreie Sprache!",
+  "Wertungsfreie Sprache hilft.",
+  "Neutrales Feedback!",
+  "Keine Wertung!",
+];
+
 export function getSentiment(input) {
+  const sentimentText = setimentArray[Math.floor(Math.random() * setimentArray.length)];
   options.data.text = input.toString();
   axios
     .request(options)
@@ -26,7 +34,7 @@ export function getSentiment(input) {
 
       if (sentimentRate == "Neutral" || sentimentRate == "Mixed") {
         gamestate.points = gamestate.points + 30;
-        feedbackBarCall("Wertungsfreie Sprache!", 30, "feedback-good");
+        feedbackBarCall(sentimentText, 30, "feedback-good");
       }
     })
     .catch((error) => {

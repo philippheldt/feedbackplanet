@@ -562,21 +562,60 @@ export function updateBuildings() {
   }
 }
 
-// Auführlichkeitsbewertung
-var goodStart = false;
-var goodStartTextArray = [
+// Feedbacktexte
+const goodStartTextArray = [
   "Guter Start!",
+  "Vielversprechender Beginn.",
   "Schöner Start!",
   "Das fängt schön an!",
   "Toller Anfang!",
   "Schon 20 Wörter!",
+  "Solide Basis.",
+  "Gute Wortanzahl!",
 ];
-var extensiveFeedback = false;
-var extensiveFeedbackTextArray = [
+
+const extensiveFeedbackTextArray = [
   "Richtig ausführlich!",
   "Sehr detailliert!",
   "Überaus umfangreich!",
+  "Gründliche Darstellung!",
+  "Detailliertes Feedback.",
+  "Ausführliche Beschreibung!",
+  "Umfassendes Feedback!",
 ];
+
+const concretenessArray = ["Konkretes Feedback!", "Spezifisches Feedback!"];
+
+const structuredTextArray = [
+  "Gute Struktur!",
+  "Logische Gliederung!",
+  "Klare Organisation!",
+  "Verständliche Struktur!",
+  "Logische Aufbauweise!",
+];
+
+const containsIchArray = ["Gute Ich-Botschaften!", "Hilfreiche Ich-Botschaften!"];
+
+
+
+const checkBoxArray = [
+  "Danke fürs Feedback!",
+  "Vielen Dank!",
+  "Danke schön!",
+  "Danke für deine Zeit!",
+  "Danke für deine Hilfe!",
+  "Danke für die Unterstützung!",
+  "Danke für deine Beteiligung!",
+  "Danke für deine Teilnahme!",
+  "Danke für deine Mitwirkung!",
+  "Danke für deine Mithilfe!",
+];
+
+// Auführlichkeitsbewertung
+var goodStart = false;
+
+var extensiveFeedback = false;
+
 var boost = 1;
 var prevBoost = 1;
 var newBoost = false;
@@ -645,6 +684,8 @@ export function analyzeConcreteness(input, index) {
     prevIndexConcrete = index;
   }
   if (concrete != true) {
+    const concretenessText =
+      concretenessArray[Math.floor(Math.random() * concretenessArray.length)];
     const inputArray = input.value.split(" ");
     let containsNumber = false;
     let concretePosition = [];
@@ -660,7 +701,7 @@ export function analyzeConcreteness(input, index) {
 
     if (containsNumber) {
       gamestate.points = gamestate.points + 5 * boost;
-      feedbackBarCall("Konkretes Feedback!", 5 * boost, "feedback-good");
+      feedbackBarCall(concretenessText, 5 * boost, "feedback-good");
       markTextPositions(concretePosition, index);
       concrete = true;
     }
@@ -676,6 +717,7 @@ export function analyzeIchBotschaft(input, index) {
   }
 
   if (contaiunsIch != true) {
+    const ichBotschaftText = containsIchArray[Math.floor(Math.random() * containsIchArray.length)];
     const inputArray = input.value.split(" ");
     let ich = 0;
     let ichPosition = [];
@@ -790,8 +832,9 @@ export function markTextPositions(positions, inputNumber) {
 
 export function analyzeRadio(radioInput) {
   if (radioInput != undefined) {
+    const checkBoxText = checkBoxArray[Math.floor(Math.random() * checkBoxArray.length)];
     gamestate.points = gamestate.points + 5 * boost;
-    feedbackBarCall("Danke für das Feedback!", 5 * boost, "feedback-good");
+    feedbackBarCall(checkBoxText, 5 * boost, "feedback-good");
     goodStart = true;
   } else {
     gamestate.points = gamestate.points - 5 * boost;
