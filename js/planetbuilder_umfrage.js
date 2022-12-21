@@ -116,10 +116,11 @@ for (let i = 0; i < input.length; i++) {
 textsuggestion.forEach((element) => {
   element.addEventListener("click", function () {
     textinputs[textSuggestionCurrent].value != ""
-      ? (textinputs[textSuggestionCurrent].value += " " + element.innerText)
-      : (textinputs[textSuggestionCurrent].value = element.innerText);
+      ? (textinputs[textSuggestionCurrent].value += " " + element.innerText.split(".").join(""))
+      : (textinputs[textSuggestionCurrent].value = element.innerText.split(".").join(""));
 
     textinputs[textSuggestionCurrent].dispatchEvent(new Event("keyup"));
+    gamestate.trackingData.suggestionClicks++;
   });
 });
 

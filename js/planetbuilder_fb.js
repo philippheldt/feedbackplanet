@@ -125,6 +125,7 @@ export function getData() {
         gamestate.trackingData.email = snapshot.val().email;
         gamestate.trackingData.contactQuery = snapshot.val().contactQuery;
         gamestate.trackingData.bannerInteractions = snapshot.val().bannerInteractions;
+        gamestate.trackingData.suggestionClicks = snapshot.val().suggestionClicks;
 
         console.log(gamestate);
 
@@ -185,6 +186,7 @@ export function updateData() {
     extensiveAmount: gamestate.trackingData.boostKind.extensiveAmount,
     contactQuery: gamestate.trackingData.contactQuery,
     bannerInteractions: gamestate.trackingData.bannerInteractions,
+    suggestionClicks: gamestate.trackingData.suggestionClicks,
   })
     .then(() => {
       console.log("Data saved successfully");
@@ -595,8 +597,6 @@ const structuredTextArray = [
 ];
 
 const containsIchArray = ["Gute Ich-Botschaften!", "Hilfreiche Ich-Botschaften!"];
-
-
 
 const checkBoxArray = [
   "Danke fürs Feedback!",

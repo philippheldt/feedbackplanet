@@ -5,7 +5,7 @@ const submitButton = document.querySelector("#submit");
 const statusAmount = document.querySelector(".status-amount");
 
 let containerPosition = 1;
-const containerPositionMax = 12;
+const containerPositionMax = 11;
 
 statusAmount.style.width = (100 / containerPositionMax) * containerPosition + "%";
 

@@ -61,7 +61,7 @@ export const researchData = {
     timeSpent: ["entry.864032000", "time-spent-999"],
     boosts: ["entry.263251967", 0],
     boostKind: ["entry.868385044", ""],
-    pointsPerSlide: ["entry.215728538", 0],
+    suggestionClicks: ["entry.215728538", 0],
     wordsWritten: ["entry.99034290", 0],
   },
 };
@@ -149,14 +149,14 @@ export function submitData() {
   researchData.gameData.editTreeClicks[1] = gamestate.trackingData.editTreeClicks;
   researchData.gameData.turnClicks[1] = gamestate.trackingData.turnClicks;
   researchData.gameData.boosts[1] = gamestate.trackingData.boosts;
+  researchData.gameData.suggestionClicks[1] = gamestate.trackingData.suggestionClicks;
 
   for (const boostKind in gamestate.trackingData.boostKind) {
     researchData.gameData.boostKind[1] +=
       boostKind + "-" + gamestate.trackingData.boostKind[boostKind] + "----";
   }
 
-  researchData.gameData.pointsPerSlide[1] = gamestate.pointsPerSlide;
-  researchData.gameData.wordsWritten[1] = gamestate.wordsWritten;
+  //researchData.gameData.wordsWritten[1] = gamestate.wordsWritten;
 
   for (const property in researchData) {
     if (researchData.hasOwnProperty(property)) {

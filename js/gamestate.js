@@ -24,6 +24,7 @@ export const gamestate = {
     editTreeClicks: 0,
     turnClicks: 0,
     boosts: 0,
+    suggestionClicks: 0,
     boostKind: {
       goodStartAmount: 0,
       extensiveAmount: 0,

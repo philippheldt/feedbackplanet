@@ -201,6 +201,7 @@ function insertData(newUUID, newEmail) {
         editTreeClicks: 0,
         turnClicks: 0,
         boosts: 0,
+        suggestionClicks: 0,
         goodStartAmount: 0,
         extensiveAmount: 0,
         email: newEmail,
