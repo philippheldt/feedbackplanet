@@ -39,8 +39,6 @@ nextButton.addEventListener("click", () => {
     }
   }
   console.log("button submit");
-  updateBuildings();
-  submitFeedback();
 
   if (radioContainerPositions[containerPosition] != null) {
     analyzeRadio(getRadioValue(skalen[radioContainerPositions[containerPosition]]));
@@ -56,6 +54,8 @@ nextButton.addEventListener("click", () => {
     }
   }
   containerPosition++;
+  updateBuildings();
+  submitFeedback();
 });
 
 prevButton.addEventListener("click", () => {
@@ -96,10 +96,11 @@ for (let i = 0; i < input.length; i++) {
       for (let i = 0; i < textinputs.length; i++) {
         duplicates[i].innerHTML = textinputs[i].value;
       }
-      analyzeTextLength(input[i], i);
+
       analyzeConcreteness(input[i], i);
       analyzeIchBotschaft(input[i], i);
       analyzeTextStructure(input[i], i);
+      analyzeTextLength(input[i], i);
 
       displaySuggestions();
     }, 500);
