@@ -1,23 +1,16 @@
-import { gamestate } from "./gamestate.js";
+import { gamestate } from "./gamedata/gamestate.js";
 import { getSentiment } from "./sentiment_analysis.js";
+import { updateBuildings, feedbackBarCall } from "./planetbuilder_fb.js";
 import {
-  buildingSelectorBar,
-  calculateBuildingNumber,
-  createPlanet,
-  getData,
-  planetSelectorBar,
-  updateBuildings,
-  updateData,
+  submitFeedback,
   analyzeTextStructure,
   analyzeIchBotschaft,
   analyzeTextLength,
   analyzeConcreteness,
   analyzeRadio,
-  submitFeedback,
-  feedbackBarCall,
-} from "./planetbuilder_fb.js";
+} from "./text_analysis.js";
 
-import { suggestions } from "./suggestions.js";
+import { suggestions } from "./gamedata/suggestions.js";
 
 import { getRadioValue, skalen, freitexte, submitData } from "./google_form_submission.js";
 
@@ -37,10 +30,10 @@ let textSuggestionCurrent = null;
 nextButton.addEventListener("click", () => {
   if (containerPosition == 0) {
     const secondsOutput = document.querySelector(".seconds-output").innerText;
-    if (Number(secondsOutput) > 360) {
+    if (Number(secondsOutput) > 180) {
       gamestate.points = gamestate.points + 20;
       feedbackBarCall("Video angeschaut!", 20, "feedback-good");
-    } else if (Number(secondsOutput) > 10) {
+    } else if (Number(secondsOutput) > 30) {
       gamestate.points = gamestate.points + 5;
       feedbackBarCall("Video angefangen!", 5, "feedback-good");
     }

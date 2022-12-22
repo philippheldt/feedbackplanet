@@ -1,5 +1,5 @@
 import { apikey } from "./api-key.js";
-import { gamestate } from "./gamestate.js";
+import { gamestate } from "./gamedata/gamestate.js";
 import { feedbackBarCall } from "./planetbuilder_fb.js";
 
 let options = {

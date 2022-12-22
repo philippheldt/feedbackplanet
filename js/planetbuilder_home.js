@@ -1,4 +1,4 @@
-import { gamestate } from "./gamestate.js";
+import { gamestate } from "./gamedata/gamestate.js";
 import {
   buildingSelectorBar,
   calculateBuildingNumber,

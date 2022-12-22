@@ -62,4 +62,9 @@ const secondsOutput = document.querySelector(".seconds-output");
 
 function countSeconds() {
   seconds++;
+  if (seconds > 180) {
+    secondsOutput.innerHTML = seconds;
+  } else if (seconds > 30) {
+    secondsOutput.innerHTML = seconds;
+  }
 }

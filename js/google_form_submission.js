@@ -29,7 +29,7 @@
 // &entry.1252854881=Ja
 // entry.1352185246=hjashjashjas
 
-import { gamestate } from "./gamestate.js";
+import { gamestate } from "./gamedata/gamestate.js";
 
 export const researchData = {
   contactData: {
