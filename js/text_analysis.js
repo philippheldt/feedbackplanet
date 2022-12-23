@@ -206,7 +206,7 @@ export function analyzeRadio(radioInput) {
     feedbackBarCall(checkBoxText, 5 * boost, "feedback-good");
   } else {
     gamestate.points = gamestate.points - 5 * boost;
-    feedbackBarCall("Schade, keine Angabe!", -5 * boost, "feedback-bad");
+    feedbackBarCall("Keine Angabe!", -5 * boost, "feedback-bad");
     goodStart = false;
   }
 }

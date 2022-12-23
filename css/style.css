@@ -193,7 +193,7 @@ button {
 }
 
 .header {
-  position: fixed;
+  position: sticky;
   background-color: #fff;
 
   z-index: 1;
