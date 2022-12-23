@@ -117,7 +117,7 @@
   }
 }
 
-@media (max-height: 400px) and (max-aspect-ratio: 3/4) {
+@media (max-height: 800px) and (max-aspect-ratio: 3/4) {
   p {
     font-size: 12pt;
   }

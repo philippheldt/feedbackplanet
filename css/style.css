@@ -204,7 +204,8 @@ button {
 .header-container {
   margin: auto;
   max-width: 800px;
-  padding: 20px;
+  padding: 24px;
+  position: relative;
 }
 .header-inner {
   display: flex;
@@ -216,6 +217,14 @@ button {
   display: flex;
   align-items: center;
   gap: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.header-menu.active {
+  opacity: 1;
+  pointer-events: all;
 }
 
 #userIcon {
@@ -304,6 +313,7 @@ a:hover {
   align-items: center;
   opacity: 1;
   transition: all 0.5s ease;
+  z-index: 100;
 }
 
 .opacity-hidden {

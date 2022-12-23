@@ -1,19 +1,23 @@
 .feedback-container {
-  height: 50px;
-  position: fixed;
-  bottom: 103px;
-  right: 115px;
+  height: 40px;
+  position: absolute;
+  top: 30px;
+  right: 40px;
   overflow: hidden;
   padding-left: 40px;
+  z-index: 1;
 }
-
 .feedback-bar {
   font-size: 14pt;
-  padding: 15px 80px 15px 20px;
+  padding: 10px 60px 10px 20px;
   border-radius: 30px;
   transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
   display: flex;
   align-items: center;
+}
+
+.feedback-bar.selctor {
+  padding: 0px 80px 0px 20px;
 }
 
 .feedback-bar.hidden {
@@ -50,9 +54,9 @@
 }
 
 .points-floating {
-  position: fixed;
-  bottom: 125px;
-  right: 190px;
+  position: absolute;
+  top: 25px;
+  right: 100px;
   font-size: 14pt;
   font-family: "Luckiest Guy", cursive;
   color: #76b093;
@@ -91,11 +95,12 @@
 }
 
 .boost-container {
-  position: fixed;
-  bottom: 104px;
-  right: 104px;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 3;
   transition: all 0.4s cubic-bezier(0.54, 0.32, 0.37, 1.19);
-  transform: scale(0.7);
+  transform: scale(0.5);
   pointer-events: none;
 }
 
@@ -186,7 +191,7 @@
   margin: 0px 10px 0px 20px;
 }
 .planet-icon {
-  margin: 5px 0px 5px 5px;
+  margin: 0px 0px 0px 5px;
   width: 40px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -198,28 +203,12 @@
   filter: brightness(0.9);
 }
 
-@media screen and (max-width: 900px) {
-  .feedback-container {
-    bottom: 78px;
-    right: 60px;
-  }
-
-  .points-floating {
-    bottom: 100px;
-    right: 120px;
-  }
-
-  .boost-container {
-    bottom: 79px;
-    right: 49px;
-  }
-}
-
 .first-building-container {
   display: grid;
   grid-template-columns: 1fr;
   justify-items: center;
   align-items: center;
+  margin-left: 20px;
 }
 
 .first-building-container img {
@@ -228,7 +217,7 @@
 
 .first-building-container #countdown {
   grid-area: 1/1;
-  padding: 5px 0px 5px 5px;
+  padding: 0px 0px 0px 5px;
   height: 40px;
   z-index: 0;
 }
@@ -263,8 +252,8 @@
 
 .price-preview {
   position: absolute;
-  right: 200px;
-  bottom: 110px;
+  right: 110px;
+  bottom: 30px;
   display: flex;
   align-items: center;
   width: 100px;
@@ -277,11 +266,11 @@
 
 .price-preview:nth-child(1).price-preview-active {
   opacity: 1;
-  transform: translateY(-50px);
+  transform: translateY(50px);
 }
 .price-preview:nth-child(2).price-preview-active {
   opacity: 1;
-  transform: translateY(-85px);
+  transform: translateY(85px);
 }
 
 .price-preview .icons-stacking {

@@ -11,10 +11,11 @@
 
 .pl-embedded {
   display: grid;
-  position: fixed;
-  bottom: 30px;
-  right: 55px;
-  width: 150px;
+  position: absolute;
+  bottom: -25px;
+  right: 0px;
+  width: 100px;
+  z-index: 1;
   transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
   cursor: pointer;
 }
@@ -293,13 +294,6 @@
   }
 }
 
-@media screen and (max-width: 900px) {
-  .pl-embedded {
-    bottom: 5px;
-    right: 0px;
-  }
-}
-
 /* Planet editor overlay */
 
 .pl-extended {
@@ -309,8 +303,8 @@
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  bottom: calc(50vh - 250px);
-  right: calc(50vw - 200px);
+  bottom: calc(-50vh - 100px);
+  right: calc(50% - 200px);
   cursor: auto;
 }
 
@@ -320,8 +314,6 @@
 
 .pl-buttons {
   transition: all 0.5s ease;
-
-  height: 0px;
 }
 
 .pl-buttons .primarybtn {

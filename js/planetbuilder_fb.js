@@ -183,6 +183,7 @@ var treeFront = document.querySelector(".tree-front");
 var bushFront = document.querySelector(".bush");
 const pointsView = document.querySelector("#current-points");
 const nextStageView = document.querySelector("#next-stage");
+let nextStagepoints = 0;
 
 export function createPlanet() {
   //setup
@@ -280,6 +281,7 @@ export function createPlanet() {
       }
     }
   }
+  updateBuildings();
 }
 
 export function addAndAnimateAssets(
@@ -374,6 +376,8 @@ export function updateBuildings() {
     const pointsToNextBuildigStageQuarter = pointsToNextBuildingStage / 4;
 
     nextStageView.innerHTML = ` / ${pointsToNextBuildingStage}`;
+    nextStagepoints = pointsToNextBuildingStage;
+    feedbackBar.innerHTML = `<div class="feedback-content">${gamestate.points} / ${nextStagepoints}</div>`;
     //select random element from array and save it to a const
     const randomTree =
       buildingCollection[currentBuildingIndex].trees[
@@ -473,47 +477,55 @@ const pointsFloating = document.querySelector(".points-floating");
 const boostBar = document.querySelector(".boost-container");
 
 export function feedbackBarCall(message, acheivedPoints, color) {
-  feedbackBar.innerHTML = `<div class="feedback-content">${message}</div>`;
-  feedbackBar.classList.remove("feedback-bad");
-  feedbackBar.classList.remove("feedback-good");
-  feedbackBar.classList.remove("feedback-boost");
-  feedbackBar.classList.add(color);
-  feedbackBar.classList.remove("bar-closed");
+  feedbackBar.classList.add("bar-closed");
   setTimeout(() => {
-    feedbackBar.classList.add("bar-closed");
-    if (acheivedPoints != 0) {
-      setTimeout(() => {
-        pointsFloating.innerText = `${acheivedPoints}`;
-        pointsFloating.style.color = color == "feedback-good" ? "#76b093" : "#de576e";
-        pointsFloating.classList.add("points-floating-animation-add");
-        // feedbackBar.innerHTML = `<img src="./assets/icons/currency.png" class="feedback-icon" alt=""><div class="feedback-content">${
-        //   gamestate.points - acheivedPoints
-        // }</div>`;
-        feedbackBar.innerHTML = `<div class="feedback-content">${
-          gamestate.points - acheivedPoints
-        }</div>`;
-        boost > 1 ? feedbackBar.classList.add("feedback-boost") : null;
-        feedbackBar.classList.remove("bar-closed");
-        countTo(acheivedPoints, ".feedback-content", 20, 900);
+    feedbackBar.innerHTML = `<div class="feedback-content">${message}</div>`;
+    feedbackBar.classList.remove("feedback-bad");
+    feedbackBar.classList.remove("feedback-good");
+    feedbackBar.classList.remove("feedback-boost");
+    feedbackBar.classList.add(color);
+    feedbackBar.classList.remove("bar-closed");
+    setTimeout(() => {
+      feedbackBar.classList.add("bar-closed");
+      if (acheivedPoints != 0) {
         setTimeout(() => {
-          feedbackBar.classList.add("bar-closed");
-          pointsFloating.classList.remove("points-floating-animation-add");
-          boost > 1 ? feedbackBar.classList.remove("feedback-boost") : null;
+          pointsFloating.innerText = `${acheivedPoints}`;
+          pointsFloating.style.color = color == "feedback-good" ? "#76b093" : "#de576e";
+          pointsFloating.classList.add("points-floating-animation-add");
+          // feedbackBar.innerHTML = `<img src="./assets/icons/currency.png" class="feedback-icon" alt=""><div class="feedback-content">${
+          //   gamestate.points - acheivedPoints
+          // }</div>`;
+          feedbackBar.innerHTML = `<div class="feedback-content">${
+            gamestate.points - acheivedPoints
+          }</div>`;
+          boost > 1 ? feedbackBar.classList.add("feedback-boost") : null;
+          feedbackBar.classList.remove("bar-closed");
+          countTo(acheivedPoints, ".feedback-content", 20, 900);
           setTimeout(() => {
-            if (
-              gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
-                "non0.no0.no0.no0.no0" &&
-              deletedBuilding == false &&
-              gamestate.points >= 10
-            ) {
-              buildingSelectorBar();
-            }
-            updateBuildings();
-          }, 300);
-        }, 2600 + 20 * acheivedPoints);
-      }, 300);
-    }
-  }, 2000);
+            feedbackBar.classList.add("bar-closed");
+            pointsFloating.classList.remove("points-floating-animation-add");
+            boost > 1 ? feedbackBar.classList.remove("feedback-boost") : null;
+            setTimeout(() => {
+              if (
+                gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
+                  "non0.no0.no0.no0.no0" &&
+                deletedBuilding == false &&
+                gamestate.points >= 10
+              ) {
+                buildingSelectorBar();
+              }
+              updateBuildings();
+
+              feedbackBar.innerHTML = `<div class="feedback-content">${gamestate.points} / ${nextStagepoints}</div>`;
+              feedbackBar.classList.remove("feedback-bad");
+              feedbackBar.classList.add("feedback-good");
+              feedbackBar.classList.remove("bar-closed");
+            }, 300);
+          }, 2600 + 20 * acheivedPoints);
+        }, 300);
+      }
+    }, 2000);
+  }, 300);
 }
 
 import { submitData, researchData } from "./google_form_submission.js";
@@ -647,20 +659,7 @@ export function colorSelector(selected) {
 }
 
 export function addRandomSky() {
-  const skyStyles = [
-    "dar1",
-    "dar2",
-    "dar3",
-    "dar4",
-    "day1",
-    "day2",
-    "day3",
-    "day4",
-    "day5",
-    "day6",
-    "day7",
-    "day8",
-  ];
+  const skyStyles = ["dar1", "dar2", "day1", "day2", "day3", "day4"];
 
   let randomNumber = Math.floor(Math.random() * skyStyles.length);
   let skyRandom = skyStyles[randomNumber];
@@ -680,26 +679,29 @@ export function addRandomSky() {
 let autoselection = true;
 
 export function buildingSelectorBar() {
-  feedbackBar.classList.add("planet-selector");
   setTimeout(() => {
-    //get all building styles from the building collection and add them to an array
-    let buildingStyles = [];
-    for (let i = 0; i < buildingCollection.length; i++) {
-      buildingStyles.push(i);
-    }
+    feedbackBar.classList.add("bar-closed");
+    setTimeout(() => {
+      feedbackBar.classList.add("planet-selector");
+      setTimeout(() => {
+        //get all building styles from the building collection and add them to an array
+        let buildingStyles = [];
+        for (let i = 0; i < buildingCollection.length; i++) {
+          buildingStyles.push(i);
+        }
 
-    let randomNumber = Math.floor(Math.random() * buildingStyles.length);
-    let b1Index = buildingStyles[randomNumber];
+        let randomNumber = Math.floor(Math.random() * buildingStyles.length);
+        let b1Index = buildingStyles[randomNumber];
 
-    buildingStyles.splice(randomNumber, 1);
-    randomNumber = Math.floor(Math.random() * buildingStyles.length);
-    let b2Index = buildingStyles[randomNumber];
+        buildingStyles.splice(randomNumber, 1);
+        randomNumber = Math.floor(Math.random() * buildingStyles.length);
+        let b2Index = buildingStyles[randomNumber];
 
-    buildingStyles.splice(randomNumber, 1);
-    randomNumber = Math.floor(Math.random() * buildingStyles.length);
-    let b3Index = buildingStyles[randomNumber];
+        buildingStyles.splice(randomNumber, 1);
+        randomNumber = Math.floor(Math.random() * buildingStyles.length);
+        let b3Index = buildingStyles[randomNumber];
 
-    feedbackBar.innerHTML = ` 
+        feedbackBar.innerHTML = ` 
       <div class="feedback-content ">Wähle ein Gebäude:</div>
       <div class="first-building-container">
         
@@ -712,33 +714,35 @@ export function buildingSelectorBar() {
       </div>
       <img src="./assets/planet_assets/planets/preview/${buildingCollection[b2Index].shortcut}.png" class="planet-icon" id="b2">
       <img src="./assets/planet_assets/planets/preview/${buildingCollection[b3Index].shortcut}.png" class="planet-icon" id="b3">`;
-    planetEmbedded.classList.add("no-action");
-    feedbackBar.classList.add("feedback-good");
-    feedbackBar.classList.remove("bar-closed");
+        planetEmbedded.classList.add("no-action");
+        feedbackBar.classList.add("feedback-good");
+        feedbackBar.classList.remove("bar-closed");
 
-    document.querySelector("#b1").addEventListener("click", function () {
-      buildingSelector(buildingCollection[b1Index].shortcut);
-      autoselection = false;
-    });
-    document.querySelector("#b2").addEventListener("click", function () {
-      buildingSelector(buildingCollection[b2Index].shortcut);
-      autoselection = false;
-    });
-    document.querySelector("#b3").addEventListener("click", function () {
-      buildingSelector(buildingCollection[b3Index].shortcut);
-      autoselection = false;
-    });
+        document.querySelector("#b1").addEventListener("click", function () {
+          buildingSelector(buildingCollection[b1Index].shortcut);
+          autoselection = false;
+        });
+        document.querySelector("#b2").addEventListener("click", function () {
+          buildingSelector(buildingCollection[b2Index].shortcut);
+          autoselection = false;
+        });
+        document.querySelector("#b3").addEventListener("click", function () {
+          buildingSelector(buildingCollection[b3Index].shortcut);
+          autoselection = false;
+        });
 
-    priceReveal(
-      buildingCollection[b1Index],
-      buildingCollection[b2Index],
-      buildingCollection[b3Index]
-    );
+        priceReveal(
+          buildingCollection[b1Index],
+          buildingCollection[b2Index],
+          buildingCollection[b3Index]
+        );
 
-    setTimeout(() => {
-      autoselection ? buildingSelector(buildingCollection[b1Index].shortcut) : null;
-    }, 20000);
-  }, 100);
+        setTimeout(() => {
+          autoselection ? buildingSelector(buildingCollection[b1Index].shortcut) : null;
+        }, 20000);
+      }, 100);
+    }, 300);
+  }, 3000);
 }
 
 function priceReveal(building1, building2, building3) {
@@ -774,6 +778,10 @@ function priceReveal(building1, building2, building3) {
       stage1PriceLabel.classList.remove("price-preview-active");
       stage2PriceLabel.classList.remove("price-preview-active");
     });
+    buildingPreview.addEventListener("click", function () {
+      stage1PriceLabel.classList.remove("price-preview-active");
+      stage2PriceLabel.classList.remove("price-preview-active");
+    });
   });
 }
 
@@ -790,6 +798,9 @@ export function buildingSelector(selected) {
   planetEmbedded.classList.remove("no-action");
   updateData();
   updateBuildings();
+  setTimeout(() => {
+    feedbackBar.classList.remove("bar-closed");
+  }, 1000);
   console.log("Building selected: " + selected);
 }
 
@@ -893,19 +904,23 @@ const planetEmbedded = document.querySelector(".pl-embedded");
 const plButtons = document.querySelector(".pl-buttons");
 const userNameOutput = document.querySelector("#userName");
 const userIcon = document.querySelector("#userIcon");
+const headerMenu = document.querySelector(".header-menu");
 
 export function closeOverlay() {
   overlay.classList.add("opacity-hidden");
   plButtons.classList.add("opacity-hidden");
   planetContainer.classList.remove("rotate-animation");
   planetEmbedded.classList.remove("pl-extended");
-
+  headerMenu.classList.remove("active");
   setTimeout(() => {
     overlay.classList.add("hidden");
     plButtons.classList.add("hidden");
     boostBar.classList.remove("opacity-hidden");
     progressElement.classList.remove("opacity-hidden");
     deletedBuilding = false;
+
+    feedbackBar.classList.remove("bar-closed");
+    feedbackBar.style.opacity = "1";
 
     if (
       gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
@@ -927,6 +942,9 @@ export function openOverlay() {
   plButtons.classList.remove("hidden");
   boostBar.classList.add("opacity-hidden");
   progressElement.classList.add("opacity-hidden");
+  feedbackBar.classList.add("bar-closed");
+  feedbackBar.style.opacity = "0";
+  headerMenu.classList.add("active");
   if (gamestate.planetPosition == 1) {
     planetContainer.classList.add("rotate-animation");
   }
