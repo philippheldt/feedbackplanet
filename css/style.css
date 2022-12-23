@@ -193,8 +193,9 @@ button {
 }
 
 .header {
+  position: fixed;
   background-color: #fff;
-  position: absolute;
+
   z-index: 1;
   top: 0;
   left: 0;
