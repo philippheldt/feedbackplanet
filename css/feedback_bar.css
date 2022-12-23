@@ -183,7 +183,7 @@
   transition: all 0.4s cubic-bezier(0.54, 0.32, 0.37, 1.19);
 }
 
-.planet-selector {
+.feedback-bar.planet-selector {
   padding: 0px 60px 0px 0px;
 }
 

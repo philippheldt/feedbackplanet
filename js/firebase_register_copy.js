@@ -48,7 +48,7 @@ const googleAuth = document.getElementById("googleAuth");
 const appleAuth = document.getElementById("appleAuth");
 const githubAuth = document.getElementById("githubAuth");
 
-const testGroup = ["A", "B"];
+const testGroup = ["A", "B", "A"];
 const selectedTestGroup = testGroup[Math.floor(Math.random() * testGroup.length)];
 //validate inputs
 
@@ -213,9 +213,18 @@ function signInWithGoogle() {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       const user = result.user;
-      insertData(user.uid, user.email);
+      document.querySelector(".loading-indicator-overlay").classList.remove("hidden");
+
       setTimeout(() => {
-        window.location.href = "onboarding.html";
+        document.querySelector(".loading-indicator-overlay").classList.remove("opacity-hidden");
+      }, 100);
+
+      insertData(user.uid, user.email);
+
+      setTimeout(() => {
+        selectedTestGroup === "A"
+          ? (window.location.href = "onboarding_a.html")
+          : (window.location.href = "onboarding_b.html");
       }, 5000);
     })
     .catch((error) => {

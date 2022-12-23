@@ -199,10 +199,12 @@ export function createPlanet() {
   } else {
     userNameOutput.style.pointerEvents = "none";
     userIcon.style.pointerEvents = "none";
+    headerMenu.classList.add("active");
   }
 
   if (gamestate.planet == "nono") {
     planetSelectorBar();
+    console.log("planetSelectorBar");
     return;
   } else if (!skySet) {
     addRandomSky();
@@ -552,41 +554,48 @@ export function countTo(addedPoints, place, interval, timeout) {
 //Building and Planet selector boxes
 
 export function planetSelectorBar() {
-  feedbackBar.classList.add("planet-selector");
-
   setTimeout(() => {
-    const planetStyles = ["ma", "ve", "sa", "ne", "mo"];
+    feedbackBar.classList.add("bar-closed");
+    console.log("planetSelectorBar Again");
+    setTimeout(() => {
+      feedbackBar.classList.add("planet-selector");
 
-    let randomNumber = Math.floor(Math.random() * planetStyles.length);
-    let pl1Random = planetStyles[randomNumber];
+      setTimeout(() => {
+        const planetStyles = ["ma", "ve", "sa", "ne", "mo"];
 
-    planetStyles.splice(randomNumber, 1);
-    randomNumber = Math.floor(Math.random() * planetStyles.length);
-    let pl2Random = planetStyles[randomNumber];
+        let randomNumber = Math.floor(Math.random() * planetStyles.length);
+        let pl1Random = planetStyles[randomNumber];
 
-    planetStyles.splice(randomNumber, 1);
-    randomNumber = Math.floor(Math.random() * planetStyles.length);
-    let pl3Random = planetStyles[randomNumber];
+        planetStyles.splice(randomNumber, 1);
+        randomNumber = Math.floor(Math.random() * planetStyles.length);
+        let pl2Random = planetStyles[randomNumber];
 
-    feedbackBar.innerHTML = ` 
-      <div class="feedback-content ">Wähle einen Planeten:</div>
+        planetStyles.splice(randomNumber, 1);
+        randomNumber = Math.floor(Math.random() * planetStyles.length);
+        let pl3Random = planetStyles[randomNumber];
+
+        feedbackBar.innerHTML = ` 
+      <div class="feedback-content ">Planet wählen:</div>
       <img src="./assets/planet_assets/planets/preview/${pl1Random}no.png" class="planet-icon" id="pl1">
       <img src="./assets/planet_assets/planets/preview/${pl2Random}no.png" class="planet-icon" id="pl2">
       <img src="./assets/planet_assets/planets/preview/${pl3Random}no.png" class="planet-icon" id="pl3">`;
-    planetEmbedded.classList.add("no-action");
-    feedbackBar.classList.add("feedback-good");
-    feedbackBar.classList.remove("bar-closed");
+        planetEmbedded.classList.add("no-action");
 
-    document.querySelector("#pl1").addEventListener("click", function () {
-      planetSelector(pl1Random);
-    });
-    document.querySelector("#pl2").addEventListener("click", function () {
-      planetSelector(pl2Random);
-    });
-    document.querySelector("#pl3").addEventListener("click", function () {
-      planetSelector(pl3Random);
-    });
-  }, 100);
+        document.querySelector("#pl1").addEventListener("click", function () {
+          planetSelector(pl1Random);
+        });
+        document.querySelector("#pl2").addEventListener("click", function () {
+          planetSelector(pl2Random);
+        });
+        document.querySelector("#pl3").addEventListener("click", function () {
+          planetSelector(pl3Random);
+        });
+
+        feedbackBar.classList.add("feedback-good");
+        feedbackBar.classList.remove("bar-closed");
+      }, 100);
+    }, 300);
+  }, 1000);
 }
 
 export function planetSelector(selected) {
@@ -645,9 +654,12 @@ export function colorSelector(selected) {
   feedbackBar.classList.remove("planet-selector");
   planetEmbedded.classList.remove("no-action");
   updateData();
+  updateBuildings();
   setTimeout(() => {
     addRandomSky();
     createPlanet();
+    feedbackBar.innerHTML = `<div class="feedback-content">0 / 0</div>`;
+    feedbackBar.classList.remove("bar-closed");
   }, 1000);
 }
 

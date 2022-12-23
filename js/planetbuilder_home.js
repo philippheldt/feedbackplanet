@@ -9,10 +9,3 @@ import {
 } from "./planetbuilder_fb.js";
 
 getData();
-
-setTimeout(() => {
-  if (gamestate.planet === "nono") {
-    planetSelectorBar();
-    console.log("no planet selected");
-  }
-}, 5000);
