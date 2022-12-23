@@ -57,7 +57,6 @@ function login() {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      console.log(user);
       window.location.href = "index.html";
       // ...
     })
@@ -74,7 +73,6 @@ function login() {
         userEmailAlert.innerText = "Benutzer existiert nicht";
         userEmailAlert.classList.remove("alert-hidden");
       }
-
       console.log(errorCode);
     });
 }

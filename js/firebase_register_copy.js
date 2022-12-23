@@ -1,10 +1,5 @@
 document.addEventListener;
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBPfrNzUfMGmugq4YPVntrs1s5k0NWDj_s",
   authDomain: "feedbackplanet-6e805.firebaseapp.com",
@@ -15,7 +10,6 @@ const firebaseConfig = {
   appId: "1:1062690527293:web:a958d4af13bc00dbbd3254",
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 import {
@@ -30,8 +24,6 @@ import {
 
 const db = getDatabase();
 
-// create firebase authentication
-
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -43,7 +35,6 @@ import {
 
 const auth = getAuth();
 
-// Login references
 const email = document.getElementById("userEmail");
 const password = document.getElementById("userPassword");
 const passwordRepeat = document.getElementById("userPasswordRepeat");
@@ -126,14 +117,7 @@ function register() {
   if (validation() === true && submitValidation() === true) {
     createUserWithEmailAndPassword(auth, email.value, password.value)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
-
-        // sendEmailVerification(auth.currentUser).then(() => {
-        //   console.log("Email sent!");
-        // });
-
-        //TODO: add Loading indicator
         insertData(user.uid, email.value);
         userEmailAlert.classList.add("alert-hidden");
         email.value = "";
@@ -146,8 +130,6 @@ function register() {
             ? (window.location.href = "onboarding_a.html")
             : (window.location.href = "onboarding_b.html");
         }, 5000);
-
-        // ...
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -162,7 +144,6 @@ function register() {
             document.querySelector(".loading-indicator-overlay").classList.add("hidden");
           }, 100);
         }
-        // ..
       });
   } else {
     document.querySelector(".loading-indicator-overlay").classList.add("opacity-hidden");
@@ -219,11 +200,8 @@ function insertData(newUUID, newEmail) {
     });
 }
 
-// event listener for register button
 const registerSubmit = document.getElementById("registerSubmit");
 registerSubmit.addEventListener("click", register);
-
-// Login with Google
 
 import {
   signInWithPopup,
@@ -232,26 +210,19 @@ import {
 function signInWithGoogle() {
   signInWithPopup(auth, new GoogleAuthProvider())
     .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
-      // The signed-in user info.
       const user = result.user;
       insertData(user.uid, user.email);
       setTimeout(() => {
         window.location.href = "onboarding.html";
       }, 5000);
-      // ...
     })
     .catch((error) => {
-      // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
-      // The email of the user's account used.
       const email = error.customData.email;
-      // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
     });
 }
 

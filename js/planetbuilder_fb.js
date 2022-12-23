@@ -48,23 +48,18 @@ const auth = getAuth();
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
     const uid = user.uid;
     console.log("uid: " + uid);
     gamestate.uid = uid;
-    // ...
+
     getData();
     setTimeout(() => {
       createPlanet();
     }, 350);
   } else {
-    // User is signed out
-    // ...
   }
 });
 
-//Get data from firebase
 export function getData() {
   const dbref = ref(db);
 
@@ -116,7 +111,6 @@ export function getData() {
       console.error("Error getting data: ", error);
     });
 
-  //after last state was savedchange activeBoost to false, so that, when the user exits without filling form, Streak will be deminished
   setTimeout(() => {
     update(ref(db, "feedbackplanet/" + gamestate.uid), {
       activeBoost: gamestate.activeBoost,
@@ -201,6 +195,7 @@ export function createPlanet() {
     planetContainer.classList.remove("hidden");
     feedbackContainer.classList.remove("hidden");
     pointsFloating.classList.remove("hidden");
+  } else {
     userNameOutput.style.pointerEvents = "none";
     userIcon.style.pointerEvents = "none";
   }
@@ -351,18 +346,6 @@ let buildingChanged = "";
 import { buildingCollection } from "./gamedata/building_collection.js";
 
 export function updateBuildings() {
-  setTimeout(() => {
-    console.log(gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)]);
-    // if (
-    //   gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] ===
-    //     "non0.no0.no0.no0.no0" &&
-    //   deletedBuilding == false &&
-    //   gamestate.points >= 10
-    // ) {
-    //   console.log("building added");
-    //   buildingSelectorBar();
-    // }
-  }, 500);
   if (
     gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] != "non0.no0.no0.no0.no0"
   ) {
@@ -433,65 +416,31 @@ export function updateBuildings() {
     console.log(percentageToNextBuildingStage);
 
     // build a new tree when one more quarter of points to the next stage is reached
-    if (
-      gamestate.points > 0 &&
-      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] === "no0"
-    ) {
-      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
-        "." +
-        randomTree +
-        "." +
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] +
-        "." +
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] +
-        "." +
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4];
-      createPlanet();
-    } else if (
-      gamestate.points > pointsToNextBuildigStageQuarter &&
-      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] === "no0"
-    ) {
-      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
-        "." +
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] +
-        "." +
-        randomTree +
-        "." +
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] +
-        "." +
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4];
-      createPlanet();
+    const buildingParts =
+      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".");
+
+    if (gamestate.points > 0 && buildingParts[1] === "no0") {
+      buildingParts[1] = randomTree;
+      updateBuilding(buildingParts);
+    } else if (gamestate.points > pointsToNextBuildigStageQuarter && buildingParts[2] === "no0") {
+      buildingParts[2] = randomTree;
+      updateBuilding(buildingParts);
     } else if (
       gamestate.points > pointsToNextBuildigStageQuarter * 2 &&
-      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] === "no0"
+      buildingParts[3] === "no0"
     ) {
-      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
-        "." +
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] +
-        "." +
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] +
-        "." +
-        randomTree +
-        "." +
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4];
-      createPlanet();
+      buildingParts[3] = randomTree;
+      updateBuilding(buildingParts);
     } else if (
       gamestate.points > pointsToNextBuildigStageQuarter * 3 &&
-      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[4] === "no0"
+      buildingParts[4] === "no0"
     ) {
-      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[0] +
-        "." +
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[1] +
-        "." +
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[2] +
-        "." +
-        gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)].split(".")[3] +
-        "." +
-        randomBush;
+      buildingParts[4] = randomBush;
+      updateBuilding(buildingParts);
+    }
+
+    function updateBuilding(parts) {
+      gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] = parts.join(".");
       createPlanet();
     }
 
@@ -513,7 +462,7 @@ export function updateBuildings() {
       createPlanet();
     }
   } else {
-    changeBuildingName(10000);
+    changeBuildingName();
     changeBuildingStageIndicator(0);
   }
 }
@@ -1167,7 +1116,7 @@ function changeBuildingStageIndicator(buildingStage) {
 function changeBuildingName(buildingIndex) {
   const buildingTitle = document.querySelector(".building-title");
   const buildingSubtitle = document.querySelector(".building-subtitle");
-  if (buildingIndex != 10000) {
+  if (buildingIndex != undefined) {
     buildingTitle.innerHTML = buildingCollection[buildingIndex].building;
     buildingSubtitle.innerHTML = buildingCollection[buildingIndex].collection;
   } else {

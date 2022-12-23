@@ -62,7 +62,6 @@ onAuthStateChanged(auth, (user) => {
 function signOutUser() {
   signOut(auth)
     .then(() => {
-      console.log("user signed out");
       window.location.href = "login.html";
     })
     .catch((error) => {

@@ -161,6 +161,8 @@ export function analyzeIchBotschaft(input, index) {
   }
 }
 
+// Strukturbewertung -------------------------------------------------------------------------------------------
+
 let structuredText = false;
 let prevIndexStructured;
 export function analyzeTextStructure(input, index) {
@@ -172,7 +174,6 @@ export function analyzeTextStructure(input, index) {
     const enteredText = input.value;
     const inputArray = enteredText.split(" ");
     let textStructurePosition = [];
-    //count number of line breaks
     const numberOfLineBreaks = (enteredText.match(/\n/g) || []).length;
     const numberOfNumberedBulletpoints = (enteredText.match(/\d\./g) || []).length;
     const numberOfBulletpoints = (enteredText.match(/\*/g) || []).length;
@@ -202,6 +203,26 @@ export function analyzeTextStructure(input, index) {
       markTextPositions(textStructurePosition, index);
     }
   }
+}
+
+export function analyzeRadio(radioInput) {
+  prevBoost = boost;
+  if (radioInput != undefined) {
+    goodStart = true;
+    const checkBoxText = checkBoxArray[Math.floor(Math.random() * checkBoxArray.length)];
+    gamestate.points = gamestate.points + 5 * boost;
+    feedbackBarCall(checkBoxText, 5 * boost, "feedback-good");
+  } else {
+    gamestate.points = gamestate.points - 5 * boost;
+    feedbackBarCall("Schade, keine Angabe!", -5 * boost, "feedback-bad");
+    goodStart = false;
+  }
+}
+
+export function addPoints(pointsAdded, successMessage, markPositions, index) {
+  gamestate.points = gamestate.points + pointsAdded * boost;
+  feedbackBarCall(successMessage, pointsAdded * boost, "feedback-good");
+  markPositions != undefined ? markTextPositions(markPositions, index) : null;
 }
 
 export function markTextRange(indexFrom, indexTo, inputNumber) {
@@ -236,26 +257,6 @@ export function markTextPositions(positions, inputNumber) {
   }
 
   duplicateInput.innerHTML = output;
-}
-
-export function analyzeRadio(radioInput) {
-  prevBoost = boost;
-  if (radioInput != undefined) {
-    goodStart = true;
-    const checkBoxText = checkBoxArray[Math.floor(Math.random() * checkBoxArray.length)];
-    gamestate.points = gamestate.points + 5 * boost;
-    feedbackBarCall(checkBoxText, 5 * boost, "feedback-good");
-  } else {
-    gamestate.points = gamestate.points - 5 * boost;
-    feedbackBarCall("Schade, keine Angabe!", -5 * boost, "feedback-bad");
-    goodStart = false;
-  }
-}
-
-export function addPoints(pointsAdded, successMessage, markPositions, index) {
-  gamestate.points = gamestate.points + pointsAdded * boost;
-  feedbackBarCall(successMessage, pointsAdded * boost, "feedback-good");
-  markPositions != undefined ? markTextPositions(markPositions, index) : null;
 }
 
 export function submitFeedback() {
