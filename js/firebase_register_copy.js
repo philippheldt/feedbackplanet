@@ -48,8 +48,10 @@ const googleAuth = document.getElementById("googleAuth");
 const appleAuth = document.getElementById("appleAuth");
 const githubAuth = document.getElementById("githubAuth");
 
-const testGroup = ["A", "B", "A"];
-const selectedTestGroup = testGroup[Math.floor(Math.random() * testGroup.length)];
+const testGroup = Math.random() < 0.6;
+console.log(testGroup);
+const selectedTestGroup = testGroup ? "A" : "B";
+console.log(selectedTestGroup);
 //validate inputs
 
 function validation() {
