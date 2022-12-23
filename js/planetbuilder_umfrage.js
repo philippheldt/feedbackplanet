@@ -1,5 +1,5 @@
 import { gamestate } from "./gamedata/gamestate.js";
-import { getSentiment } from "./sentiment_analysis.js";
+//import { getSentiment } from "./sentiment_analysis.js";
 import { updateBuildings, feedbackBarCall } from "./planetbuilder_fb.js";
 import {
   submitFeedback,
@@ -47,12 +47,12 @@ nextButton.addEventListener("click", () => {
     textSuggestionCurrent = textfieldContainerPositions[containerPosition + 1];
     displaySuggestions();
   }
-  if (textfieldContainerPositions[containerPosition] != null) {
-    //console.log(freitexte[textfieldContainerPositions[containerPosition]].value);
-    if (freitexte[textfieldContainerPositions[containerPosition]].value != "") {
-      getSentiment(freitexte[textfieldContainerPositions[containerPosition]].value);
-    }
-  }
+  // if (textfieldContainerPositions[containerPosition] != null) {
+  //   //console.log(freitexte[textfieldContainerPositions[containerPosition]].value);
+  //   if (freitexte[textfieldContainerPositions[containerPosition]].value != "") {
+  //   //  getSentiment(freitexte[textfieldContainerPositions[containerPosition]].value);
+  //   }
+  // }
   containerPosition++;
   updateBuildings();
   submitFeedback();
