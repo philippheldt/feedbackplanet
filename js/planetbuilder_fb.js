@@ -338,9 +338,6 @@ export function addAndAnimateAssets(
   }
 }
 
-//select progress element
-const progressElement = document.querySelector(".progress-segment");
-
 // Updating buildings based on inputted points
 
 let buildingChanged = "";
@@ -351,7 +348,6 @@ export function updateBuildings() {
   if (
     gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] != "non0.no0.no0.no0.no0"
   ) {
-    const progressElement = document.querySelector(".progress-segment");
     console.log(buildingCollection);
     //check which building is selected
     const currentBuilding = gamestate.buildings[
@@ -414,9 +410,6 @@ export function updateBuildings() {
     }
 
     const percentageToNextBuildingStage = gamestate.points / pointsToNextBuildingStage;
-    progressElement.style.background = `repeating-conic-gradient(from 230deg, #ddebe4 0% ${
-      percentageToNextBuildingStage * 70
-    }%, #ffffff00 0% 100%)`;
     console.log(percentageToNextBuildingStage);
 
     // build a new tree when one more quarter of points to the next stage is reached
@@ -916,7 +909,7 @@ export function closeOverlay() {
     overlay.classList.add("hidden");
     plButtons.classList.add("hidden");
     boostBar.classList.remove("opacity-hidden");
-    progressElement.classList.remove("opacity-hidden");
+
     deletedBuilding = false;
 
     feedbackBar.classList.remove("bar-closed");
@@ -941,7 +934,6 @@ export function openOverlay() {
   overlay.classList.remove("hidden");
   plButtons.classList.remove("hidden");
   boostBar.classList.add("opacity-hidden");
-  progressElement.classList.add("opacity-hidden");
   feedbackBar.classList.add("bar-closed");
   feedbackBar.style.opacity = "0";
   headerMenu.classList.add("active");

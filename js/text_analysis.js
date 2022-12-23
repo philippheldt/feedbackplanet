@@ -7,48 +7,40 @@ const boostBar = document.querySelector(".boost-container");
 // Feedbacktexte
 const goodStartTextArray = [
   "Guter Start!",
-  "Vielversprechender Beginn.",
+  "Guter Anfang!",
   "Schöner Start!",
-  "Das fängt schön an!",
   "Toller Anfang!",
-  "Schon 20 Wörter!",
-  "Solide Basis.",
-  "Gute Wortanzahl!",
+  "20 Wörter!",
+  "Solide Basis!",
+  "Gute Anzahl!",
 ];
 
 const extensiveFeedbackTextArray = [
-  "Richtig ausführlich!",
-  "Sehr detailliert!",
-  "Überaus umfangreich!",
-  "Gründliche Darstellung!",
-  "Detailliertes Feedback.",
-  "Ausführliche Beschreibung!",
-  "Umfassendes Feedback!",
+  "Ausführlich!",
+  "Detailliert!",
+  "Umfangreich!",
+  "Gründlich!",
+  "Umfassend!",
 ];
 
 const concretenessArray = ["Konkretes Feedback!", "Spezifisches Feedback!"];
 
 const structuredTextArray = [
   "Gute Struktur!",
-  "Logische Gliederung!",
-  "Klare Organisation!",
-  "Verständliche Struktur!",
-  "Logische Aufbauweise!",
+  "Gute Gliederung!",
+  "Klar Organisiert!",
+  "Logisch Aufgebaut!",
 ];
 
-const containsIchArray = ["Gute Ich-Botschaften!", "Hilfreiche Ich-Botschaften!"];
+const containsIchArray = ["Ich-Botschaften!"];
 
 const checkBoxArray = [
-  "Danke fürs Feedback!",
+  "Danke!",
   "Vielen Dank!",
-  "Danke schön!",
-  "Danke für deine Zeit!",
-  "Danke für deine Hilfe!",
-  "Danke für die Unterstützung!",
-  "Danke für deine Beteiligung!",
-  "Danke für deine Teilnahme!",
-  "Danke für deine Mitwirkung!",
-  "Danke für deine Mithilfe!",
+  "Dankeschön!",
+  "Super!",
+  "Weiter so!",
+  "Das hilft weiter!",
 ];
 
 // Auführlichkeitsbewertung -------------------------------------------------------------------------------------------
@@ -163,14 +155,16 @@ export function analyzeIchBotschaft(input, index) {
 
 // Strukturbewertung -------------------------------------------------------------------------------------------
 
-let structuredText = false;
+let structuredTextQuery = false;
 let prevIndexStructured;
 export function analyzeTextStructure(input, index) {
   if (index != prevIndexStructured) {
-    structuredText = false;
+    structuredTextQuery = false;
     prevIndexStructured = index;
   }
-  if (structuredText != true) {
+  if (structuredTextQuery != true) {
+    const structuredText =
+      structuredTextArray[Math.floor(Math.random() * structuredTextArray.length)];
     const enteredText = input.value;
     const inputArray = enteredText.split(" ");
     let textStructurePosition = [];
@@ -185,10 +179,8 @@ export function analyzeTextStructure(input, index) {
       numberOfNumberedBulletpoints > 2 ||
       numberOfBulletpoints > 2
     ) {
-      gamestate.points = gamestate.points + 10 * boost;
-      feedbackBarCall("Textstruktur!", 10 * boost, "feedback-good");
-      structuredText = true;
-
+      addPoints(10, structuredText);
+      structuredTextQuery = true;
       for (let i = 0; i < inputArray.length; i++) {
         if (
           inputArray[i].match(/\d\./g) ||

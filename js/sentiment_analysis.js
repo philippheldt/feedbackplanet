@@ -15,12 +15,7 @@ let options = {
   },
 };
 
-const setimentArray = [
-  "Wertungsfreie Sprache!",
-  "Wertungsfreie Sprache hilft.",
-  "Neutrales Feedback!",
-  "Keine Wertung!",
-];
+const setimentArray = ["Wertungsfreier Text!", "Neutrales Feedback!"];
 
 export function getSentiment(input) {
   const sentimentText = setimentArray[Math.floor(Math.random() * setimentArray.length)];
