@@ -93,6 +93,8 @@ button img {
 }
 
 .useraction {
+  box-sizing: border-box;
+  min-height: calc(100vh - 170px);
   margin: 120px 0px 30px 0px;
 }
 
