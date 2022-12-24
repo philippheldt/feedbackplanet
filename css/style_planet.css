@@ -305,7 +305,7 @@
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  bottom: calc(-50vh - 100px);
+  bottom: calc(-50vh - 150px);
   right: calc(50% - 200px);
   cursor: auto;
   overflow: initial;

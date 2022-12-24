@@ -136,7 +136,7 @@ textarea:focus {
   grid-template-columns: 1fr;
   width: 100%;
   min-height: calc(100vh - 20px);
-
+  margin-bottom: 25px;
   justify-content: center; /* horizontal */
 }
 
@@ -238,11 +238,27 @@ button {
 
 footer {
   background-color: #78b195;
-  height: 20px;
+
   box-sizing: border-box;
   bottom: 0px;
   left: 0px;
   right: 0px;
+  padding: 10px;
+}
+
+footer .header-container {
+  display: flex;
+  gap: 20px;
+  align-content: start;
+}
+
+footer a {
+  color: #fff;
+  font-size: 10pt;
+}
+
+footer a:hover {
+  color: #fff;
 }
 
 ul {
@@ -291,7 +307,7 @@ a:hover {
 }
 
 .dark-overlay {
-  position: absolute;
+  position: fixed;
   opacity: 1;
   top: 0;
   left: 0;
@@ -306,7 +322,7 @@ a:hover {
 }
 
 .alert-overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
