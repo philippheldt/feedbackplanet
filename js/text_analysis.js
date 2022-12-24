@@ -53,7 +53,6 @@ let newBoost = false;
 let wordCount = 0;
 
 export function analyzeTextLength(input, index) {
-  prevBoost = boost;
   wordCount = input.value.split(" ").length;
 
   const goodStartText = goodStartTextArray[Math.floor(Math.random() * goodStartTextArray.length)];
@@ -75,6 +74,10 @@ export function analyzeTextLength(input, index) {
   }
 
   gamestate.goodStartBoost >= 2 ? (boost = 2) : (boost = 1);
+}
+
+export function analyzeTextLengthNoAction(input) {
+  wordCount = input.value.split(" ").length;
 }
 
 // Konkretkeitsbewertung -------------------------------------------------------------------------------------------
@@ -253,7 +256,14 @@ export function markTextPositions(positions, inputNumber) {
 
 export function submitFeedback() {
   // Reset Boost, when no feedback is given
-  wordCount == 0 ? (gamestate.goodStartBoost = 0) : null;
+
+  console.log("🚀 ~ file: text_analysis.js:260 ~ submitFeedback ~ wordCount", wordCount);
+  wordCount <= 1 ? (gamestate.goodStartBoost = 0) : null;
+
+  console.log(
+    "🚀 ~ file: text_analysis.js:257 ~ submitFeedback ~ gamestate.goodStartBoost",
+    gamestate.goodStartBoost
+  );
 
   if (gamestate.goodStartBoost >= 2) {
     boost = 2;
@@ -263,14 +273,21 @@ export function submitFeedback() {
   }
 
   updateData();
-
+  console.log("🚀 ~ file: text_analysis.js:272 ~ submitFeedback ~ prevBoost", prevBoost);
+  console.log("🚀 ~ file: text_analysis.js:272 ~ submitFeedback ~ boost", boost);
   if (boost > prevBoost) {
-    boostBar.classList.remove("boost-hidden");
-    feedbackBarCall("Neuer Boost!", 0, "feedback-boost");
-    gamestate.trackingData.boosts++;
+    setTimeout(() => {
+      boostBar.classList.remove("boost-hidden");
+      feedbackBarCall("Neuer Boost!", 0, "feedback-boost");
+      gamestate.trackingData.boosts++;
+      prevBoost = boost;
+    }, 1000);
   } else if (boost < prevBoost) {
-    boostBar.classList.add("boost-hidden");
-    feedbackBarCall("Boost verloren!", 0, "feedback-bad");
+    setTimeout(() => {
+      boostBar.classList.add("boost-hidden");
+      feedbackBarCall("Boost verloren!", 0, "feedback-bad");
+      prevBoost = boost;
+    }, 1000);
   }
 
   // reset boost values

@@ -6,6 +6,7 @@ import {
   analyzeTextStructure,
   analyzeIchBotschaft,
   analyzeTextLength,
+  analyzeTextLengthNoAction,
   analyzeConcreteness,
   analyzeRadio,
 } from "./text_analysis.js";
@@ -46,6 +47,13 @@ nextButton.addEventListener("click", () => {
   if (textfieldContainerPositions[containerPosition + 1] != null) {
     textSuggestionCurrent = textfieldContainerPositions[containerPosition + 1];
     displaySuggestions();
+  }
+  if (textfieldContainerPositions[containerPosition] != null) {
+    console.log(input[textfieldContainerPositions[containerPosition]]);
+    analyzeTextLengthNoAction(
+      input[textfieldContainerPositions[containerPosition]],
+      containerPosition
+    );
   }
   // if (textfieldContainerPositions[containerPosition] != null) {
   //   //console.log(freitexte[textfieldContainerPositions[containerPosition]].value);

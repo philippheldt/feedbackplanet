@@ -96,8 +96,8 @@
 
 .boost-container {
   position: absolute;
-  top: 24px;
-  right: 29px;
+  top: 23px;
+  right: 28px;
   z-index: 3;
   transition: all 0.4s cubic-bezier(0.54, 0.32, 0.37, 1.19);
   transform: scale(0.5);
