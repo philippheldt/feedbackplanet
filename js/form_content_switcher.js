@@ -17,7 +17,6 @@ nextQ.addEventListener("click", () => {
     statusAmount.style.width = (100 / containerPositionMax) * containerPosition + "%";
   }
   if (containerPosition > 1) {
-    prevQ.classList.remove("opacity-hidden");
     prevQ.classList.remove("no-click");
   }
   if (containerPosition == containerPositionMax) {
@@ -39,7 +38,7 @@ prevQ.addEventListener("click", () => {
   }
 
   if (containerPosition == 1) {
-    prevQ.classList.add("opacity-hidden");
+
     prevQ.classList.add("no-click");
   }
 

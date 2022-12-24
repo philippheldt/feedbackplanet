@@ -12,6 +12,7 @@
 
 .no-click {
   pointer-events: none;
+  opacity: 0.2;
 }
 
 .feedback-form-container-overflow {
