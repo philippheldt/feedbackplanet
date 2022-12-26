@@ -57,7 +57,7 @@ function login() {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      window.location.href = "index.html";
+      window.location.href = "overview.html";
       // ...
     })
     .catch((error) => {
@@ -89,7 +89,7 @@ function signInWithGoogle() {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      window.location.href = "index.html";
+      window.location.href = "overview.html";
       // ...
     })
     .catch((error) => {

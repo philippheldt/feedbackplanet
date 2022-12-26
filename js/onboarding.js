@@ -41,5 +41,5 @@ prevQ.addEventListener("click", function () {
 });
 
 readyBtn.addEventListener("click", function () {
-  window.location.href = "index.html";
+  window.location.href = "overview.html";
 });
