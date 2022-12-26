@@ -50,6 +50,7 @@ onAuthStateChanged(auth, (user) => {
     const uid = user.uid;
     userName.innerHTML = user.email;
   } else {
+    window.location.href = "register.html";
   }
 });
 
