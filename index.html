@@ -23,7 +23,10 @@
     <link rel="stylesheet" href="./css/feedback_bar.css">
     <link rel="stylesheet" href="./css/form.css">
     <link rel="stylesheet" href="./css/poll_selector.css">
+    <link rel="stylesheet" href="./css/start.css">
     <link rel="stylesheet" href="./css/mediaqueries.css">
+
+    <script src="./js/startpage_randomizer.js" defer></script>
 
     <title>feedbackplanet demo</title>
 </head>
@@ -37,221 +40,111 @@
                         <img class="logo" src="./assets/icons/logo.png" alt="">
                     </a>
                 </div>
-                <div class="header-menu">
+                <div class="header-menu active">
 
-                    <a id="userName"></a>
-                    <button class="secondarybtn" id="userIcon">
-                        <span class="material-symbols-outlined">
-                            person
-                        </span>
+                    <a href="./login.html" id="userName">Einloggen</a>
+                    <button class="primarybtn startpagebtn" id="logout"
+                        onclick="window.open('./register.html', '_self')">
+                        Registrieren
                     </button>
-                    <button class="primarybtn" id="logout">
-                        <span class="material-symbols-outlined">
-                            logout
-                        </span>
-                    </button>
-
-
                 </div>
             </div>
-
-            <!-- HIER KOMMT DER PLANET MIT SEINEN UI ITEMS -->
-            <div class="building-price-container">
-                <div class="price-preview">
-                    <div class="icons-stacking">
-                        <img src="./assets/icons/house/stage1_white.png" alt="">
-                    </div>
-                    <div class="price price-visible" id="stage-1-price">10</div>
-                </div>
-                <div class="price-preview">
-                    <div class="icons-stacking">
-                        <img src="./assets/icons/house/stage4_white.png" alt="">
-                    </div>
-                    <div class="price price-visible" id="stage-2-price">1000</div>
-                </div>
-            </div>
-
-            <div class="feedback-container hidden">
-                <div class="feedback-bar feedback-good">
-                    <div class="feedback-content ">0/0</div>
-                </div>
-            </div>
-
-            <div class="points-floating hidden"></div>
-
-            <div class="pl-embedded ">
-
-                <div class="pl-buttons opacity-hidden hidden">
-
-
-                    <button class="primarybtn" id="rotate-right">
-                        <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
-                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                            xml:space="preserve" xmlns:serif="http://www.serif.com/"
-                            style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-                            <rect id="Artboard1" x="0" y="0" width="48" height="48" style="fill:none;" />
-                            <g id="Artboard11" serif:id="Artboard1">
-                                <g transform="matrix(-1,0,0,1,98.2416,0)">
-                                    <path
-                                        d="M70.668,34.594L70.671,34.45L70.671,28.5L73.821,28.5L73.821,40.2L62.121,40.2L62.121,37.05L68.321,37.05L68.67,37.064C64.256,34.212 61.548,29.296 61.548,23.978C61.548,15.377 68.531,8.395 77.131,8.395C81.264,8.395 85.228,10.037 88.15,12.959L85.919,15.19C83.589,12.859 80.427,11.55 77.131,11.55C70.272,11.55 64.703,17.119 64.703,23.978C64.703,28.333 66.98,32.35 70.668,34.594Z" />
-                                </g>
-                            </g>
-                        </svg>
-                    </button>
-                    <button class="primarybtn" id="rotate-left">
-                        <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
-                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                            xml:space="preserve" xmlns:serif="http://www.serif.com/"
-                            style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-                            <g transform="matrix(1,0,0,1,-53.7707,0)">
-                                <g transform="matrix(1,0,0,1,53.7707,0)">
-                                    <rect id="Artboard1" x="0" y="0" width="48" height="48" style="fill:none;" />
-                                    <g id="Artboard11" serif:id="Artboard1">
-                                        <g transform="matrix(1,0,0,1,-51.4567,0)">
-                                            <path
-                                                d="M70.668,34.594L70.671,34.45L70.671,28.5L73.821,28.5L73.821,40.2L62.121,40.2L62.121,37.05L68.321,37.05L68.67,37.064C64.256,34.212 61.548,29.296 61.548,23.978C61.548,15.377 68.531,8.395 77.131,8.395C81.264,8.395 85.228,10.037 88.15,12.959L85.919,15.19C83.589,12.859 80.427,11.55 77.131,11.55C70.272,11.55 64.703,17.119 64.703,23.978C64.703,28.333 66.98,32.35 70.668,34.594Z" />
-                                        </g>
-                                    </g>
-                                </g>
-                            </g>
-                        </svg>
-                    </button>
-
-                    <h2 class="building-title">Hochschule Furtwangen</h2>
-                    <div class="building-subtitle">Hochschule Furtwangen</div>
-                    <button class="secondarybtn" id="close-details">
-                        <span class="material-symbols-outlined">
-                            close
-                        </span>
-                    </button>
-                    <div class="pl-toolbar">
-                        <div class="pl-toolbar-items points-view">
-                            <div id="current-points">
-                                200
-                            </div>
-                            <div id="next-stage"> / 200</div>
-
-                        </div>
-
-
-
-
-
-                        <div class="delete-view pl-toolbar-items">
-                            <img src="./assets/icons/house/house_delete.png" alt="">
-                            <img src="./assets/icons/house/stage1_green.png" alt="">
-                        </div>
-                        <div class="tree-collection-container">
-                            <div class="tree-preview" id="tree-2">
-                                <div class="icons-stacking">
-                                    <span class="material-symbols-outlined .sync-icon">
-                                        sync
-                                    </span>
-                                    <img src="./assets/planet_assets/tree_icons/ma4.png" alt="">
-                                </div>
-                                <div class="price price-visible">-10</div>
-                            </div>
-                            <div class="tree-preview" id="tree-1">
-                                <div class="icons-stacking">
-                                    <span class="material-symbols-outlined .sync-icon">
-                                        sync
-                                    </span>
-                                    <img src="./assets/planet_assets/tree_icons/ma4.png" alt="">
-                                </div>
-                                <div class="price price-visible">-10</div>
-                            </div>
-                            <div class="tree-preview" id="tree-3">
-                                <div class="icons-stacking">
-                                    <span class="material-symbols-outlined .sync-icon">
-                                        sync
-                                    </span>
-                                    <img src="./assets/planet_assets/tree_icons/ma4.png" alt="">
-                                </div>
-                                <div class="price price-visible">-10</div>
-                            </div>
-                            <div class="tree-preview" id="tree-4">
-                                <div class="icons-stacking">
-                                    <span class="material-symbols-outlined .sync-icon">
-                                        sync
-                                    </span>
-                                    <img src="./assets/planet_assets/tree_icons/ma4.png" alt="">
-                                </div>
-                                <div class="price price-visible">-10</div>
-                            </div>
-                            <div class="edit-view pl-toolbar-items">
-                                <img src="./assets/icons/tree/tree_white.png" alt="">
-                                <img src="./assets/icons/tree/tree_green.png" alt="">
-                            </div>
-                        </div>
-
-
-                        <!-- <span class="material-symbols-outlined pl-toolbar-items delete-view">
-                                delete
-                            </span> -->
-                        <!-- <span class="material-symbols-outlined pl-toolbar-items edit-view">
-                                edit
-                            </span> -->
-
-
-                    </div>
-
-                </div>
-                <div class="pl-container hidden"></div>
-
-                <div class="building-subtitle opacity-hidden">PJ</div>
-
-            </div>
-            <div class="boost-container boost-hidden">
-                <div class="boost-bar">
-                    <img src="./assets/icons/boost.png" class="boost-icon" alt="">
-                    <!-- <div class="boost-content">2x</div> -->
-                    <div class="animating-gradient"></div>
-                </div>
-            </div>
-
         </div>
     </div>
-    <div class="fullscreen-overview">
+
+
+    <div class="fullscreen">
         <div class="container">
-            <div class="poll-selector">
-                <a href="./umfrage1.html" class="poll" id="poll-1">
-                    <img src="./assets/thumbnails/poll1.png" alt="" class="poll-header-image">
-                    <h3 class="poll-heading">Wie erkenne ich Fake News?</h3>
-                </a>
-                <a href="./umfrage2.html" class="poll" id="poll-2">
-                    <img src="./assets/thumbnails/poll2.png" alt="" class="poll-header-image">
-                    <h3 class="poll-heading">Regierungsformen im Mittelalter – Feudalismus</h3>
-                </a>
-                <a href="./umfrage3.html" class="poll" id="poll-3">
-                    <img src="./assets/thumbnails/poll3.png" alt="" class="poll-header-image">
-                    <h3 class="poll-heading">Wissenschaftliche Texte lesen – Die SQ3R-Methode</h3>
-                </a>
-                <a href="./umfrage4.html" class="poll" id="poll-4">
-                    <img src="./assets/thumbnails/poll4.png" alt="" class="poll-header-image">
-                    <h3 class="poll-heading">Woher kommt das 1,5-Grad-Ziel?</h3>
-                </a>
+            <div class="background">
+
             </div>
-        </div>
+            <div class="start-item">
+                <div class="start-text">
+                    <h1>Was macht ein gutes Lehrvideo aus?</h1>
+                    <div>
+                        Für die Umfrage brauchst du ein Benutzerkonto. Du wirst zuerst zur
+                        Registrierung
+                        weitergeleitet.
+                    </div>
 
+                    <button class="primarybtn startpagebtn" onclick="window.open('./register.html', '_self')">zur
+                        Umfrage</button>
+                </div>
+                <div class="pl-start">
+                    <div class="pl-container pos-1">
+                        <div class="sky">
+                            <video id="background-video-sky" src="./assets/planet_assets/sky/day4.webm" autoplay=""
+                                loop="" muted=""></video>
+                        </div>
+                        <div class="tree-back">
 
+                            <video class="pl-asset tree-back-12" src="assets/planet_assets/trees_front/tree/ei3.webm"
+                                autoplay muted loop></video>
 
+                            <video class="pl-asset tree-back-2" src="assets/planet_assets/trees_front/tree/ma1.webm"
+                                autoplay muted loop></video>
 
-        <div class="dark-overlay opacity-hidden hidden"></div>
+                        </div>
+                        <div class="building">
+                            <div class="pl-asset"><img src="assets/planet_assets/buildings/iba4.png"
+                                    class="pl-asset building-1"></div>
+                            <div class="pl-asset"><img src="assets/planet_assets/buildings/bbt3.png"
+                                    class="pl-asset building-6"></div>
+                        </div>
+                        <div class="tree-front">
 
-        <div class="alert-overlay opacity-hidden hidden">
-            <div class="alert-container">
-                <div class="alert-content">
-                    <div class="alert-title">Möchtest du das Gebäude wirklich löschen?</div>
-                    <div class="alert-message">Diese Aktion lässt sich nicht rückgängig machen!</div>
-                    <div class="alert-buttons">
-                        <button class="secondarybtn" id="cancel-alert">Abbrechen</button>
-                        <button class="primarybtn" id="confirm-alert">Ja</button>
+                            <video class="pl-asset tree-front-2" src="assets/planet_assets/trees_front/tree/pi2.webm"
+                                autoplay muted loop></video>
+
+                            <video class="pl-asset tree-front-1" src="assets/planet_assets/trees_front/tree/pi1.webm"
+                                autoplay muted loop></video>
+
+                        </div>
+                        <div class="planet">
+                            <img class="pl-asset" src="assets/planet_assets/planets/sagr.png" id="planet-background"
+                                alt="">
+                        </div>
+                        <div class="bush"></div>
                     </div>
                 </div>
             </div>
         </div>
 
     </div>
+    <div class="fullscreen aboutme-container">
+        <div class="container">
+            <div class="aboutme-item">
+                <img src="./assets/profile.png" alt="">
+                <div class="aboutme-text">
+                    <h1>About Me</h1>
+                    <div>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis exercitationem hic eius aut iusto.
+                        Molestiae perferendis cumque cupiditate ab tempore culpa, aut nobis unde nihil libero, obcaecati
+                        alias
+                        itaque aspernatur.
+                    </div>
+                    <button class="secondarybtn startpagebtn"
+                        onclick="window.open('https://philippjenny.de/', '_blank')">Zum Portfolio</button>
+                </div>
+            </div>
+            <div class="logos">
+
+                <a href="https://hs-furtwangen.de/" target="_blank">
+                    <img src="./assets/hfu_logo.png" alt="">
+                </a>
+                <a href="https://philippjenny.de/" target="_blank">
+                    <img src="./assets/pj_logo.png" alt="">
+                </a>
+                <a href="https://firebase.google.com/" target="_blank">
+                    <img src="./assets/fb_logo.png" alt="">
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+
+
     <footer>
         <div class="header-container">
             <a href="./impressum.html">Impressum</a>
@@ -259,9 +152,6 @@
             <a href="https://www.hs-furtwangen.de" target="_blank">Hochschule Furtwangen</a>
         </div>
     </footer>
-
-    <script src="./js/planetbuilder_home.js" type="module"></script>
-    <script src="./js/firebase_home_copy.js" type="module"></script>
 
 
 </body>

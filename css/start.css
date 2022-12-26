@@ -1,0 +1,104 @@
+.pl-start {
+  width: 80%;
+  align-self: center;
+  transform: scale(2.4) translateX(5%);
+  pointer-events: none;
+}
+
+.fullscreen {
+  margin-top: 50px;
+  overflow: hidden;
+}
+
+.start-item {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+}
+
+.start-text {
+  align-self: center;
+  padding: 30px;
+}
+
+.start-text div {
+  line-height: 1.5;
+  margin: 20px 0;
+}
+
+.start-text h1 {
+  line-height: 1.2;
+  font-size: 35px;
+  margin: 0px;
+  color: #76b093;
+}
+
+.container {
+  position: relative;
+}
+
+.background {
+  background-color: #fff;
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 20%;
+  bottom: 0;
+  top: 0;
+  background-color: #fff;
+
+  border-radius: 0.75rem;
+}
+
+.aboutme-container {
+  background-color: #fff;
+}
+
+.aboutme-item {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  margin-top: 100px;
+}
+
+.aboutme-item img {
+  align-self: center;
+  width: 100%;
+}
+
+.aboutme-text {
+  align-self: center;
+  padding: 30px;
+}
+
+.aboutme-text div {
+  line-height: 1.5;
+  margin: 20px 0;
+}
+
+.aboutme-text h1 {
+  line-height: 1.2;
+  font-size: 35px;
+  margin: 0px;
+  color: #76b093;
+}
+
+.startpagebtn {
+  padding: 20px;
+}
+
+.logos {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 150px 0 100px 0;
+}
+
+.logos img {
+  width: 210px;
+  transition: all 0.1s ease-in-out;
+  pointer: cursor;
+}
+
+.logos img:hover {
+  transform: scale(1.02);
+  filter: brightness(0.8);
+}
