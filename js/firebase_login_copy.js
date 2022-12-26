@@ -109,3 +109,8 @@ googleAuth.addEventListener("click", signInWithGoogle);
 // event listener for register button
 const registerSubmit = document.getElementById("registerSubmit");
 registerSubmit.addEventListener("click", login);
+password.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    login();
+  }
+});

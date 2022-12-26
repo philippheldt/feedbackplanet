@@ -204,6 +204,11 @@ function insertData(newUUID, newEmail) {
 
 const registerSubmit = document.getElementById("registerSubmit");
 registerSubmit.addEventListener("click", register);
+password.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    register();
+  }
+});
 
 import {
   signInWithPopup,
