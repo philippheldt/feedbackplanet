@@ -84,10 +84,11 @@ const buildingsArray = [
 ];
 const skyArray = ["dar1", "dar2", "dar2", "day1", "day2", "day3", "day4"];
 
+const treeBackContainer = document.querySelector(".tree-back");
+const treeFrontContainer = document.querySelector(".tree-front");
+
 if (getBrowser() === "Safari") {
   const skyElementConatiner = document.querySelector(".sky");
-  const treeBackContainer = document.querySelector(".tree-back");
-  const treeFrontContainer = document.querySelector(".tree-front");
 
   skyElementConatiner.innerHTML = `<img class="pl-asset" src="./assets/planet_assets/sky/${
     skyArray[Math.floor(Math.random() * skyArray.length)]
@@ -111,28 +112,34 @@ if (getBrowser() === "Safari") {
 } else {
   const skyElement = document.querySelector(".sky video");
 
-  const treeBackElements = document.querySelectorAll(".tree-back div video");
-  const treeFrontElements = document.querySelectorAll(".tree-front div video");
+  const treeBackElements = document.querySelectorAll(".tree-back-element");
+  const treeFrontElements = document.querySelectorAll(".tree-front-element");
+
+  console.log(treeBackElements);
 
   planetElement.src = `./assets/planet_assets/planets/${
     planetsArray[Math.floor(Math.random() * planetsArray.length)]
   }.png`;
 
-  skyElement.src = `./assets/planet_assets/sky/${
-    skyArray[Math.floor(Math.random() * skyArray.length)]
-  }.webm`;
+  skyElement.setAttribute(
+    "src",
+    `./assets/planet_assets/sky/${skyArray[Math.floor(Math.random() * skyArray.length)]}.webm`
+  );
 
-  treeBackElements.forEach((element) => {
-    element.src = `./assets/planet_assets/trees/${
+  treeBackContainer.innerHTML = `
+    <video class="pl-asset tree-back-12" src="./assets/planet_assets/trees_front/tree/${
       treesArray[Math.floor(Math.random() * treesArray.length)]
-    }.webm`;
-  });
-
-  treeFrontElements.forEach((element) => {
-    element.src = `./assets/planet_assets/trees/${
+    }.webm" alt="tree" autoplay muted loop></video>
+    <video class="pl-asset tree-back-2" src="./assets/planet_assets/trees_front/tree/${
       treesArray[Math.floor(Math.random() * treesArray.length)]
-    }.webm`;
-  });
+    }.webm" alt="tree" autoplay muted loop></video>`;
+  treeFrontContainer.innerHTML = `
+    <video class="pl-asset tree-front-2" src="./assets/planet_assets/trees_front/tree/${
+      treesArray[Math.floor(Math.random() * treesArray.length)]
+    }.webm" alt="tree" autoplay muted loop></video>
+    <video class="pl-asset tree-front-1" src="./assets/planet_assets/trees_front/tree/${
+      treesArray[Math.floor(Math.random() * treesArray.length)]
+    }.webm" alt="tree" autoplay muted loop></video>`;
 
   buildingELements.forEach((element) => {
     element.src = `./assets/planet_assets/buildings/${
