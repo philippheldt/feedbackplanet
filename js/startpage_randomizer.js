@@ -94,6 +94,12 @@ if (getBrowser() === "Safari") {
     skyArray[Math.floor(Math.random() * skyArray.length)]
   }.png" alt="sky">`;
 
+  buildingELements.forEach((element) => {
+    element.src = `./assets/planet_assets/buildings/${
+      buildingsArray[Math.floor(Math.random() * buildingsArray.length)]
+    }.png`;
+  });
+
   treeBackContainer.innerHTML = `
   <img class="pl-asset tree-back-12" src="./assets/planet_assets/trees_front/tree/${
     treesArray[Math.floor(Math.random() * treesArray.length)]
