@@ -98,6 +98,10 @@ if (getBrowser() === "Safari") {
     element.src = `./assets/planet_assets/buildings/${
       buildingsArray[Math.floor(Math.random() * buildingsArray.length)]
     }.png`;
+
+    planetElement.src = `./assets/planet_assets/planets/${
+      planetsArray[Math.floor(Math.random() * planetsArray.length)]
+    }.png`;
   });
 
   treeBackContainer.innerHTML = `
