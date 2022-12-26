@@ -49,9 +49,7 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     const uid = user.uid;
     userName.innerHTML = user.email;
-
   } else {
-
   }
 });
 
@@ -61,8 +59,6 @@ function signOutUser() {
     .then(() => {
       window.location.href = "login.html";
     })
-    .catch((error) => {
-
-    });
+    .catch((error) => {});
 }
 logout.addEventListener("click", signOutUser);

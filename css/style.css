@@ -215,6 +215,7 @@ button {
   max-width: 800px;
   padding: 24px;
   position: relative;
+  flex-wrap: wrap;
 }
 .header-inner {
   display: flex;
@@ -235,6 +236,11 @@ button {
   opacity: 1;
   pointer-events: all;
   z-index: 10000;
+}
+
+#logged-out.hidden,
+#logged-in.hidden {
+  display: none;
 }
 
 #userIcon {
