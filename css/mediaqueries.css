@@ -76,6 +76,14 @@
   }
 }
 
+@media (max-width: 650px) {
+  .logos {
+    flex-direction: column;
+    gap: 50px;
+    margin: 100px;
+  }
+}
+
 @media (max-width: 500px) {
   .start-item {
     display: flex;
@@ -103,11 +111,6 @@
     margin: auto;
   }
 
-  .logos {
-    flex-direction: column;
-    gap: 50px;
-    margin: 100px;
-  }
   .pl-extended {
     width: 95vw;
     bottom: auto;
