@@ -82,6 +82,9 @@
     gap: 50px;
     margin: 100px;
   }
+  .mobile-delete {
+    display: none;
+  }
 }
 
 @media (max-width: 500px) {

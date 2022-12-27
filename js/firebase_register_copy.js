@@ -123,8 +123,7 @@ function submitValidation() {
     userPasswordRepeat.value === "" ||
     occupation.value == "default"
   ) {
-    submitAl
-    ert.innerText = "Bitte fülle alle Felder aus!";
+    submitAlert.innerText = "Bitte fülle alle Felder aus!";
     submitAlert.classList.remove("alert-hidden");
     return false;
   } else {

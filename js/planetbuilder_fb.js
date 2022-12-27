@@ -552,7 +552,7 @@ export function countTo(addedPoints, place, interval, timeout) {
 }
 
 //Building and Planet selector boxes
-
+planetSelectorBar();
 export function planetSelectorBar() {
   setTimeout(() => {
     feedbackBar.classList.add("bar-closed");
@@ -575,7 +575,7 @@ export function planetSelectorBar() {
         let pl3Random = planetStyles[randomNumber];
 
         feedbackBar.innerHTML = ` 
-      <div class="feedback-content ">Planet wählen:</div>
+      <div class="feedback-content mobile-delete">Planet wählen:</div>
       <img src="./assets/planet_assets/planets/preview/${pl1Random}no.png" class="planet-icon" id="pl1">
       <img src="./assets/planet_assets/planets/preview/${pl2Random}no.png" class="planet-icon" id="pl2">
       <img src="./assets/planet_assets/planets/preview/${pl3Random}no.png" class="planet-icon" id="pl3">`;
@@ -613,9 +613,9 @@ export function planetSelector(selected) {
 
 export function colorSelectorBar(pSelected) {
   feedbackBar.innerHTML = ` 
-  <div class="feedback-content ">Wähle eine Farbe:</div>
+  <div class="feedback-content mobile-delete">Wähle eine Farbe:</div>
       <img src="./assets/planet_assets/planets/preview/pu.png" class="planet-icon" id="pu">
-      <img src="./assets/planet_assets/planets/preview/bl.png" class="planet-icon" id="bl">
+      <img src="./assets/planet_assets/planets/preview/bl.png" class="planet-icon mobile-delete" id="bl">
       <img src="./assets/planet_assets/planets/preview/ye.png" class="planet-icon" id="ye">
       <img src="./assets/planet_assets/planets/preview/br.png" class="planet-icon" id="br">
       <img src="./assets/planet_assets/planets/preview/gr.png" class="planet-icon" id="gr">
@@ -707,7 +707,7 @@ export function buildingSelectorBar() {
         let b3Index = buildingStyles[randomNumber];
 
         feedbackBar.innerHTML = ` 
-      <div class="feedback-content ">Wähle ein Gebäude:</div>
+      <div class="feedback-content mobile-delete">Wähle ein Gebäude:</div>
       <div class="first-building-container">
         
         <img src="./assets/planet_assets/planets/preview/${buildingCollection[b1Index].shortcut}.png" class="planet-icon" id="b1">
