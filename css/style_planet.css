@@ -319,6 +319,8 @@
   transition: all 0.5s ease;
 }
 
+
+
 .pl-buttons .primarybtn {
   position: absolute;
   bottom: calc(50% - 25px);
