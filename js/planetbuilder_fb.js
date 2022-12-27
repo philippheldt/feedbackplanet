@@ -737,7 +737,6 @@ export function buildingSelectorBar() {
   }, 3000);
 }
 
-buildingSelectorBar();
 const stage1PriceLabel = document.querySelector(".price-preview:nth-child(1)");
 const stage1Price = document.querySelector("#stage-1-price");
 const stage2PriceLabel = document.querySelector(".price-preview:nth-child(2)");
