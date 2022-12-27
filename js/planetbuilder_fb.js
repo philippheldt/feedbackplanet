@@ -723,19 +723,6 @@ export function buildingSelectorBar() {
         feedbackBar.classList.add("feedback-good");
         feedbackBar.classList.remove("bar-closed");
 
-        document.querySelector("#b1").addEventListener("click", function () {
-          buildingSelector(buildingCollection[b1Index].shortcut);
-          autoselection = false;
-        });
-        document.querySelector("#b2").addEventListener("click", function () {
-          buildingSelector(buildingCollection[b2Index].shortcut);
-          autoselection = false;
-        });
-        document.querySelector("#b3").addEventListener("click", function () {
-          buildingSelector(buildingCollection[b3Index].shortcut);
-          autoselection = false;
-        });
-
         priceReveal(
           buildingCollection[b1Index],
           buildingCollection[b2Index],
@@ -751,43 +738,108 @@ export function buildingSelectorBar() {
 }
 
 function priceReveal(building1, building2, building3) {
-  const buildingPreviews = document.querySelectorAll(".planet-icon");
-  const stage1PriceLabel = document.querySelector(".price-preview:nth-child(1)");
-  const stage1Price = document.querySelector("#stage-1-price");
-  const stage2PriceLabel = document.querySelector(".price-preview:nth-child(2)");
-  const stage2Price = document.querySelector("#stage-2-price");
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    let tapb1 = false;
+    let tapb2 = false;
+    let tapb3 = false;
 
-  document.querySelector("#b1").addEventListener("mouseover", function () {
-    stage1PriceLabel.classList.add("price-preview-active");
-    stage2PriceLabel.classList.add("price-preview-active");
-    stage1Price.innerHTML = building1.buildingStages[1];
-    stage2Price.innerHTML = building1.accumulatedStages[4];
-  });
-
-  document.querySelector("#b2").addEventListener("mouseover", function () {
-    stage1PriceLabel.classList.add("price-preview-active");
-    stage2PriceLabel.classList.add("price-preview-active");
-    stage1Price.innerHTML = building2.buildingStages[1];
-    stage2Price.innerHTML = building2.accumulatedStages[4];
-  });
-
-  document.querySelector("#b3").addEventListener("mouseover", function () {
-    stage1PriceLabel.classList.add("price-preview-active");
-    stage2PriceLabel.classList.add("price-preview-active");
-    stage1Price.innerHTML = building3.buildingStages[1];
-    stage2Price.innerHTML = building3.accumulatedStages[4];
-  });
-
-  buildingPreviews.forEach((buildingPreview) => {
-    buildingPreview.addEventListener("mouseleave", function () {
-      stage1PriceLabel.classList.remove("price-preview-active");
-      stage2PriceLabel.classList.remove("price-preview-active");
+    document.querySelector("#b1").addEventListener("click", function () {
+      if (tapb1) {
+        buildingSelector(buildingCollection[b1Index].shortcut);
+        autoselection = false;
+        tapb1 = false;
+      } else {
+        stage1PriceLabel.classList.add("price-preview-active");
+        stage2PriceLabel.classList.add("price-preview-active");
+        stage1Price.innerHTML = building1.buildingStages[1];
+        stage2Price.innerHTML = building1.accumulatedStages[4];
+        tapb1 = true;
+        tapb2 = false;
+        tapb3 = false;
+      }
     });
-    buildingPreview.addEventListener("click", function () {
-      stage1PriceLabel.classList.remove("price-preview-active");
-      stage2PriceLabel.classList.remove("price-preview-active");
+    document.querySelector("#b2").addEventListener("click", function () {
+      if (tapb2) {
+        buildingSelector(buildingCollection[b2Index].shortcut);
+        autoselection = false;
+        tapb2 = false;
+      } else {
+        stage1PriceLabel.classList.add("price-preview-active");
+        stage2PriceLabel.classList.add("price-preview-active");
+        stage1Price.innerHTML = building2.buildingStages[1];
+        stage2Price.innerHTML = building2.accumulatedStages[4];
+        tapb1 = false;
+        tapb2 = true;
+        tapb3 = false;
+      }
     });
-  });
+    document.querySelector("#b3").addEventListener("click", function () {
+      if (tap3) {
+        buildingSelector(buildingCollection[b3Index].shortcut);
+        autoselection = false;
+        tapb3 = false;
+      } else {
+        stage1PriceLabel.classList.add("price-preview-active");
+        stage2PriceLabel.classList.add("price-preview-active");
+        stage1Price.innerHTML = building3.buildingStages[1];
+        stage2Price.innerHTML = building3.accumulatedStages[4];
+        tapb1 = false;
+        tapb2 = false;
+        tapb3 = true;
+      }
+    });
+  } else {
+    const buildingPreviews = document.querySelectorAll(".planet-icon");
+    const stage1PriceLabel = document.querySelector(".price-preview:nth-child(1)");
+    const stage1Price = document.querySelector("#stage-1-price");
+    const stage2PriceLabel = document.querySelector(".price-preview:nth-child(2)");
+    const stage2Price = document.querySelector("#stage-2-price");
+
+    document.querySelector("#b1").addEventListener("click", function () {
+      buildingSelector(buildingCollection[b1Index].shortcut);
+      autoselection = false;
+    });
+    document.querySelector("#b2").addEventListener("click", function () {
+      buildingSelector(buildingCollection[b2Index].shortcut);
+      autoselection = false;
+    });
+    document.querySelector("#b3").addEventListener("click", function () {
+      buildingSelector(buildingCollection[b3Index].shortcut);
+      autoselection = false;
+    });
+
+    document.querySelector("#b1").addEventListener("mouseover", function () {
+      stage1PriceLabel.classList.add("price-preview-active");
+      stage2PriceLabel.classList.add("price-preview-active");
+      stage1Price.innerHTML = building1.buildingStages[1];
+      stage2Price.innerHTML = building1.accumulatedStages[4];
+    });
+
+    document.querySelector("#b2").addEventListener("mouseover", function () {
+      stage1PriceLabel.classList.add("price-preview-active");
+      stage2PriceLabel.classList.add("price-preview-active");
+      stage1Price.innerHTML = building2.buildingStages[1];
+      stage2Price.innerHTML = building2.accumulatedStages[4];
+    });
+
+    document.querySelector("#b3").addEventListener("mouseover", function () {
+      stage1PriceLabel.classList.add("price-preview-active");
+      stage2PriceLabel.classList.add("price-preview-active");
+      stage1Price.innerHTML = building3.buildingStages[1];
+      stage2Price.innerHTML = building3.accumulatedStages[4];
+    });
+
+    buildingPreviews.forEach((buildingPreview) => {
+      buildingPreview.addEventListener("mouseleave", function () {
+        stage1PriceLabel.classList.remove("price-preview-active");
+        stage2PriceLabel.classList.remove("price-preview-active");
+      });
+      buildingPreview.addEventListener("click", function () {
+        stage1PriceLabel.classList.remove("price-preview-active");
+        stage2PriceLabel.classList.remove("price-preview-active");
+      });
+    });
+  }
 }
 
 export function buildingSelector(selected) {
