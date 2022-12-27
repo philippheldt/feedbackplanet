@@ -3,12 +3,16 @@ const nextQ = document.querySelector("#nextq");
 const sliderOnboard = document.querySelector(".onboarding_collection");
 const statusAmount = document.querySelector(".status-amount");
 const readyBtn = document.querySelector("#widebtn");
+const onboardingLength = document.querySelectorAll(".onboarding_content").length;
+console.log("🚀 ~ file: onboarding.js:7 ~ onboardingLength", onboardingLength);
 let slide = 0;
-let progress = 100 / 5;
+let progress = 100 / onboardingLength;
+
+statusAmount.style = `width: ${progress}%`;
 
 nextQ.addEventListener("click", function () {
-  if (slide < 4) {
-    progress = progress + 100 / 5;
+  if (slide < onboardingLength - 1) {
+    progress = progress + 100 / onboardingLength;
     slide++;
     sliderOnboard.classList.add(`pos${slide}`);
     sliderOnboard.classList.remove(`pos${slide - 1}`);
@@ -25,7 +29,7 @@ nextQ.addEventListener("click", function () {
 
 prevQ.addEventListener("click", function () {
   if (slide > 0) {
-    progress = progress - 100 / 5;
+    progress = progress - 100 / onboardingLength;
     slide--;
     sliderOnboard.classList.add(`pos${slide}`);
     sliderOnboard.classList.remove(`pos${slide + 1}`);
