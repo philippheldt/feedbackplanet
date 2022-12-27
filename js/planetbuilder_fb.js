@@ -552,7 +552,7 @@ export function countTo(addedPoints, place, interval, timeout) {
 }
 
 //Building and Planet selector boxes
-planetSelectorBar();
+
 export function planetSelectorBar() {
   setTimeout(() => {
     feedbackBar.classList.add("bar-closed");
@@ -737,6 +737,16 @@ export function buildingSelectorBar() {
   }, 3000);
 }
 
+buildingSelectorBar();
+const stage1PriceLabel = document.querySelector(".price-preview:nth-child(1)");
+const stage1Price = document.querySelector("#stage-1-price");
+const stage2PriceLabel = document.querySelector(".price-preview:nth-child(2)");
+const stage2Price = document.querySelector("#stage-2-price");
+const stage3PriceLabel = document.querySelector(".price-preview:nth-child(3)");
+const stage3Price = document.querySelector("#stage-3-price");
+const stage4PriceLabel = document.querySelector(".price-preview:nth-child(4)");
+const stage4Price = document.querySelector("#stage-4-price");
+
 function priceReveal(building1, building2, building3) {
   if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     let tapb1 = false;
@@ -774,7 +784,7 @@ function priceReveal(building1, building2, building3) {
       }
     });
     document.querySelector("#b3").addEventListener("click", function () {
-      if (tap3) {
+      if (tapb3) {
         buildingSelector(buildingCollection[b3Index].shortcut);
         autoselection = false;
         tapb3 = false;
@@ -790,10 +800,6 @@ function priceReveal(building1, building2, building3) {
     });
   } else {
     const buildingPreviews = document.querySelectorAll(".planet-icon");
-    const stage1PriceLabel = document.querySelector(".price-preview:nth-child(1)");
-    const stage1Price = document.querySelector("#stage-1-price");
-    const stage2PriceLabel = document.querySelector(".price-preview:nth-child(2)");
-    const stage2Price = document.querySelector("#stage-2-price");
 
     document.querySelector("#b1").addEventListener("click", function () {
       buildingSelector(buildingCollection[b1Index].shortcut);
@@ -809,37 +815,45 @@ function priceReveal(building1, building2, building3) {
     });
 
     document.querySelector("#b1").addEventListener("mouseover", function () {
-      stage1PriceLabel.classList.add("price-preview-active");
-      stage2PriceLabel.classList.add("price-preview-active");
-      stage1Price.innerHTML = building1.buildingStages[1];
-      stage2Price.innerHTML = building1.accumulatedStages[4];
+      stagePriceBuilder(building1);
     });
 
     document.querySelector("#b2").addEventListener("mouseover", function () {
-      stage1PriceLabel.classList.add("price-preview-active");
-      stage2PriceLabel.classList.add("price-preview-active");
-      stage1Price.innerHTML = building2.buildingStages[1];
-      stage2Price.innerHTML = building2.accumulatedStages[4];
+      stagePriceBuilder(building2);
     });
 
     document.querySelector("#b3").addEventListener("mouseover", function () {
-      stage1PriceLabel.classList.add("price-preview-active");
-      stage2PriceLabel.classList.add("price-preview-active");
-      stage1Price.innerHTML = building3.buildingStages[1];
-      stage2Price.innerHTML = building3.accumulatedStages[4];
+      stagePriceBuilder(building3);
     });
 
     buildingPreviews.forEach((buildingPreview) => {
       buildingPreview.addEventListener("mouseleave", function () {
-        stage1PriceLabel.classList.remove("price-preview-active");
-        stage2PriceLabel.classList.remove("price-preview-active");
+        stagePriceRemover();
       });
       buildingPreview.addEventListener("click", function () {
-        stage1PriceLabel.classList.remove("price-preview-active");
-        stage2PriceLabel.classList.remove("price-preview-active");
+        stagePriceRemover();
       });
     });
   }
+}
+
+function stagePriceBuilder(building) {
+  stage1PriceLabel.classList.add("price-preview-active");
+  stage2PriceLabel.classList.add("price-preview-active");
+  stage3PriceLabel.classList.add("price-preview-active");
+  stage4PriceLabel.classList.add("price-preview-active");
+
+  stage1Price.innerHTML = building.buildingStages[1];
+  stage2Price.innerHTML = building.accumulatedStages[2];
+  stage3Price.innerHTML = building.accumulatedStages[3];
+  stage4Price.innerHTML = building.accumulatedStages[4];
+}
+
+function stagePriceRemover() {
+  stage1PriceLabel.classList.remove("price-preview-active");
+  stage2PriceLabel.classList.remove("price-preview-active");
+  stage3PriceLabel.classList.remove("price-preview-active");
+  stage4PriceLabel.classList.remove("price-preview-active");
 }
 
 export function buildingSelector(selected) {

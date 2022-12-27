@@ -272,6 +272,14 @@
   opacity: 1;
   transform: translateY(85px);
 }
+.price-preview:nth-child(3).price-preview-active {
+  opacity: 1;
+  transform: translateY(120px);
+}
+.price-preview:nth-child(4).price-preview-active {
+  opacity: 1;
+  transform: translateY(155px);
+}
 
 .price-preview .icons-stacking {
   background-color: #ffd15e;
