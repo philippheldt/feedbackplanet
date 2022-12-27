@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Document</title>
+    <title>Feedbackplanet | Registrieren</title>
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/login.css">
     <link rel="stylesheet" href="./css/form.css">
@@ -35,6 +35,17 @@
             <input type="password" placeholder="Passwort" id="userPassword"> <br>
             <input type="password" placeholder="Passwort wiederholen" id="userPasswordRepeat"> <br>
             <div class="alert alert-hidden" id="userPasswordAlert">Passwörter stimmen nicht überein!</div>
+            <br>
+            <input type="text" placeholder="Alter" id="userAge">
+            <div class="alert alert-hidden" id="ageAlert">Leider gehörst du nicht zur Zielgruppe</div>
+            <select name="beruf" id="occupation-selector">
+                <option value="default">Ich bin...</option>
+                <option value="student">Student:in</option>
+                <option value="schueler">Schüler:in</option>
+                <option value="azubi">in Ausbildung</option>
+                <option value="arbeitnehmer">Arbeitnehmer:in</option>
+            </select>
+            <div class="alert alert-hidden" id="occupationAlert">Leider gehörst du nicht zur Zielgruppe</div>
             <div class="terms-container">
                 <input type="checkbox" id="terms" name="terms" value="terms">
                 <label for="terms" id="terms-label">Ich akzeptiere die <a href="./datenschutzerklaerung.html"

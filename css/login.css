@@ -40,6 +40,27 @@ input::placeholder {
   font-weight: 600;
 }
 
+select {
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  border: 0.5px solid #797979;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAUCAMAAACtdX32AAAAdVBMVEUAAAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhMdQaAAAAJ3RSTlMAAAECAwQGBwsOFBwkJTg5RUZ4eYCHkJefpaytrsXGy8zW3+Do8vNn0bsyAAAAYElEQVR42tXROwJDQAAA0Ymw1p9kiT+L5P5HVEi3qJn2lcPjtIuzUIJ/rhIGy762N3XaThqMN1ZPALsZPEzG1x8LrFL77DHBnEMxBewz0fJ6LyFHTPL7xhwzWYrJ9z22AqmQBV757MHfAAAAAElFTkSuQmCC);
+  background-position: 100%;
+  background-repeat: no-repeat;
+  -webkit-appearance: none;
+  appearance: none;
+  font-weight: 600;
+  color: #202020;
+  outline: none;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px 20px;
+  width: 100%;
+  margin: 5px 0px;
+  font-size: 11pt;
+}
+
 .registerSubmit {
   position: relative;
   z-index: 1;

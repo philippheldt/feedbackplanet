@@ -38,11 +38,16 @@ const auth = getAuth();
 const email = document.getElementById("userEmail");
 const password = document.getElementById("userPassword");
 const passwordRepeat = document.getElementById("userPasswordRepeat");
+const age = document.getElementById("userAge");
+const occupation = document.getElementById("occupation-selector");
 const terms = document.getElementById("terms");
+
 const termsLabel = document.getElementById("terms-label");
 const termsLink = document.querySelector("#terms-label a");
 const userEmailAlert = document.getElementById("userEmailAlert");
 const userPasswordAlert = document.getElementById("userPasswordAlert");
+const ageAlert = document.getElementById("ageAlert");
+const occupationAlert = document.getElementById("occupationAlert");
 const submitAlert = document.getElementById("submitAlert");
 const googleAuth = document.getElementById("googleAuth");
 const appleAuth = document.getElementById("appleAuth");
@@ -81,6 +86,28 @@ function validation() {
   } else {
     userPasswordAlert.classList.add("alert-hidden");
   }
+
+  if (
+    (Number(age.value) <= 18 && age.value != "") ||
+    (Number(age.value) >= 30 && age.value != "")
+  ) {
+    ageAlert.classList.remove("alert-hidden");
+    return false;
+  } else {
+    ageAlert.classList.add("alert-hidden");
+  }
+
+  if (
+    (occupation.value === "azubi" && occupation.value != "default") ||
+    (occupation.value === "arbeitnehmer" && occupation.value != "default")
+  ) {
+    occupationAlert.innerHTML = "Leider gehörst du nicht zur Zielgruppe!";
+    occupationAlert.classList.remove("alert-hidden");
+    return false;
+  } else {
+    occupationAlert.classList.add("alert-hidden");
+  }
+
   if (terms.checked === false) {
     termsLabel.classList.add("alert-terms");
     termsLink.classList.add("alert-terms");
@@ -90,8 +117,14 @@ function validation() {
 }
 
 function submitValidation() {
-  if (userEmail.value === "" || userPassword.value === "" || userPasswordRepeat.value === "") {
-    submitAlert.innerText = "Bitte fülle alle Felder aus!";
+  if (
+    userEmail.value === "" ||
+    userPassword.value === "" ||
+    userPasswordRepeat.value === "" ||
+    occupation.value == "default"
+  ) {
+    submitAl
+    ert.innerText = "Bitte fülle alle Felder aus!";
     submitAlert.classList.remove("alert-hidden");
     return false;
   } else {
