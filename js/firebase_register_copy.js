@@ -244,10 +244,12 @@ password.addEventListener("keypress", (e) => {
 
 import {
   signInWithPopup,
+  signInWithRedirect,
   GoogleAuthProvider,
+  getRedirectResult,
 } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
 function signInWithGoogle() {
-  signInWithPopup(auth, new GoogleAuthProvider())
+  signInWithRedirect(auth, new GoogleAuthProvider())
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
@@ -273,5 +275,39 @@ function signInWithGoogle() {
       const credential = GoogleAuthProvider.credentialFromError(error);
     });
 }
+
+getRedirectResult(auth)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access Google APIs.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+
+    // The signed-in user info.
+    const user = result.user;
+
+    document.querySelector(".loading-indicator-overlay").classList.remove("hidden");
+
+    setTimeout(() => {
+      document.querySelector(".loading-indicator-overlay").classList.remove("opacity-hidden");
+    }, 100);
+
+    insertData(user.uid, user.email);
+
+    setTimeout(() => {
+      selectedTestGroup === "A"
+        ? (window.location.href = "onboarding_a.html")
+        : (window.location.href = "onboarding_b.html");
+    }, 5000);
+  })
+  .catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
 
 googleAuth.addEventListener("click", signInWithGoogle);
