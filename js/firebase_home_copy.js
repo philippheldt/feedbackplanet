@@ -75,6 +75,10 @@ for (let index = 0; index < polls.length; index++) {
   poll.addEventListener("click", function () {
     openPoll(index);
   });
+
+  if (localStorage.getItem(`poll${index + 1}`) == "true") {
+    poll.classList.add("checked");
+  }
 }
 
 function openPoll(index) {

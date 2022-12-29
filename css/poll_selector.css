@@ -54,3 +54,25 @@
   filter: brightness(0.95);
   width: 100%;
 }
+
+.checked :nth-child(1) {
+  opacity: 0.2;
+}
+
+.checked :nth-child(2) {
+  color: #78b195;
+}
+.checked {
+  position: relative;
+  border: 2px solid #78b195;
+  pointer-events: none;
+  background-color: #fff;
+}
+
+.checked span {
+  color: #78b195;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  display: block;
+}

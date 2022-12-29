@@ -46,5 +46,9 @@ prevQ.addEventListener("click", function () {
 
 readyBtn.addEventListener("click", function () {
   localStorage.setItem("planetOnboarding", false);
+  localStorage.setItem("poll1", false);
+  localStorage.setItem("poll2", false);
+  localStorage.setItem("poll3", false);
+  localStorage.setItem("poll4", false);
   window.location.href = "overview.html";
 });

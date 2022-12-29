@@ -20,6 +20,8 @@ let containerPosition = 0;
 const radioContainerPositions = [null, 0, 1, 2, 3, null, null, null, null, 4, null];
 const textfieldContainerPositions = [null, null, null, null, null, 0, 1, 2, 3, null, null];
 
+const videoMeta = document.querySelector("#video-meta").innerText;
+
 const nextButton = document.querySelector("#nextq");
 const prevButton = document.querySelector("#prevq");
 const input = document.querySelectorAll(".feedback-input");
@@ -76,6 +78,21 @@ prevButton.addEventListener("click", () => {
 
 submitButton.addEventListener("click", () => {
   submitData();
+
+  switch (videoMeta) {
+    case "Video 1":
+      localStorage.setItem("poll1", true);
+      break;
+    case "Video 2":
+      localStorage.setItem("poll2", true);
+      break;
+    case "Video 3":
+      localStorage.setItem("poll3", true);
+      break;
+    case "Video 4":
+      localStorage.setItem("poll4", true);
+      break;
+  }
 });
 
 //check inputs for changes
