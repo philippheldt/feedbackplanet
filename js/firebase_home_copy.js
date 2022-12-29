@@ -63,3 +63,46 @@ function signOutUser() {
     .catch((error) => {});
 }
 logout.addEventListener("click", signOutUser);
+
+import { gamestate } from "./gamedata/gamestate.js";
+
+const polls = document.querySelectorAll(".poll");
+console.log("🚀 ~ file: firebase_home_copy.js:70 ~ polls", polls);
+
+for (let index = 0; index < polls.length; index++) {
+  const poll = polls[index];
+  console.log("poll");
+  poll.addEventListener("click", function () {
+    openPoll(index);
+  });
+}
+
+function openPoll(index) {
+  if (
+    localStorage.getItem("planetOnboarding") == "false" &&
+    gamestate.trackingData.testGroup == "A"
+  ) {
+    console.log("false");
+    localStorage.setItem("pollLocation", index);
+    window.location.href = "onboarding_planet.html";
+  } else if (
+    localStorage.getItem("planetOnboarding") == "true" ||
+    gamestate.trackingData.testGroup == "B"
+  ) {
+    console.log("true");
+    switch (index) {
+      case 0:
+        window.location.href = "umfrage1.html";
+        break;
+      case 1:
+        window.location.href = "umfrage2.html";
+        break;
+      case 2:
+        window.location.href = "umfrage3.html";
+        break;
+      case 3:
+        window.location.href = "umfrage4.html";
+        break;
+    }
+  }
+}

@@ -45,6 +45,19 @@ prevQ.addEventListener("click", function () {
 });
 
 readyBtn.addEventListener("click", function () {
-  localStorage.setItem("planetOnboarding", false);
-  window.location.href = "overview.html";
+  localStorage.setItem("planetOnboarding", true);
+  switch (localStorage.getItem("pollLocation")) {
+    case "0":
+      window.location.href = "umfrage1.html";
+      break;
+    case "1":
+      window.location.href = "umfrage2.html";
+      break;
+    case "2":
+      window.location.href = "umfrage3.html";
+      break;
+    case "3":
+      window.location.href = "umfrage4.html";
+      break;
+  }
 });
