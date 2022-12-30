@@ -55,7 +55,7 @@ onAuthStateChanged(auth, (user) => {
     getData();
     setTimeout(() => {
       createPlanet();
-    }, 2000);
+    }, 350);
   } else {
   }
 });
@@ -75,8 +75,6 @@ export function getData() {
         gamestate.points = snapshot.val().points;
         gamestate.planet = snapshot.val().planet;
         gamestate.activeBoost = snapshot.val().activeBoost;
-        gamestate.polls = snapshot.val().polls;
-        gamestate.pointsAll = snapshot.val().polls;
         console.log(gamestate.activeBoost);
 
         if (gamestate.activeBoost == true) {
@@ -145,8 +143,6 @@ export function updateData() {
     extensiveBoost: gamestate.extensiveBoost,
     activeBoost: gamestate.activeBoost,
     planetPosition: gamestate.planetPosition,
-    polls: gamestate.polls,
-    pointsAll: gamestate.pointsAll,
 
     //trackingData
     planetClicks: gamestate.trackingData.planetClicks,

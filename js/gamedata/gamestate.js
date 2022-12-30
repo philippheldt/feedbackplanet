@@ -1,7 +1,6 @@
 export const gamestate = {
   uid: "",
   points: 0,
-  allPoints: 0,
   planet: "nono",
   buildings: [
     "non0.no0.no0.no0.no0",
@@ -18,7 +17,6 @@ export const gamestate = {
   extensiveBoost: 0,
   activeBoost: false,
   planetPosition: 1,
-  polls: "false.false.false.false",
   trackingData: {
     testGroup: "",
     planetClicks: 0,

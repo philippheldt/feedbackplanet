@@ -221,12 +221,6 @@ function insertData(newUUID, newEmail) {
         extensiveAmount: 0,
         email: newEmail,
         contactQuery: false,
-        polls: "false.false.false.false",
-        pointsAll: 0,
-      });
-      set(ref(db, "ranking/" + newUUID), {
-        username: newEmail.split("@")[0],
-        points: 0,
       })
         .then(() => {
           console.log("Gamestate Created!");

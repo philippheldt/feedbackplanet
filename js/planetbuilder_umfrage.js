@@ -1,6 +1,6 @@
 import { gamestate } from "./gamedata/gamestate.js";
 //import { getSentiment } from "./sentiment_analysis.js";
-import { updateBuildings, feedbackBarCall, updateData } from "./planetbuilder_fb.js";
+import { updateBuildings, feedbackBarCall } from "./planetbuilder_fb.js";
 import {
   submitFeedback,
   analyzeTextStructure,
@@ -81,27 +81,18 @@ submitButton.addEventListener("click", () => {
 
   switch (videoMeta) {
     case "Video 1":
-      const newPollState1 = gamestate.polls.split(".");
-      newPollState1[0] = "true";
-      gamestate.polls = newPollState1.join(".");
+      localStorage.setItem("poll1", true);
       break;
     case "Video 2":
-      const newPollState2 = gamestate.polls.split(".");
-      newPollState2[1] = "true";
-      gamestate.polls = newPollState2.join(".");
+      localStorage.setItem("poll2", true);
       break;
     case "Video 3":
-      const newPollState3 = gamestate.polls.split(".");
-      newPollState3[2] = "true";
-      gamestate.polls = newPollState3.join(".");
+      localStorage.setItem("poll3", true);
       break;
     case "Video 4":
-      const newPollState4 = gamestate.polls.split(".");
-      newPollState4[3] = "true";
-      gamestate.polls = newPollState4.join(".");
+      localStorage.setItem("poll4", true);
       break;
   }
-  updateData();
 });
 
 //check inputs for changes

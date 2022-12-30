@@ -67,30 +67,32 @@ logout.addEventListener("click", signOutUser);
 import { gamestate } from "./gamedata/gamestate.js";
 
 const polls = document.querySelectorAll(".poll");
-
 console.log("🚀 ~ file: firebase_home_copy.js:70 ~ polls", polls);
 
-setTimeout(() => {
-  for (let index = 0; index < polls.length; index++) {
-    const poll = polls[index];
-    console.log("poll");
-    poll.addEventListener("click", function () {
-      openPoll(index);
-    });
+for (let index = 0; index < polls.length; index++) {
+  const poll = polls[index];
+  console.log("poll");
+  poll.addEventListener("click", function () {
+    openPoll(index);
+  });
 
-    console.log(gamestate.polls.split("."));
-    if (gamestate.polls.split(".")[index] == "true") {
-      poll.classList.add("checked");
-    }
+  if (localStorage.getItem(`poll${index + 1}`) == "true") {
+    poll.classList.add("checked");
   }
-}, 1000);
+}
 
 function openPoll(index) {
-  if (gamestate.points == 0 && gamestate.trackingData.testGroup == "A") {
+  if (
+    localStorage.getItem("planetOnboarding") == "false" &&
+    gamestate.trackingData.testGroup == "A"
+  ) {
     console.log("false");
     localStorage.setItem("pollLocation", index);
     window.location.href = "onboarding_planet.html";
-  } else if (gamestate.points > 0 || gamestate.trackingData.testGroup == "B") {
+  } else if (
+    localStorage.getItem("planetOnboarding") == "true" ||
+    gamestate.trackingData.testGroup == "B"
+  ) {
     console.log("true");
     switch (index) {
       case 0:
