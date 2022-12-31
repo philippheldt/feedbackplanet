@@ -59,12 +59,12 @@ export function analyzeTextLength(input, index) {
   const extensiveFeedbackText =
     extensiveFeedbackTextArray[Math.floor(Math.random() * extensiveFeedbackTextArray.length)];
 
-  if (wordCount > 100 && !extensiveFeedback) {
+  if (wordCount > 40 && !extensiveFeedback) {
     extensiveFeedback = true;
     gamestate.goodStartBoost = gamestate.goodStartBoost + 1;
 
     addPoints(30, extensiveFeedbackText);
-    markTextRange(0, 100, index);
+    markTextRange(0, 40, index);
   } else if (wordCount > 20 && goodStart == false) {
     goodStart = true;
     gamestate.goodStartBoost = gamestate.goodStartBoost + 1;

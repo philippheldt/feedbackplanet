@@ -55,7 +55,7 @@ onAuthStateChanged(auth, (user) => {
     getData();
     setTimeout(() => {
       createPlanet();
-    }, 350);
+    }, 2000);
   } else {
   }
 });

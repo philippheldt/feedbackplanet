@@ -34,11 +34,11 @@ nextButton.addEventListener("click", () => {
   if (containerPosition == 0) {
     const secondsOutput = document.querySelector(".seconds-output").innerText;
     if (Number(secondsOutput) > 180) {
-      gamestate.points = gamestate.points + 20;
-      feedbackBarCall("Video angeschaut!", 20, "feedback-good");
+      gamestate.points = gamestate.points + 30;
+      feedbackBarCall("Video angeschaut!", 30, "feedback-good");
     } else if (Number(secondsOutput) > 30) {
-      gamestate.points = gamestate.points + 5;
-      feedbackBarCall("Video angefangen!", 5, "feedback-good");
+      gamestate.points = gamestate.points + 10;
+      feedbackBarCall("Video angefangen!", 10, "feedback-good");
     }
   }
   console.log("button submit");
