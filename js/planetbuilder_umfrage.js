@@ -1,6 +1,6 @@
 import { gamestate } from "./gamedata/gamestate.js";
 //import { getSentiment } from "./sentiment_analysis.js";
-import { updateBuildings, feedbackBarCall } from "./planetbuilder_fb.js";
+import { updateBuildings, feedbackBarCall, openFinalSlide } from "./planetbuilder_fb.js";
 import {
   submitFeedback,
   analyzeTextStructure,
@@ -16,12 +16,15 @@ import { suggestions } from "./gamedata/suggestions.js";
 import { getRadioValue, skalen, freitexte, submitData } from "./google_form_submission.js";
 
 let containerPosition = 0;
+let pointsBefore = 0;
+let pointsAcheived = 0;
 
 const radioContainerPositions = [null, 0, 1, 2, 3, null, null, null, null, 4, null];
 const textfieldContainerPositions = [null, null, null, null, null, 0, 1, 2, 3, null, null];
 
 const videoMeta = document.querySelector("#video-meta").innerText;
 
+const conatiner = document.querySelector(".container");
 const nextButton = document.querySelector("#nextq");
 const prevButton = document.querySelector("#prevq");
 const input = document.querySelectorAll(".feedback-input");
@@ -31,6 +34,7 @@ let suggestionTimeout = null;
 let textSuggestionCurrent = null;
 
 nextButton.addEventListener("click", () => {
+  pointsBefore = gamestate.points;
   if (containerPosition == 0) {
     const secondsOutput = document.querySelector(".seconds-output").innerText;
     if (Number(secondsOutput) > 180) {
@@ -66,6 +70,10 @@ nextButton.addEventListener("click", () => {
   containerPosition++;
   updateBuildings();
   submitFeedback();
+
+  gamestate.points > pointsBefore
+    ? (pointsAcheived = pointsAcheived + (gamestate.points - pointsBefore))
+    : null;
 });
 
 prevButton.addEventListener("click", () => {
@@ -78,6 +86,9 @@ prevButton.addEventListener("click", () => {
 
 submitButton.addEventListener("click", () => {
   submitData();
+
+  conatiner.classList.add("hidden");
+  openFinalSlide();
 
   switch (videoMeta) {
     case "Video 1":

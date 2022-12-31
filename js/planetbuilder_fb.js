@@ -1031,6 +1031,54 @@ planetContainer.addEventListener("click", openOverlay);
 userNameOutput.addEventListener("click", openOverlay);
 userIcon.addEventListener("click", openOverlay);
 
+const plToolbar = document.querySelector(".pl-toolbar");
+const starContainer = document.querySelector(".star-container");
+const nextStepButtons = document.querySelector(".next-step-buttons");
+const secondaryLink = document.querySelector(".secondarylink");
+const starProgress = document.querySelector(".star-progress");
+const finalMessageGood = ["Vielen Dank!", "Super Feedback", "Danke für deine Hilfe!"];
+const finalMessageOkay = ["Da geht noch was!", "Schaffst du mehr?"];
+const finalMessageBad = ["Das kannst du besser!", "Schaffst du mehr?"];
+const randomFinalMessageGood =
+  finalMessageGood[Math.floor(Math.random() * finalMessageGood.length)];
+const randomFinalMessageOkay =
+  finalMessageGood[Math.floor(Math.random() * finalMessageOkay.length)];
+const randomFinalMessageBad = finalMessageGood[Math.floor(Math.random() * finalMessageBad.length)];
+
+import { acheivedPoints } from "./text_analysis.js";
+
+export function openFinalSlide() {
+  const buildingTitle = document.querySelector(".building-title");
+  const buildingSubtitle = document.querySelector(".building-subtitle");
+
+  overlay.classList.remove("hidden");
+  rotateRight.classList.add("hidden");
+  rotateLeft.classList.add("hidden");
+  buildingSubtitle.classList.add("hidden");
+  boostBar.classList.add("opacity-hidden");
+  feedbackBar.classList.add("bar-closed");
+  feedbackBar.style.opacity = "0";
+  headerMenu.classList.add("active");
+  plToolbar.classList.add("hidden");
+  planetEmbedded.classList.add("pl-end");
+  starContainer.classList.remove("hidden");
+  nextStepButtons.classList.remove("hidden");
+  secondaryLink.classList.remove("hidden");
+  overlay.classList.remove("opacity-hidden");
+  plButtons.classList.remove("hidden");
+  plButtons.classList.remove("opacity-hidden");
+
+  acheivedPoints < 30 ? (buildingTitle.innerText = randomFinalMessageBad) : null;
+  acheivedPoints >= 30 && acheivedPoints < 150
+    ? (buildingTitle.innerText = randomFinalMessageOkay)
+    : null;
+  acheivedPoints > 150 ? (buildingTitle.innerText = randomFinalMessageGood) : null;
+
+  acheivedPoints > 365
+    ? (starProgress.style.width = "100%")
+    : (starProgress.style.width = (100 / 365) * acheivedPoints + "%");
+}
+
 // open trees toolbar on edit click
 
 const editView = document.querySelector(".edit-view");

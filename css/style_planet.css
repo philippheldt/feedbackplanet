@@ -598,21 +598,32 @@
   transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
 }
 
-.infobox {
+/* .infobox {
   background-color: #ddebe4;
   color: #76b093;
   padding: 20px;
   border-radius: var(--border-radius);
   font-size: smaller;
   display: flex;
+  justify-content: space-between;
   gap: 20px;
 }
+
+.infobox div {
+  height: 10px;
+}
+.infobox span {
+  font-size: 20px;
+} */
 
 .star-container {
   display: grid;
   grid-template-columns: 1fr;
   margin: auto;
-  width: 50%;
+  width: 30%;
+}
+.star-container.hidden {
+  display: none;
 }
 .star-img {
   grid-area: 1/2;
@@ -639,6 +650,10 @@
   margin: 30px 0 10px 0;
 }
 
+.next-step-buttons.hidden {
+  display: none;
+}
+
 .secondarylink {
   margin: auto;
   font-weight: normal;
@@ -655,6 +670,7 @@
   right: calc(50% - 200px);
   cursor: auto;
   overflow: initial;
+  z-index: 10000;
 }
 
 .pl-end:hover {

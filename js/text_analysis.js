@@ -204,17 +204,22 @@ export function analyzeRadio(radioInput) {
   prevBoost = boost;
   if (radioInput != undefined) {
     goodStart = true;
+    acheivedPoints += 5;
     const checkBoxText = checkBoxArray[Math.floor(Math.random() * checkBoxArray.length)];
     gamestate.points = gamestate.points + 5 * boost;
     feedbackBarCall(checkBoxText, 5 * boost, "feedback-good");
   } else {
+    acheivedPoints -= 5;
     gamestate.points = gamestate.points - 5 * boost;
     feedbackBarCall("Schade, keine Angabe!", -5 * boost, "feedback-bad");
     goodStart = false;
   }
 }
 
+export let acheivedPoints = 0;
 export function addPoints(pointsAdded, successMessage, markPositions, index) {
+  acheivedPoints += pointsAdded;
+  console.log("acheivedPoints----- " + acheivedPoints);
   gamestate.points = gamestate.points + pointsAdded * boost;
   feedbackBarCall(successMessage, pointsAdded * boost, "feedback-good");
   markPositions != undefined ? markTextPositions(markPositions, index) : null;
