@@ -726,7 +726,10 @@ export function buildingSelectorBar() {
         priceReveal(
           buildingCollection[b1Index],
           buildingCollection[b2Index],
-          buildingCollection[b3Index]
+          buildingCollection[b3Index],
+          b1Index,
+          b2Index,
+          b3Index
         );
 
         setTimeout(() => {
@@ -746,7 +749,7 @@ const stage3Price = document.querySelector("#stage-3-price");
 const stage4PriceLabel = document.querySelector(".price-preview:nth-child(4)");
 const stage4Price = document.querySelector("#stage-4-price");
 
-function priceReveal(building1, building2, building3) {
+function priceReveal(building1, building2, building3, b1Index, b2Index, b3Index) {
   if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     let tapb1 = false;
     let tapb2 = false;
@@ -755,13 +758,11 @@ function priceReveal(building1, building2, building3) {
     document.querySelector("#b1").addEventListener("click", function () {
       if (tapb1) {
         buildingSelector(buildingCollection[b1Index].shortcut);
+        stagePriceRemover();
         autoselection = false;
         tapb1 = false;
       } else {
-        stage1PriceLabel.classList.add("price-preview-active");
-        stage2PriceLabel.classList.add("price-preview-active");
-        stage1Price.innerHTML = building1.buildingStages[1];
-        stage2Price.innerHTML = building1.accumulatedStages[4];
+        stagePriceBuilder(building1);
         tapb1 = true;
         tapb2 = false;
         tapb3 = false;
@@ -770,13 +771,11 @@ function priceReveal(building1, building2, building3) {
     document.querySelector("#b2").addEventListener("click", function () {
       if (tapb2) {
         buildingSelector(buildingCollection[b2Index].shortcut);
+        stagePriceRemover();
         autoselection = false;
         tapb2 = false;
       } else {
-        stage1PriceLabel.classList.add("price-preview-active");
-        stage2PriceLabel.classList.add("price-preview-active");
-        stage1Price.innerHTML = building2.buildingStages[1];
-        stage2Price.innerHTML = building2.accumulatedStages[4];
+        stagePriceBuilder(building2);
         tapb1 = false;
         tapb2 = true;
         tapb3 = false;
@@ -785,13 +784,11 @@ function priceReveal(building1, building2, building3) {
     document.querySelector("#b3").addEventListener("click", function () {
       if (tapb3) {
         buildingSelector(buildingCollection[b3Index].shortcut);
+        stagePriceRemover();
         autoselection = false;
         tapb3 = false;
       } else {
-        stage1PriceLabel.classList.add("price-preview-active");
-        stage2PriceLabel.classList.add("price-preview-active");
-        stage1Price.innerHTML = building3.buildingStages[1];
-        stage2Price.innerHTML = building3.accumulatedStages[4];
+        stagePriceBuilder(building3);
         tapb1 = false;
         tapb2 = false;
         tapb3 = true;
@@ -1047,7 +1044,6 @@ const randomFinalMessageBad = finalMessageBad[Math.floor(Math.random() * finalMe
 
 import { acheivedPoints } from "./text_analysis.js";
 
-
 export function openFinalSlide() {
   const buildingTitle = document.querySelector(".building-title");
   const buildingSubtitle = document.querySelector(".building-subtitle");
@@ -1068,7 +1064,6 @@ export function openFinalSlide() {
   overlay.classList.remove("opacity-hidden");
   plButtons.classList.remove("hidden");
   plButtons.classList.remove("opacity-hidden");
-
 
   acheivedPoints < 30 ? (buildingTitle.innerText = randomFinalMessageBad) : null;
   acheivedPoints >= 30 && acheivedPoints < 150
