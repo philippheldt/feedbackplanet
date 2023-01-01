@@ -85,6 +85,9 @@
   .mobile-delete {
     display: none;
   }
+  #widebtn {
+    width: 100%;
+  }
 }
 
 @media (max-width: 500px) {
