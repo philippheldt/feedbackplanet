@@ -1033,9 +1033,19 @@ const starContainer = document.querySelector(".star-container");
 const nextStepButtons = document.querySelector(".next-step-buttons");
 const secondaryLink = document.querySelector(".secondarylink");
 const starProgress = document.querySelector(".star-progress");
+const infobox = document.querySelector(".infobox");
+const infoboxText = document.querySelector(".infobox-text");
+
+const infoboxTextArray = [
+  "Tipp: Ich-Botschaften geben mehr Punkte!",
+  "Tipp: Für gute Textstruktur gibts mehr Punkte!",
+  "Tipp: Konretes Feedback wird belohnt!",
+  "Tipp: Wertungsfreie Sprache wird belohnt!",
+];
 const finalMessageGood = ["Vielen Dank!", "Super Feedback!", "Danke für deine Hilfe!"];
 const finalMessageOkay = ["Da geht noch was!", "Schaffst du mehr?"];
 const finalMessageBad = ["Das kannst du besser!", "Schaffst du mehr?"];
+const randomInfoboxText = infoboxTextArray[Math.floor(Math.random() * infoboxTextArray.length)];
 const randomFinalMessageGood =
   finalMessageGood[Math.floor(Math.random() * finalMessageGood.length)];
 const randomFinalMessageOkay =
@@ -1048,6 +1058,7 @@ export function openFinalSlide() {
   const buildingTitle = document.querySelector(".building-title");
   const buildingSubtitle = document.querySelector(".building-subtitle");
 
+  infobox.classList.remove("hidden");
   overlay.classList.remove("hidden");
   rotateRight.classList.add("hidden");
   rotateLeft.classList.add("hidden");
@@ -1064,6 +1075,8 @@ export function openFinalSlide() {
   overlay.classList.remove("opacity-hidden");
   plButtons.classList.remove("hidden");
   plButtons.classList.remove("opacity-hidden");
+
+  infoboxText.innerHTML = randomInfoboxText;
 
   acheivedPoints < 30 ? (buildingTitle.innerText = randomFinalMessageBad) : null;
   acheivedPoints >= 30 && acheivedPoints < 150

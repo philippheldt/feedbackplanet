@@ -598,7 +598,7 @@
   transition: all 0.5s cubic-bezier(0.54, 0.32, 0.37, 1.19);
 }
 
-/* .infobox {
+.infobox {
   background-color: #ddebe4;
   color: #76b093;
   padding: 20px;
@@ -606,15 +606,18 @@
   font-size: smaller;
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 10px;
+  margin: 10px 0 0 0;
 }
-
+/* 
 .infobox div {
   height: 10px;
-}
-.infobox span {
-  font-size: 20px;
 } */
+.infobox span {
+  height: 20px;
+  width: 20px;
+  font-size: 20px;
+}
 
 .star-container {
   display: grid;
@@ -666,7 +669,7 @@
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  bottom: calc(-50vh - 225px);
+  bottom: calc(-50vh - 250px);
   right: calc(50% - 200px);
   cursor: auto;
   overflow: initial;
