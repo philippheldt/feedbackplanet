@@ -218,7 +218,7 @@ export function analyzeRadio(radioInput) {
 
 export let acheivedPoints = 0;
 export function addPoints(pointsAdded, successMessage, markPositions, index) {
-  acheivedPoints += pointsAdded;
+  acheivedPoints += pointsAdded * boost;
   console.log("acheivedPoints----- " + acheivedPoints);
   gamestate.points = gamestate.points + pointsAdded * boost;
   feedbackBarCall(successMessage, pointsAdded * boost, "feedback-good");

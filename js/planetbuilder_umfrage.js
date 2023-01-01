@@ -25,6 +25,7 @@ const textfieldContainerPositions = [null, null, null, null, null, 0, 1, 2, 3, n
 const videoMeta = document.querySelector("#video-meta").innerText;
 
 const conatiner = document.querySelector(".container");
+const nextPoll = document.querySelector("#nextPoll");
 const nextButton = document.querySelector("#nextq");
 const prevButton = document.querySelector("#prevq");
 const input = document.querySelectorAll(".feedback-input");
@@ -102,6 +103,23 @@ submitButton.addEventListener("click", () => {
       break;
     case "Video 4":
       localStorage.setItem("poll4", true);
+      break;
+  }
+});
+
+nextPoll.addEventListener("click", function () {
+  switch (videoMeta) {
+    case "Video 1":
+      window.location.href = "umfrage2.html";
+      break;
+    case "Video 2":
+      window.location.href = "umfrage3.html";
+      break;
+    case "Video 3":
+      window.location.href = "umfrage4.html";
+      break;
+    case "Video 4":
+      window.location.href = "umfrage1.html";
       break;
   }
 });
