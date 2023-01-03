@@ -67,11 +67,24 @@ logout.addEventListener("click", signOutUser);
 import { gamestate } from "./gamedata/gamestate.js";
 
 const polls = document.querySelectorAll(".poll");
-console.log("🚀 ~ file: firebase_home_copy.js:70 ~ polls", polls);
+
+if (
+  localStorage.getItem("planetOnboarding") === null ||
+  localStorage.getItem("poll1") === null ||
+  localStorage.getItem("poll2") === null ||
+  localStorage.getItem("poll3") === null ||
+  localStorage.getItem("poll4") === null
+) {
+  localStorage.setItem("planetOnboarding", false);
+  localStorage.setItem("poll1", false);
+  localStorage.setItem("poll2", false);
+  localStorage.setItem("poll3", false);
+  localStorage.setItem("poll4", false);
+}
 
 for (let index = 0; index < polls.length; index++) {
   const poll = polls[index];
-  console.log("poll");
+
   poll.addEventListener("click", function () {
     openPoll(index);
   });

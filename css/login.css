@@ -9,12 +9,16 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
   background-color: #f7f7f7;
   color: #000;
 }
 
 h1 {
   font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: normal;
   color: #78b195;
   margin: 15px 0px;
 }
