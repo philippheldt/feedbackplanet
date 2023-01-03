@@ -609,6 +609,10 @@
   gap: 10px;
   margin: 10px 0 0 0;
 }
+
+.infobox.hidden {
+  display: none;
+}
 /* 
 .infobox div {
   height: 10px;
@@ -676,6 +680,21 @@
   z-index: 10000;
 }
 
+.pl-end:hover,
 .pl-end:hover {
   transform: scale(1);
+}
+
+.pl-end-b {
+  width: 400px;
+  box-sizing: border-box;
+
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  bottom: calc(-50vh - 0px);
+  right: calc(50% - 200px);
+  cursor: auto;
+  overflow: initial;
+  z-index: 10000;
 }

@@ -1054,6 +1054,10 @@ const randomFinalMessageBad = finalMessageBad[Math.floor(Math.random() * finalMe
 
 import { acheivedPoints } from "./text_analysis.js";
 
+setTimeout(() => {
+  openFinalSlide();
+}, 3000);
+
 export function openFinalSlide() {
   const buildingTitle = document.querySelector(".building-title");
   const buildingSubtitle = document.querySelector(".building-subtitle");
@@ -1087,6 +1091,16 @@ export function openFinalSlide() {
   acheivedPoints > 250
     ? (starProgress.style.width = "100%")
     : (starProgress.style.width = (100 / 250) * acheivedPoints + "%");
+
+  console.log(gamestate.trackingData.testGroup);
+
+  if (gamestate.trackingData.testGroup == "B") {
+    buildingTitle.innerText = randomFinalMessageGood;
+    planetEmbedded.classList.remove("pl-end");
+    planetEmbedded.classList.add("pl-end-b");
+    infobox.classList.add("hidden");
+    starContainer.classList.add("hidden");
+  }
 }
 
 // open trees toolbar on edit click
