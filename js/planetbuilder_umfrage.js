@@ -79,6 +79,8 @@ nextButton.addEventListener("click", () => {
   gamestate.points > pointsBefore
     ? (pointsAcheived = pointsAcheived + (gamestate.points - pointsBefore))
     : null;
+
+  console.log(gamestate.trackingData.triggeredPoints);
 });
 
 prevButton.addEventListener("click", () => {
