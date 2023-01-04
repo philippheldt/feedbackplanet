@@ -33,5 +33,6 @@ export const gamestate = {
     wordsWritten: 0,
     email: "beispiel@email.com",
     contactQuery: false,
+    triggeredPoints: "",
   },
 };

@@ -65,12 +65,14 @@ export function analyzeTextLength(input, index) {
 
     addPoints(30, extensiveFeedbackText);
     markTextRange(0, 40, index);
+    gamestate.trackingData.triggeredPoints += "extensiveFeedback, ";
   } else if (wordCount > 20 && goodStart == false) {
     goodStart = true;
     gamestate.goodStartBoost = gamestate.goodStartBoost + 1;
 
     addPoints(10, goodStartText);
     markTextRange(0, 20, index);
+    gamestate.trackingData.triggeredPoints += "goodStart, ";
   }
 
   gamestate.goodStartBoost >= 2 ? (boost = 2) : (boost = 1);
@@ -109,6 +111,7 @@ export function analyzeConcreteness(input, index) {
     if (containsNumber) {
       addPoints(5, concretenessText, concretePosition, index);
       concrete = true;
+      gamestate.trackingData.triggeredPoints += "concreteness, ";
     }
   }
 }
@@ -152,6 +155,7 @@ export function analyzeIchBotschaft(input, index) {
     if (ichProportion >= 0.1 && inputArray.length > 25) {
       addPoints(20, ichBotschaftText, ichPosition, index);
       contaiunsIch = true;
+      gamestate.trackingData.triggeredPoints += "ichBotschaft, ";
     }
   }
 }
@@ -184,6 +188,7 @@ export function analyzeTextStructure(input, index) {
     ) {
       addPoints(10, structuredText);
       structuredTextQuery = true;
+      gamestate.trackingData.triggeredPoints += "structuredText, ";
       for (let i = 0; i < inputArray.length; i++) {
         if (
           inputArray[i].match(/\d\./g) ||
@@ -208,11 +213,13 @@ export function analyzeRadio(radioInput) {
     const checkBoxText = checkBoxArray[Math.floor(Math.random() * checkBoxArray.length)];
     gamestate.points = gamestate.points + 5 * boost;
     feedbackBarCall(checkBoxText, 5 * boost, "feedback-good");
+    gamestate.trackingData.triggeredPoints += "radioPoints, ";
   } else {
     acheivedPoints -= 5;
     gamestate.points = gamestate.points - 5 * boost;
     feedbackBarCall("Schade, keine Angabe!", -5 * boost, "feedback-bad");
     goodStart = false;
+    gamestate.trackingData.triggeredPoints += "noRadio, ";
   }
 }
 

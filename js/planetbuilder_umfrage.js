@@ -48,9 +48,11 @@ nextButton.addEventListener("click", () => {
   }
 
   if (radioContainerPositions[containerPosition] != null) {
+    gamestate.trackingData.triggeredPoints += "--Radio---, ";
     analyzeRadio(getRadioValue(skalen[radioContainerPositions[containerPosition]]));
   }
   if (textfieldContainerPositions[containerPosition + 1] != null) {
+    gamestate.trackingData.triggeredPoints += "--Text---, ";
     textSuggestionCurrent = textfieldContainerPositions[containerPosition + 1];
     displaySuggestions();
   }

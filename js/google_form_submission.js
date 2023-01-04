@@ -151,10 +151,7 @@ export function submitData() {
   researchData.gameData.boosts[1] = gamestate.trackingData.boosts;
   researchData.gameData.suggestionClicks[1] = gamestate.trackingData.suggestionClicks;
 
-  for (const boostKind in gamestate.trackingData.boostKind) {
-    researchData.gameData.boostKind[1] +=
-      boostKind + "-" + gamestate.trackingData.boostKind[boostKind] + "----";
-  }
+  researchData.gameData.boostKind[1] = gamestate.trackingData.triggeredPoints;
 
   researchData.gameData.wordsWritten[1] = gamestate.wordsWritten;
 
