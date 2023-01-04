@@ -41,7 +41,9 @@
 .onboarding_content video {
   width: 100%;
   margin: -10% 0px -5% 0px;
-  border: none;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
 }
 
 .status-wrapper {
