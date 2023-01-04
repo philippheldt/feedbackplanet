@@ -1079,17 +1079,19 @@ export function openFinalSlide() {
 
   infoboxText.innerHTML = randomInfoboxText;
 
-  acheivedPoints < 30 ? (buildingTitle.innerText = randomFinalMessageBad) : null;
-  acheivedPoints >= 30 && acheivedPoints < 150
-    ? (buildingTitle.innerText = randomFinalMessageOkay)
-    : null;
-  acheivedPoints > 150 ? (buildingTitle.innerText = randomFinalMessageGood) : null;
+  setTimeout(() => {
+    acheivedPoints < 30 ? (buildingTitle.innerText = randomFinalMessageBad) : null;
+    acheivedPoints >= 30 && acheivedPoints < 150
+      ? (buildingTitle.innerText = randomFinalMessageOkay)
+      : null;
+    acheivedPoints > 150 ? (buildingTitle.innerText = randomFinalMessageGood) : null;
 
-  acheivedPoints > 250
-    ? (starProgress.style.width = "100%")
-    : (starProgress.style.width = (100 / 250) * acheivedPoints + "%");
+    acheivedPoints > 250
+      ? (starProgress.style.width = "100%")
+      : (starProgress.style.width = (100 / 250) * acheivedPoints + "%");
 
-  console.log(gamestate.trackingData.testGroup);
+    console.log(gamestate.trackingData.testGroup);
+  }, 3000);
 
   if (gamestate.trackingData.testGroup == "B") {
     buildingTitle.innerText = randomFinalMessageGood;
