@@ -1062,6 +1062,7 @@ export function openFinalSlide() {
   overlay.classList.remove("hidden");
   rotateRight.classList.add("hidden");
   rotateLeft.classList.add("hidden");
+  closeDetails.classList.add("hidden");
   buildingSubtitle.classList.add("hidden");
   boostBar.classList.add("opacity-hidden");
   feedbackBar.classList.add("bar-closed");

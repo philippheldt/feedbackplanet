@@ -660,6 +660,14 @@
 .next-step-buttons.hidden {
   display: none;
 }
+.next-step-buttons .secondarybtn {
+  cursor: not-allowed;
+}
+
+.next-step-buttons .secondarybtn:hover {
+  color: #797979;
+  border: 0.5px solid #797979;
+}
 
 .secondarylink {
   margin: auto;
@@ -701,5 +709,5 @@
 
 .next-step-buttons button,
 .secondarylink {
-  pointer-events: all ;
+  pointer-events: all;
 }
