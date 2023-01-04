@@ -41,6 +41,7 @@
 .onboarding_content video {
   width: 100%;
   margin: -10% 0px -5% 0px;
+  border: none;
 }
 
 .status-wrapper {
