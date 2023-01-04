@@ -156,7 +156,7 @@ export function submitData() {
       boostKind + "-" + gamestate.trackingData.boostKind[boostKind] + "----";
   }
 
-  //researchData.gameData.wordsWritten[1] = gamestate.wordsWritten;
+  researchData.gameData.wordsWritten[1] = gamestate.wordsWritten;
 
   for (const property in researchData) {
     if (researchData.hasOwnProperty(property)) {

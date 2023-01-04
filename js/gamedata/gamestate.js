@@ -30,7 +30,7 @@ export const gamestate = {
       extensiveAmount: 0,
     },
     // pointsPerSlide: [],
-    // wordsWritten: 0,
+    wordsWritten: 0,
     email: "beispiel@email.com",
     contactQuery: false,
   },

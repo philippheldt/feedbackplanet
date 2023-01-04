@@ -59,7 +59,11 @@ nextButton.addEventListener("click", () => {
       input[textfieldContainerPositions[containerPosition]],
       containerPosition
     );
+    gamestate.trackingData.wordsWritten =
+      gamestate.trackingData.wordsWritten +
+      input[textfieldContainerPositions[containerPosition]].value.split(" ").length;
   }
+
   // if (textfieldContainerPositions[containerPosition] != null) {
   //   //
   //   if (freitexte[textfieldContainerPositions[containerPosition]].value != "") {
