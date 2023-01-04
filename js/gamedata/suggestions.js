@@ -20,6 +20,6 @@ export const suggestions = [
   [
     "Der Praktische bezug war meiner Meinung nach...",
     "Mehr interaktive Elemente hätten mir geholfen, weil...",
-    "Ich hätte ,mir mehr Hintergrundinformationen gewünscht, weil...",
+    "Ich hätte mir mehr Hintergrundinformationen gewünscht, weil...",
   ],
 ];
