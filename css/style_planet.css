@@ -681,7 +681,7 @@
 }
 
 .pl-end:hover,
-.pl-end:hover {
+.pl-end-b:hover {
   transform: scale(1);
 }
 
@@ -696,5 +696,10 @@
   right: calc(50% - 200px);
   cursor: auto;
   overflow: initial;
-  z-index: 10000;
+  z-index: 100000;
+}
+
+.next-step-buttons button,
+.secondarylink {
+  pointer-events: all ;
 }

@@ -1054,10 +1054,6 @@ const randomFinalMessageBad = finalMessageBad[Math.floor(Math.random() * finalMe
 
 import { acheivedPoints } from "./text_analysis.js";
 
-setTimeout(() => {
-  openFinalSlide();
-}, 3000);
-
 export function openFinalSlide() {
   const buildingTitle = document.querySelector(".building-title");
   const buildingSubtitle = document.querySelector(".building-subtitle");
