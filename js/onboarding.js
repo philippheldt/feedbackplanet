@@ -4,7 +4,7 @@ const sliderOnboard = document.querySelector(".onboarding_collection");
 const statusAmount = document.querySelector(".status-amount");
 const readyBtn = document.querySelector("#widebtn");
 const onboardingLength = document.querySelectorAll(".onboarding_content").length;
-console.log("🚀 ~ file: onboarding.js:7 ~ onboardingLength", onboardingLength);
+
 let slide = 0;
 let progress = 100 / onboardingLength;
 

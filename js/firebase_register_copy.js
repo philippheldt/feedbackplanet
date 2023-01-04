@@ -54,9 +54,9 @@ const appleAuth = document.getElementById("appleAuth");
 const githubAuth = document.getElementById("githubAuth");
 
 const testGroup = Math.random() < 0.6;
-console.log(testGroup);
+
 const selectedTestGroup = testGroup ? "A" : "B";
-console.log(selectedTestGroup);
+
 //validate inputs
 
 function validation() {
@@ -157,7 +157,6 @@ function register() {
         email.value = "";
         password.value = "";
         passwordRepeat.value = "";
-        console.log("signed in");
 
         setTimeout(() => {
           selectedTestGroup === "A"
@@ -168,7 +167,7 @@ function register() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode);
+
         if (errorCode === "auth/email-already-in-use") {
           userEmailAlert.innerText = "Diese E-Mail Adresse ist bereits registriert!";
           userEmailAlert.classList.remove("alert-hidden");
@@ -193,7 +192,6 @@ function insertData(newUUID, newEmail) {
     uid: newUUID,
   })
     .then(() => {
-      console.log("User Created!");
       set(ref(db, "feedbackplanet/" + newUUID), {
         uid: newUUID,
         building1: "non0.no0.no0.no0.no0",
@@ -222,9 +220,7 @@ function insertData(newUUID, newEmail) {
         email: newEmail,
         contactQuery: false,
       })
-        .then(() => {
-          console.log("Gamestate Created!");
-        })
+        .then(() => {})
         .catch((error) => {
           console.error("Error saving data: ", error);
         });

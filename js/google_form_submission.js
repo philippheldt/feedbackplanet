@@ -170,7 +170,7 @@ export function submitData() {
   }
 
   window.open(submitURL, "_blank").focus();
-  // console.log(researchData);
+  //
 }
 
 export function getRadioValue(radioButtons) {

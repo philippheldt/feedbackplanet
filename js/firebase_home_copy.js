@@ -99,14 +99,12 @@ function openPoll(index) {
     localStorage.getItem("planetOnboarding") == "false" &&
     gamestate.trackingData.testGroup == "A"
   ) {
-    console.log("false");
     localStorage.setItem("pollLocation", index);
     window.location.href = "onboarding_planet.html";
   } else if (
     localStorage.getItem("planetOnboarding") == "true" ||
     gamestate.trackingData.testGroup == "B"
   ) {
-    console.log("true");
     switch (index) {
       case 0:
         window.location.href = "umfrage1.html";

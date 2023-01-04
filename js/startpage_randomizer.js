@@ -125,8 +125,6 @@ if (getBrowser() === "Safari") {
   const treeBackElements = document.querySelectorAll(".tree-back-element");
   const treeFrontElements = document.querySelectorAll(".tree-front-element");
 
-  console.log(treeBackElements);
-
   planetElement.src = `./assets/planet_assets/planets/${
     planetsArray[Math.floor(Math.random() * planetsArray.length)]
   }.png`;

@@ -23,8 +23,6 @@ export function getSentiment(input) {
   axios
     .request(options)
     .then((response) => {
-      console.log("Bewertung von Google: " + response.data.amazon.general_sentiment);
-      console.log("Sentiment rate: " + response.data.amazon.general_sentiment_rate);
       const sentimentRate = response.data.amazon.general_sentiment;
 
       if (sentimentRate == "Neutral" || sentimentRate == "Mixed") {

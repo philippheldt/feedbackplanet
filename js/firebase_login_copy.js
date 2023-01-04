@@ -73,7 +73,6 @@ function login() {
         userEmailAlert.innerText = "Benutzer existiert nicht";
         userEmailAlert.classList.remove("alert-hidden");
       }
-      console.log(errorCode);
     });
 }
 

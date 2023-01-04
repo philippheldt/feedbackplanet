@@ -219,7 +219,7 @@ export function analyzeRadio(radioInput) {
 export let acheivedPoints = 0;
 export function addPoints(pointsAdded, successMessage, markPositions, index) {
   acheivedPoints += pointsAdded * boost;
-  console.log("acheivedPoints----- " + acheivedPoints);
+  
   gamestate.points = gamestate.points + pointsAdded * boost;
   feedbackBarCall(successMessage, pointsAdded * boost, "feedback-good");
   markPositions != undefined ? markTextPositions(markPositions, index) : null;
@@ -262,10 +262,10 @@ export function markTextPositions(positions, inputNumber) {
 export function submitFeedback() {
   // Reset Boost, when no feedback is given
 
-  console.log("🚀 ~ file: text_analysis.js:260 ~ submitFeedback ~ wordCount", wordCount);
+  
   wordCount <= 1 ? (gamestate.goodStartBoost = 0) : null;
 
-  console.log(
+  
     "🚀 ~ file: text_analysis.js:257 ~ submitFeedback ~ gamestate.goodStartBoost",
     gamestate.goodStartBoost
   );
@@ -278,8 +278,8 @@ export function submitFeedback() {
   }
 
   updateData();
-  console.log("🚀 ~ file: text_analysis.js:272 ~ submitFeedback ~ prevBoost", prevBoost);
-  console.log("🚀 ~ file: text_analysis.js:272 ~ submitFeedback ~ boost", boost);
+  
+  
   if (boost > prevBoost) {
     setTimeout(() => {
       boostBar.classList.remove("boost-hidden");

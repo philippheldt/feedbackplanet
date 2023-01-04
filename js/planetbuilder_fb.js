@@ -49,7 +49,7 @@ const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
   if (user) {
     const uid = user.uid;
-    console.log("uid: " + uid);
+
     gamestate.uid = uid;
 
     getData();
@@ -66,7 +66,7 @@ export function getData() {
   get(child(dbref, "feedbackplanet/" + gamestate.uid))
     .then((snapshot) => {
       if (snapshot.exists()) {
-        //console.log(snapshot.val());
+        //
         gamestate.uid = snapshot.val().uid;
         for (let i = 0; i < 8; i++) {
           gamestate.buildings[i] = snapshot.val()["building" + (i + 1)];
@@ -75,15 +75,12 @@ export function getData() {
         gamestate.points = snapshot.val().points;
         gamestate.planet = snapshot.val().planet;
         gamestate.activeBoost = snapshot.val().activeBoost;
-        console.log(gamestate.activeBoost);
 
         if (gamestate.activeBoost == true) {
-          console.log("activeBoost");
           gamestate.goodStartBoost = snapshot.val().goodStartBoost;
           gamestate.extensiveBoost = snapshot.val().extensiveBoost;
           gamestate.activeBoost = false;
         } else {
-          console.log("no activeBoost");
           gamestate.goodStartBoost = 0;
           gamestate.extensiveBoost = 0;
           gamestate.activeBoost = false;
@@ -101,10 +98,7 @@ export function getData() {
         gamestate.trackingData.contactQuery = snapshot.val().contactQuery;
         gamestate.trackingData.bannerInteractions = snapshot.val().bannerInteractions;
         gamestate.trackingData.suggestionClicks = snapshot.val().suggestionClicks;
-
-        console.log(gamestate);
       } else {
-        console.log("No data available");
       }
     })
     .catch((error) => {
@@ -117,9 +111,7 @@ export function getData() {
       goodStartBoost: gamestate.goodStartBoost,
       extensiveBoost: gamestate.extensiveBoost,
     })
-      .then(() => {
-        console.log("Data saved successfully");
-      })
+      .then(() => {})
       .catch((error) => {
         console.error("Error saving data: ", error);
       });
@@ -155,9 +147,7 @@ export function updateData() {
     bannerInteractions: gamestate.trackingData.bannerInteractions,
     suggestionClicks: gamestate.trackingData.suggestionClicks,
   })
-    .then(() => {
-      console.log("Data saved successfully");
-    })
+    .then(() => {})
     .catch((error) => {
       console.error("Error saving data: ", error);
     });
@@ -204,13 +194,11 @@ export function createPlanet() {
 
   if (gamestate.planet == "nono") {
     planetSelectorBar();
-    console.log("planetSelectorBar");
+
     return;
   } else if (!skySet) {
     addRandomSky();
   }
-
-  console.log(gamestate);
 
   building.innerHTML = "";
   treeBack.innerHTML = "";
@@ -350,7 +338,6 @@ export function updateBuildings() {
   if (
     gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] != "non0.no0.no0.no0.no0"
   ) {
-    console.log(buildingCollection);
     //check which building is selected
     const currentBuilding = gamestate.buildings[
       calculateBuildingNumber(gamestate.planetPosition)
@@ -412,7 +399,6 @@ export function updateBuildings() {
     }
 
     const percentageToNextBuildingStage = gamestate.points / pointsToNextBuildingStage;
-    console.log(percentageToNextBuildingStage);
 
     // build a new tree when one more quarter of points to the next stage is reached
     const buildingParts =
@@ -556,7 +542,7 @@ export function countTo(addedPoints, place, interval, timeout) {
 export function planetSelectorBar() {
   setTimeout(() => {
     feedbackBar.classList.add("bar-closed");
-    console.log("planetSelectorBar Again");
+
     setTimeout(() => {
       feedbackBar.classList.add("planet-selector");
 
@@ -601,7 +587,7 @@ export function planetSelectorBar() {
 export function planetSelector(selected) {
   gamestate.trackingData.bannerInteractions++;
   gamestate.planet = selected;
-  console.log("Planet selected: " + selected);
+
   document.querySelector(
     "#planet-background"
   ).src = `./assets/planet_assets/planets/${selected}no.png`;
@@ -646,7 +632,7 @@ export function colorSelectorBar(pSelected) {
 export function colorSelector(selected) {
   gamestate.trackingData.bannerInteractions++;
   gamestate.planet = selected;
-  console.log("Color selected: " + selected);
+
   document.querySelector(
     "#planet-background"
   ).src = `./assets/planet_assets/planets/${selected}.png`;
@@ -858,8 +844,6 @@ export function buildingSelector(selected) {
   gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)] =
     selected + "1.no0.no0.no0.no0";
 
-  console.log(gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)]);
-
   feedbackBar.classList.add("bar-closed");
   feedbackBar.classList.remove("planet-selector");
   planetEmbedded.classList.remove("no-action");
@@ -868,7 +852,6 @@ export function buildingSelector(selected) {
   setTimeout(() => {
     feedbackBar.classList.remove("bar-closed");
   }, 1000);
-  console.log("Building selected: " + selected);
 }
 
 // Planet Rotation
@@ -896,8 +879,7 @@ export function rotatePlanetRight() {
         planetContainer.classList.remove("pos-" + gamestate.planetPosition);
         gamestate.planetPosition = 1;
         planetContainer.classList.add("pos-" + gamestate.planetPosition);
-        console.log("Position: " + gamestate.planetPosition);
-        console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
+
         buildingChanged = gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)];
         nextStageView.innerHTML = ` / ${0}`;
         deletedBuilding = true;
@@ -906,8 +888,7 @@ export function rotatePlanetRight() {
     } else {
       gamestate.planetPosition++;
       planetContainer.classList.add("pos-" + gamestate.planetPosition);
-      console.log("Position: " + gamestate.planetPosition);
-      console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
+
       buildingChanged = gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)];
       nextStageView.innerHTML = ` / ${0}`;
       deletedBuilding = true;
@@ -932,8 +913,7 @@ export function rotatePlanetLeft() {
       planetContainer.classList.remove("pos-" + gamestate.planetPosition);
       gamestate.planetPosition--;
       planetContainer.classList.add("pos-" + gamestate.planetPosition);
-      console.log("Position: " + gamestate.planetPosition);
-      console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
+
       buildingChanged = gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)];
       nextStageView.innerHTML = ` / ${0}`;
       deletedBuilding = true;
@@ -943,8 +923,7 @@ export function rotatePlanetLeft() {
     planetContainer.classList.remove("pos-" + gamestate.planetPosition);
     gamestate.planetPosition--;
     planetContainer.classList.add("pos-" + gamestate.planetPosition);
-    console.log("Position: " + gamestate.planetPosition);
-    console.log("Position up: " + calculateBuildingNumber(gamestate.planetPosition));
+
     buildingChanged = gamestate.buildings[calculateBuildingNumber(gamestate.planetPosition)];
     nextStageView.innerHTML = ` / ${0}`;
     deletedBuilding = true;
@@ -1089,8 +1068,6 @@ export function openFinalSlide() {
     acheivedPoints > 250
       ? (starProgress.style.width = "100%")
       : (starProgress.style.width = (100 / 250) * acheivedPoints + "%");
-
-    console.log(gamestate.trackingData.testGroup);
   }, 3000);
 
   if (gamestate.trackingData.testGroup == "B") {
@@ -1213,8 +1190,7 @@ export function exchangeTree(treeNumber) {
       toggleTrees();
       setTimeout(() => {
         gamestate.buildings[buildingPosition] = newBuildingCode;
-        console.log(treeNumber);
-        console.log(newBuildingCode);
+
         updateBuildings();
         createPlanet();
         updateData();

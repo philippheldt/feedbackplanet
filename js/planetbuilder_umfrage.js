@@ -46,7 +46,6 @@ nextButton.addEventListener("click", () => {
       feedbackBarCall("Video angefangen!", 10, "feedback-good");
     }
   }
-  console.log("button submit");
 
   if (radioContainerPositions[containerPosition] != null) {
     analyzeRadio(getRadioValue(skalen[radioContainerPositions[containerPosition]]));
@@ -56,14 +55,13 @@ nextButton.addEventListener("click", () => {
     displaySuggestions();
   }
   if (textfieldContainerPositions[containerPosition] != null) {
-    console.log(input[textfieldContainerPositions[containerPosition]]);
     analyzeTextLengthNoAction(
       input[textfieldContainerPositions[containerPosition]],
       containerPosition
     );
   }
   // if (textfieldContainerPositions[containerPosition] != null) {
-  //   //console.log(freitexte[textfieldContainerPositions[containerPosition]].value);
+  //   //
   //   if (freitexte[textfieldContainerPositions[containerPosition]].value != "") {
   //   //  getSentiment(freitexte[textfieldContainerPositions[containerPosition]].value);
   //   }
