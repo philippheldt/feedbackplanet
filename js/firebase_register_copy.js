@@ -219,6 +219,7 @@ function insertData(newUUID, newEmail) {
         extensiveAmount: 0,
         email: newEmail,
         contactQuery: false,
+        age: age.value,
       })
         .then(() => {})
         .catch((error) => {

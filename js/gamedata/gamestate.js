@@ -34,5 +34,6 @@ export const gamestate = {
     email: "beispiel@email.com",
     contactQuery: false,
     triggeredPoints: "",
+    age: 0,
   },
 };

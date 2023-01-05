@@ -98,6 +98,7 @@ export function getData() {
         gamestate.trackingData.contactQuery = snapshot.val().contactQuery;
         gamestate.trackingData.bannerInteractions = snapshot.val().bannerInteractions;
         gamestate.trackingData.suggestionClicks = snapshot.val().suggestionClicks;
+        gamestate.trackingData.age = snapshot.val().age;
       } else {
       }
     })

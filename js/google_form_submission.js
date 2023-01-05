@@ -1,34 +1,3 @@
-// https://docs.google.com/forms/d/e/1FAIpQLSfPu3SLdPx0RcX_L30IJn4DmZeS32LWOZH_5r3GZFeP4qHqTw/formResponse
-// entry.479648863=email-999
-// entry.650300513=Ja
-// entry.51650865=A
-
-// entry.245781336=1
-// entry.289552610=2
-// entry.819056584=3
-// entry.1038952400=4
-// entry.1252338745=freitext1-999
-// entry.1669997417=freitext2-999
-// entry.498440518=freitext3-999
-// entry.1309987470=5
-
-// entry.1048153492=buildings-999
-// entry.1811621375=planet-999
-// entry.1120390467=points-999
-// entry.788632169=planet-clicks-999
-// entry.583259031=bannerinteractions-123
-// entry.1576277417=edit-tree-clicks-999
-// entry.978435924=turn-clicks-999
-// entry.864032000=time-spent-999
-// entry.263251967=boosts-999
-// entry.868385044=boost-kind-999
-// entry.215728538=points-per-slide-999
-//entry.99034290=wordswritten
-
-// entry.429392267=video+1
-// &entry.1252854881=Ja
-// entry.1352185246=hjashjashjas
-
 import { gamestate } from "./gamedata/gamestate.js";
 
 export const researchData = {
@@ -58,7 +27,7 @@ export const researchData = {
     bannerInteractions: ["entry.583259031", 0],
     editTreeClicks: ["entry.1576277417", 0],
     turnClicks: ["entry.978435924", 0],
-    timeSpent: ["entry.864032000", "time-spent-999"],
+    age: ["entry.864032000", 0],
     boosts: ["entry.263251967", 0],
     boostKind: ["entry.868385044", ""],
     suggestionClicks: ["entry.215728538", 0],
@@ -152,8 +121,8 @@ export function submitData() {
   researchData.gameData.suggestionClicks[1] = gamestate.trackingData.suggestionClicks;
 
   researchData.gameData.boostKind[1] = gamestate.trackingData.triggeredPoints;
-
   researchData.gameData.wordsWritten[1] = gamestate.wordsWritten;
+  researchData.gameData.age[1] = gamestate.age;
 
   for (const property in researchData) {
     if (researchData.hasOwnProperty(property)) {
