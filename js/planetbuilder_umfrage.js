@@ -35,6 +35,9 @@ let suggestionTimeout = null;
 let textSuggestionCurrent = null;
 
 nextButton.addEventListener("click", () => {
+  console.log(gamestate);
+  console.log(gamestate);
+
   pointsBefore = gamestate.points;
   if (containerPosition == 0) {
     const secondsOutput = document.querySelector(".seconds-output").innerText;

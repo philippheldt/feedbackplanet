@@ -27,7 +27,7 @@ export const researchData = {
     bannerInteractions: ["entry.583259031", 0],
     editTreeClicks: ["entry.1576277417", 0],
     turnClicks: ["entry.978435924", 0],
-    age: ["entry.864032000", 0],
+    age: ["entry.864032000", ""],
     boosts: ["entry.263251967", 0],
     boostKind: ["entry.868385044", ""],
     suggestionClicks: ["entry.215728538", 0],
@@ -121,8 +121,8 @@ export function submitData() {
   researchData.gameData.suggestionClicks[1] = gamestate.trackingData.suggestionClicks;
 
   researchData.gameData.boostKind[1] = gamestate.trackingData.triggeredPoints;
-  researchData.gameData.wordsWritten[1] = gamestate.wordsWritten;
-  researchData.gameData.age[1] = gamestate.age;
+  researchData.gameData.wordsWritten[1] = gamestate.trackingData.wordsWritten;
+  researchData.gameData.age[1] = gamestate.trackingData.wordsWritten;
 
   for (const property in researchData) {
     if (researchData.hasOwnProperty(property)) {
@@ -134,7 +134,7 @@ export function submitData() {
       }
     }
   }
-
+  console.log(gamestate);
   window.open(submitURL, "_blank").focus();
   //
 }

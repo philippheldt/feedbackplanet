@@ -127,36 +127,36 @@ export function analyzeConcreteness(input, index) {
     let containsNumber = false;
     let concretePosition = [];
 
-    for (let i = 0; i < inputArray.length; i++) {
-      if (inputArray[i].match(/\d+/g)) {
-        containsNumber = true;
-        concretePosition.push(true);
-      } else {
-        concretePosition.push(false);
-      }
-    }
+    // for (let i = 0; i < inputArray.length; i++) {
+    //   if (inputArray[i].match(/\d+/g)) {
+    //     containsNumber = true;
+    //     concretePosition.push(true);
+    //   } else {
+    //     concretePosition.push(false);
+    //   }
+    // }
 
-    listOfNumerNames.forEach((number) => {
-      if (input.value.toLowerCase.includes(number)) {
-        containsNumber = true;
-        inputArray.forEach((word, index) => {
-          if (word == number) {
-            concretePosition[index] = true;
-          }
-        });
-      }
-    });
+    // listOfNumerNames.forEach((number) => {
+    //   if (input.value.toLowerCase.includes(number)) {
+    //     containsNumber = true;
+    //     inputArray.forEach((word, index) => {
+    //       if (word == number) {
+    //         concretePosition[index] = true;
+    //       }
+    //     });
+    //   }
+    // });
 
-    listOfConcretenessWords.forEach((concreteWord) => {
-      if (input.value.toLowerCase.includes(concreteWord)) {
-        containsNumber = true;
-        inputArray.forEach((word, index) => {
-          if (word == concreteWord) {
-            concretePosition[index] = true;
-          }
-        });
-      }
-    });
+    // listOfConcretenessWords.forEach((concreteWord) => {
+    //   if (input.value.toLowerCase.includes(concreteWord)) {
+    //     containsNumber = true;
+    //     inputArray.forEach((word, index) => {
+    //       if (word == concreteWord) {
+    //         concretePosition[index] = true;
+    //       }
+    //     });
+    //   }
+    // });
 
     if (containsNumber) {
       addPoints(5, concretenessText, concretePosition, index);
