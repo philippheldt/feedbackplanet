@@ -59,19 +59,19 @@ export function analyzeTextLength(input, index) {
   const extensiveFeedbackText =
     extensiveFeedbackTextArray[Math.floor(Math.random() * extensiveFeedbackTextArray.length)];
 
-  if (wordCount > 40 && !extensiveFeedback) {
+  if (wordCount > 20 && !extensiveFeedback) {
     extensiveFeedback = true;
     gamestate.goodStartBoost = gamestate.goodStartBoost + 1;
 
     addPoints(30, extensiveFeedbackText);
-    markTextRange(0, 40, index);
+    markTextRange(0, 20, index);
     gamestate.trackingData.triggeredPoints += "extensiveFeedback, ";
-  } else if (wordCount > 20 && goodStart == false) {
+  } else if (wordCount > 5 && goodStart == false) {
     goodStart = true;
     gamestate.goodStartBoost = gamestate.goodStartBoost + 1;
 
     addPoints(10, goodStartText);
-    markTextRange(0, 20, index);
+    markTextRange(0, 5, index);
     gamestate.trackingData.triggeredPoints += "goodStart, ";
   }
 
@@ -86,8 +86,34 @@ export function analyzeTextLengthNoAction(input) {
 
 let concrete = false;
 let prevIndexConcrete;
-const listOfNumerNames = ["eins", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", "zehn", "elf", "zwölf"];
-const listOfConcretenessWords = ["geschwindigkeit", "grafiken", "musik", "lautstärke", "dauer", "struktur", "inhalt", "visuell", "beispiel", "tonqualität", "qualität", "interaktiv"];
+const listOfNumerNames = [
+  "eins",
+  "zwei",
+  "drei",
+  "vier",
+  "fünf",
+  "sechs",
+  "sieben",
+  "acht",
+  "neun",
+  "zehn",
+  "elf",
+  "zwölf",
+];
+const listOfConcretenessWords = [
+  "geschwindigkeit",
+  "grafiken",
+  "musik",
+  "lautstärke",
+  "dauer",
+  "struktur",
+  "inhalt",
+  "visuell",
+  "beispiel",
+  "tonqualität",
+  "qualität",
+  "interaktiv",
+];
 
 export function analyzeConcreteness(input, index) {
   if (index != prevIndexConcrete) {
