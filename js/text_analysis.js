@@ -86,6 +86,8 @@ export function analyzeTextLengthNoAction(input) {
 
 let concrete = false;
 let prevIndexConcrete;
+const listOfNumerNames = ["eins", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", "zehn", "elf", "zwölf"];
+const listOfConcretenessWords = ["geschwindigkeit", "grafiken", "musik", "lautstärke", "dauer", "struktur", "inhalt", "visuell", "beispiel", "tonqualität", "qualität", "interaktiv"];
 
 export function analyzeConcreteness(input, index) {
   if (index != prevIndexConcrete) {
@@ -107,6 +109,28 @@ export function analyzeConcreteness(input, index) {
         concretePosition.push(false);
       }
     }
+
+    listOfNumerNames.forEach((number) => {
+      if (input.value.toLowerCase.includes(number)) {
+        containsNumber = true;
+        inputArray.forEach((word, index) => {
+          if (word == number) {
+            concretePosition[index] = true;
+          }
+        });
+      }
+    });
+
+    listOfConcretenessWords.forEach((concreteWord) => {
+      if (input.value.toLowerCase.includes(concreteWord)) {
+        containsNumber = true;
+        inputArray.forEach((word, index) => {
+          if (word == concreteWord) {
+            concretePosition[index] = true;
+          }
+        });
+      }
+    });
 
     if (containsNumber) {
       addPoints(5, concretenessText, concretePosition, index);
