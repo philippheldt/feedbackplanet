@@ -9,16 +9,21 @@
 </head>
 
 <body>
-
+    <div class="message"></div>
     <script>
-       <footer>
-            <div class="header-container">
-                <a href="mailto:design@philippjenny.de">Problem melden</a>
-                <a href="./impressum.html">Impressum</a>
-                <a href="https://philippjenny.de/" target="_blank">Über mich</a>
-                <a href="https://www.hs-furtwangen.de" target="_blank">Hochschule Furtwangen</a>
-            </div>
-        </footer>
+        //check if the device is mobile not by width
+
+        function isMobileDevice() {
+            return /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(navigator.userAgent || navigator.vendor || window.opera);
+        }
+
+        if (isMobileDevice()) {
+            document.querySelector('.message').innerHTML = 'This is a mobile device';
+        } else {
+            document.querySelector('.message').innerHTML = 'This is not a mobile device';
+        }
+
+
     </script>
 </body>
 
