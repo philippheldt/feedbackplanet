@@ -87,22 +87,18 @@ function validation() {
     userPasswordAlert.classList.add("alert-hidden");
   }
 
-  if (
-    (Number(age.value) <= 18 && age.value != "") ||
-    (Number(age.value) >= 30 && age.value != "")
-  ) {
+  if ((Number(age.value) < 18 && age.value != "") || (Number(age.value) > 30 && age.value != "")) {
     ageAlert.classList.remove("alert-hidden");
+
     return false;
   } else {
     ageAlert.classList.add("alert-hidden");
   }
 
-  if (
-    (occupation.value === "azubi" && occupation.value != "default") ||
-    (occupation.value === "arbeitnehmer" && occupation.value != "default")
-  ) {
+  if (occupation.value === "arbeitnehmer" && occupation.value != "default") {
     occupationAlert.innerHTML = "Leider gehörst du nicht zur Zielgruppe!";
     occupationAlert.classList.remove("alert-hidden");
+    console.log("occupationAlert");
     return false;
   } else {
     occupationAlert.classList.add("alert-hidden");
