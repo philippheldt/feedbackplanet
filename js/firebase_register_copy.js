@@ -55,7 +55,7 @@ const githubAuth = document.getElementById("githubAuth");
 
 const testGroup = Math.random() < 0.6;
 
-const selectedTestGroup = testGroup ? "A" : "B";
+const selectedTestGroup = testGroup ? "A" : "A";
 
 //validate inputs
 
