@@ -53,9 +53,9 @@ const googleAuth = document.getElementById("googleAuth");
 const appleAuth = document.getElementById("appleAuth");
 const githubAuth = document.getElementById("githubAuth");
 
-const testGroup = Math.random() < 0.6;
+const testGroup = Math.random() < 0.5;
 
-const selectedTestGroup = testGroup ? "A" : "A";
+const selectedTestGroup = testGroup ? "A" : "B";
 
 //validate inputs
 
@@ -95,7 +95,7 @@ function validation() {
     ageAlert.classList.add("alert-hidden");
   }
 
-  if (occupation.value === "arbeitnehmer" && occupation.value != "default") {
+  if (occupation.value != "student" && occupation.value != "default") {
     occupationAlert.innerHTML = "Leider gehörst du nicht zur Zielgruppe!";
     occupationAlert.classList.remove("alert-hidden");
     console.log("occupationAlert");
